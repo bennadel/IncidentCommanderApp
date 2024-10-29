@@ -1,0 +1,16 @@
+{
+	"initPassword": "1",
+	"isLive": false,
+	"site": {
+		"name": "Incident Commander",
+		"url": "http://app.local.incident-commander.com",
+		"cookieDomain": "app.local.incident-commander.com"
+	},
+	"dsn": {
+		"database": "incident_commander",
+		"server": "mysql",
+		"port": 3306,
+		"username": "root",
+		"password": "password"
+	}
+}
