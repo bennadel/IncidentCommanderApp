@@ -137,6 +137,20 @@ component
 	*/
 	public void function onApplicationStart() {
 
+		var ioc
+			= application.ioc
+				= new core.lib.Injector()
+		;
+		// Provide the IoC container back to itself. This allows the Injector to be
+		// injected into other services which may have need of more manual orchestration.
+		ioc.provide( "core.lib.Injector", ioc );
+
+		var config
+			= this.config
+				= application.config
+					= ioc.provide( "config", getConfigSettings( useCachedConfig = false ) )
+		;
+
 		// As the very last step in the initialization process, we want to flag that the
 		// application has been fully bootstrapped. This way, we can test the state of the
 		// application in the global onError() event handler.
@@ -149,7 +163,7 @@ component
 	* I get called once to initialize the request.
 	*/
 	public void function onRequestStart() {
-		
+
 		if ( url?.init == this.config.initPassword ) {
 
 			this.onApplicationStart();
@@ -184,6 +198,8 @@ component
 			.append( form )
 		;
 
+		request.ioc = application.ioc;
+
 	}
 
 
@@ -198,7 +214,13 @@ component
 
 		}
 
-		// Todo: Add memory leak detection.
+		// Since the memory leak detection only runs in the development environment, I'm
+		// not going to put any safe-guards around it. The memory leak detector both reads
+		// from and writes to shared memory, which can be inherently unsafe. However, the
+		// risks here are minimal.
+		request.ioc.get( "core.lib.MemoryLeakDetector" )
+			.inspect()
+		;
 
 	}
 
