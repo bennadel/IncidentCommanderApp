@@ -39,6 +39,7 @@ component
 		"/client": "#this.wwwroot#../client",
 		"/config": "#this.wwwroot#../config",
 		"/core": "#this.wwwroot#../core",
+		"/javaloader": "#this.wwwroot#../core/vendor/javaLoader",
 		"/wwwroot": this.wwwroot
 	};
 
@@ -150,6 +151,11 @@ component
 				= application.config
 					= ioc.provide( "config", getConfigSettings( useCachedConfig = false ) )
 		;
+
+		ioc.provide(
+			"javaLoaderFactory",
+			new core.vendor.javaLoaderFactory.JavaLoaderFactory()
+		);
 
 		// As the very last step in the initialization process, we want to flag that the
 		// application has been fully bootstrapped. This way, we can test the state of the

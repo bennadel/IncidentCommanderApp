@@ -10,7 +10,7 @@ component
 	property name="priorityService" ioc:type="core.lib.model.PriorityService";
 	property name="slugGenerator" ioc:type="core.lib.SlugGenerator";
 	property name="stageService" ioc:type="core.lib.model.StageService";
-	property name="statusMarkdownParser" ioc:type="core.lib.markdown.StatusMarkdownParser";
+	property name="statusMarkdownParser" ioc:type="core.lib.markdown.status.Parser";
 	property name="statusService" ioc:type="core.lib.model.StatusService";
 	property name="statusValidation" ioc:type="core.lib.model.StatusValidation";
 

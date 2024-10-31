@@ -1,29 +1,16 @@
-<cfquery name="test" result="metaResults">
-	SELECT
-		@@Version AS version
-	;
-</cfquery>
+<cfscript>
 
-<!doctype html>
-<html lang="en">
-<head>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<title>
-		Incident Commander
-	</title>
-</head>
-<body>
+	workflow = request.ioc.get( "core.lib.workflow.IncidentWorkflow" );
 
-	<h1>
-		Incident Commander (Main)
-	</h1>
+	incidentToken = workflow.startIncident(
+		priorityID = 1,
+		description = "No one can log into the system."
+	);
 
-	<p>
-		Hello world.
-	</p>
+	workflow.addStatus(
+		incidentToken = incidentToken,
+		stageID = 1,
+		contentMarkdown = "We are looking through the logs trying to figure out what is going on."
+	);
 
-	<cfdump var="#test#" />
-
-</body>
-</html>
+</cfscript>
