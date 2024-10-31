@@ -42,6 +42,18 @@ component
 
 
 	/**
+	* I delete the status with the given ID.
+	*/
+	public void function deleteStatus( required numeric id ) {
+
+		var status = getStatus( id );
+
+		gateway.deleteStatusByFilter( id = status.id );
+
+	}
+
+
+	/**
 	* I get the status entity with the given ID.
 	*/
 	public struct function getStatus( required numeric id ) {

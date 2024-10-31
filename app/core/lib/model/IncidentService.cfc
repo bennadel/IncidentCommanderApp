@@ -19,7 +19,6 @@ component
 		required string description,
 		required string ownership,
 		required numeric priorityID,
-		required numeric stageID,
 		required string ticketUrl,
 		required string videoUrl,
 		required date createdAt
@@ -29,7 +28,6 @@ component
 		description = validation.testDescription( description );
 		ownership = validation.testOwnership( ownership );
 		priorityID = validation.testPriorityID( priorityID );
-		stageID = validation.testStageID( stageID );
 		ticketUrl = validation.testTicketUrl( ticketUrl );
 		videoUrl = validation.testVideoUrl( videoUrl );
 		createdAt = validation.testCreatedAt( createdAt );
@@ -39,7 +37,6 @@ component
 			description = description,
 			ownership = ownership,
 			priorityID = priorityID,
-			stageID = stageID,
 			ticketUrl = ticketUrl,
 			videoUrl = videoUrl,
 			createdAt = createdAt
@@ -76,7 +73,6 @@ component
 		string description,
 		string ownership,
 		numeric priorityID,
-		numeric stageID,
 		string ticketUrl,
 		string videoUrl
 		) {
@@ -101,12 +97,6 @@ component
 
 		}
 
-		if ( arguments.keyExists( "stageID" ) ) {
-
-			incident.stageID = validation.testStageID( stageID );
-
-		}
-
 		if ( arguments.keyExists( "ticketUrl" ) ) {
 
 			incident.ticketUrl = validation.testTicketUrl( ticketUrl );
@@ -124,7 +114,6 @@ component
 			description = incident.description,
 			ownership = incident.ownership,
 			priorityID = incident.priorityID,
-			stageID = incident.stageID,
 			ticketUrl = incident.ticketUrl,
 			videoUrl = incident.videoUrl
 		);

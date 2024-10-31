@@ -27,6 +27,12 @@ component
 
 		description = toString( description ).trim();
 
+		if ( ! description.len() ) {
+
+			throw( type = "App.Model.Incident.Description.Empty" );
+
+		}
+
 		if ( description.len() > 1000 ) {
 
 			throw( type = "App.Model.Incident.Description.TooLong" );
@@ -99,31 +105,13 @@ component
 
 		}
 
-		if ( slug.reFindNoCase( "[^a-z0-9]" ) ) {
+		if ( slug.reFindNoCase( "[^a-z0-9-]" ) ) {
 
 			throw( type = "App.Model.Incident.Slug.Invalid" );
 
 		}
 
 		return slug;
-
-	}
-
-
-	/**
-	* I validate and return the normalized value.
-	*/
-	public numeric function testStageID( required numeric stageID ) {
-
-		stageID = fix( val( stageID ) );
-
-		if ( stageID < 0 ) {
-
-			throw( type = "App.Model.Incident.StageID.Invalid" );
-
-		}
-
-		return stageID;
 
 	}
 

@@ -8,7 +8,6 @@
 		<cfargument name="description" type="string" required="true" />
 		<cfargument name="ownership" type="string" required="true" />
 		<cfargument name="priorityID" type="numeric" required="true" />
-		<cfargument name="stageID" type="numeric" required="true" />
 		<cfargument name="ticketUrl" type="string" required="true" />
 		<cfargument name="videoUrl" type="string" required="true" />
 		<cfargument name="createdAt" type="date" required="true" />
@@ -22,7 +21,6 @@
 				description = <cfqueryparam value="#description#" cfsqltype="cf_sql_varchar" />,
 				ownership = <cfqueryparam value="#ownership#" cfsqltype="cf_sql_varchar" />,
 				priorityID = <cfqueryparam value="#priorityID#" cfsqltype="cf_sql_tinyint" />,
-				stageID = <cfqueryparam value="#stageID#" cfsqltype="cf_sql_tinyint" />,
 				ticketUrl = <cfqueryparam value="#ticketUrl#" cfsqltype="cf_sql_varchar" />,
 				videoUrl = <cfqueryparam value="#videoUrl#" cfsqltype="cf_sql_varchar" />,
 				createdAt = <cfqueryparam value="#createdAt#" cfsqltype="cf_sql_timestamp" />
@@ -86,7 +84,6 @@
 				description,
 				ownership,
 				priorityID,
-				stageID,
 				ticketUrl,
 				videoUrl,
 				createdAt
@@ -121,7 +118,6 @@
 		<cfargument name="description" type="string" required="false" />
 		<cfargument name="ownership" type="string" required="false" />
 		<cfargument name="priorityID" type="numeric" required="false" />
-		<cfargument name="stageID" type="numeric" required="false" />
 		<cfargument name="ticketUrl" type="string" required="false" />
 		<cfargument name="videoUrl" type="string" required="false" />
 
@@ -140,10 +136,6 @@
 
 				<cfif arguments.keyExists( "priorityID" )>
 					priorityID = <cfqueryparam value="#priorityID#" cfsqltype="cf_sql_tinyint" />,
-				</cfif>
-
-				<cfif arguments.keyExists( "stageID" )>
-					stageID = <cfqueryparam value="#stageID#" cfsqltype="cf_sql_tinyint" />,
 				</cfif>
 
 				<cfif arguments.keyExists( "ticketUrl" )>
