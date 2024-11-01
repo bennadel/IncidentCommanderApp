@@ -1,47 +1,22 @@
 component
 	output = false
-	hint = ""
+	hint = "I provide a markdown to html parser for status updates."
 	{
 
 	// Define properties for dependency-injection.
-	property name="markdownParser" ioc:type="core.lib.markdown.status.util.MarkdownParser";
 	property name="htmlSanitizer" ioc:type="core.lib.markdown.status.util.HtmlSanitizer";
+	property name="markdownParser" ioc:type="core.lib.markdown.status.util.MarkdownParser";
 
 	// ---
 	// PUBLIC METHODS.
 	// ---
 
 	/**
-	* I parse the given status markdown into sanitized HTML. If there are issues with the
-	* markdown or the HTML is unsafe, an error is thrown.
+	* I parse the given status markdown into sanitized HTML. Illegal HTML is stripped-out.
 	*/
 	public string function toHtml( required string markdown ) {
 
-		var unsafeHtml = markdownParser.toHtml( markdown );
-
-
-		return htmlSanitizer.sanitize( unsafeHtml );
-
-
-		
-
-
-		var scanResults = htmlSanitizer.scan( unsafeHtml );
-
-		if ( scanResults.errors.len() ) {
-
-			// Caution: this value may contain unsafe markup once it is canonicalized.
-			var errorDetail = canonicalize( scanResults.errors.toList( " " ), false, false, false );
-
-			throw(
-				type = "App.Markdown.IllegalContent",
-				message = "Markdown resulted in unsafe HTML.",
-				detail = errorDetail
-			);
-
-		}
-
-		return scanResults.html;
+		return htmlSanitizer.sanitize( markdownParser.toHtml( markdown ) );
 
 	}
 
