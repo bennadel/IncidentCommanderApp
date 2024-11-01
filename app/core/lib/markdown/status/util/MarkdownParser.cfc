@@ -68,8 +68,6 @@ component
 	*/
 	public string function toHtml( required string input ) {
 
-		// Todo: Use AntiSamy to sanitize generated HTML.
-
 		// Parse the markdown into an AST (Abstract Syntax Tree) document node.
 		var document = parser.parse( javaCast( "string", input ) );
 

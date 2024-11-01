@@ -12,6 +12,7 @@ component
 	*/
 	public void function $init() {
 
+		// https://mvnrepository.com/artifact/com.vladsch.flexmark/flexmark/0.64.8
 		variables.classLoader = classLoaderFactory.createClassLoader([
 			expandPath( "/core/vendor/flexmark/0.64.8/annotations-24.0.1.jar" ),
 			expandPath( "/core/vendor/flexmark/0.64.8/autolink-0.6.0.jar" ),

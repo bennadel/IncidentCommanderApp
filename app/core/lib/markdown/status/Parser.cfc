@@ -18,9 +18,28 @@ component
 	public string function toHtml( required string markdown ) {
 
 		var unsafeHtml = markdownParser.toHtml( markdown );
+
+
+		return htmlSanitizer.sanitize( unsafeHtml );
+
+
+		
+
+
 		var scanResults = htmlSanitizer.scan( unsafeHtml );
 
-		// Todo: Consume the HTML scan errors.
+		if ( scanResults.errors.len() ) {
+
+			// Caution: this value may contain unsafe markup once it is canonicalized.
+			var errorDetail = canonicalize( scanResults.errors.toList( " " ), false, false, false );
+
+			throw(
+				type = "App.Markdown.IllegalContent",
+				message = "Markdown resulted in unsafe HTML.",
+				detail = errorDetail
+			);
+
+		}
 
 		return scanResults.html;
 

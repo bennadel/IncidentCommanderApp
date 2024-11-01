@@ -142,11 +142,16 @@ component
 
 			var componentPath = ( typeMappings[ serviceToken ] ?: serviceToken );
 			var service = createObject( "component", componentPath );
+
 			// Caution: The native init() function is called BEFORE any of the component's
 			// dependencies are injected. There is a special "$init()" method that can be
 			// used to provide a post-injection setup hook. The "$init()" method should be
 			// preferred for a component that is wired-up via dependency-injection.
-			service?.init();
+			if ( structKeyExists( service, "init" ) ) {
+
+				service.init();
+
+			}
 
 			return service;
 
@@ -430,7 +435,11 @@ component
 		// Since the native init() method is invoked prior to the injection of its
 		// dependencies, see if there is an "$init()" hook to allow for post-injection
 		// setup / initialization of the service component.
-		service?.$init();
+		if ( structKeyExists( service, "$init" ) ) {
+
+			service.$init();
+
+		}
 
 		return service;
 
