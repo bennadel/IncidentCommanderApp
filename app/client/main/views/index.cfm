@@ -12,7 +12,9 @@
 		workflow.addStatus(
 			incidentToken = incidentToken,
 			stageID = 1,
-			contentMarkdown = "We are looking _through_ the <a href='javascript:void(0);'>logs</a> **trying** to figure out what is going on."
+			contentMarkdown = "#### title here
+
+We are <soft>looking</soft><br><br/><br></br> _through_ the <a href='javascript:void(0);'>logs</a> **trying** to figure out what is going on."
 		);
 
 	}

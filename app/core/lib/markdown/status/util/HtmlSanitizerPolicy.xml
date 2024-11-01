@@ -19,7 +19,6 @@
 	</directives>
 
 	<common-regexps>
-		<regexp name="onsiteURL" value="^(?!//)(?![\p{L}\p{N}\\\.\#@\$%\+&amp;;\-_~,\?=/!]*(&amp;colon))[\p{L}\p{N}\\\.\#@\$%\+&amp;;\-_~,\?=/!]*"/>
 		<regexp name="offsiteURL" value="https?://[\p{L}\p{N}]+[\p{L}\p{N}\p{Zs}\.\#@\$%\+&amp;;:\-_~,\?=/!\(\)]*(\s)*"/>
 		<regexp name="codeLanguage" value="language-[a-zA-Z0-9]+"/>
 	</common-regexps>
@@ -36,7 +35,6 @@
 		<tag name="a" action="validate">
 			<attribute name="href" onInvalid="filterTag">
 				<regexp-list>
-					<regexp name="onsiteURL"/>
 					<regexp name="offsiteURL"/>
 				</regexp-list>
 			</attribute>
@@ -47,6 +45,7 @@
 			</attribute>
 		</tag>
 		<tag name="b" action="validate" />
+		<tag name="big" action="validate" />
 		<tag name="blockquote" action="validate" />
 		<tag name="br" action="validate" />
 		<tag name="code" action="validate">
@@ -57,8 +56,16 @@
 			</attribute>
 		</tag>
 		<tag name="em" action="validate" />
+		<tag name="h1" action="validate" />
+		<tag name="h2" action="validate" />
+		<tag name="h3" action="validate" />
+		<tag name="h4" action="validate" />
+		<tag name="h5" action="validate" />
+		<tag name="h6" action="validate" />
+		<tag name="hr" action="validate" />
 		<tag name="i" action="validate" />
 		<tag name="li" action="validate" />
+		<tag name="mark" action="validate" />
 		<tag name="ol" action="validate">
 			<attribute name="start">
 				<regexp-list>
@@ -74,7 +81,12 @@
 				</regexp-list>
 			</attribute>
 		</tag>
+		<tag name="small" action="validate" />
+		<tag name="strike" action="validate" />
 		<tag name="strong" action="validate" />
+		<tag name="sub" action="validate" />
+		<tag name="sup" action="validate" />
+		<tag name="u" action="validate" />
 		<tag name="ul" action="validate" />
 	</tag-rules>
 
