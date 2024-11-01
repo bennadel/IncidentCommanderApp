@@ -4,7 +4,7 @@ component
 	{
 
 	// Define properties for dependency-injection.
-	property name="classLoader" ioc:skip;
+	property name="classLoader" ioc:skip memoryLeakDetector:skip;
 	property name="classLoaderFactory" ioc:type="core.lib.ClassLoaderFactory";
 
 	/**

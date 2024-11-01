@@ -4,7 +4,7 @@ component
 	{
 
 	// Define properties for dependency-injection.
-	property name="javaLoaderFactory" ioc:skip;
+	property name="javaLoaderFactory" ioc:skip memoryLeakDetector:skip;
 
 	/**
 	* I initialize the class loader factory.

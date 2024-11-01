@@ -152,11 +152,6 @@ component
 					= ioc.provide( "config", getConfigSettings( useCachedConfig = false ) )
 		;
 
-		ioc.provide(
-			"javaLoaderFactory",
-			new core.vendor.javaLoaderFactory.JavaLoaderFactory()
-		);
-
 		// As the very last step in the initialization process, we want to flag that the
 		// application has been fully bootstrapped. This way, we can test the state of the
 		// application in the global onError() event handler.

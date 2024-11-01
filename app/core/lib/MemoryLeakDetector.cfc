@@ -99,6 +99,15 @@ component
 
 				}
 
+				if (
+					propertyIndex.keyExists( key ) &&
+					propertyIndex[ key ].keyExists( "memoryLeakDetector:skip" )
+					) {
+
+					continue;
+
+				}
+
 				// If the value is, itself, a component, add it to the queue for
 				// subsequent inspection.
 				if ( utilities.isComponent( targetScope[ key ] ) ) {
