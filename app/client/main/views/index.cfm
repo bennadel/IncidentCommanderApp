@@ -9,12 +9,13 @@
 			description = "No one can log into the system."
 		);
 
-		workflow.addStatus(
+		workflow.updateIncident(
 			incidentToken = incidentToken,
-			stageID = 1,
-			contentMarkdown = "#### title here
-
-We are <soft>looking</soft><br><br/><br></br> _through_ the <a href='javascript:void(0);'>logs</a> **trying** to figure out what is going on."
+			description = "This was updated",
+			ownership = "Rainbow",
+			priorityID = 2,
+			ticketUrl = "http://ticket",
+			videoUrl = "http://video"
 		);
 
 	}

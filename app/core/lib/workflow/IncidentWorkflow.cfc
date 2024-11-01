@@ -121,6 +121,33 @@ component
 
 
 	/**
+	* I update the incident with the given token.
+	*/
+	public void function updateIncident(
+		required string incidentToken,
+		required string description,
+		required string ownership,
+		required numeric priorityID,
+		required string ticketUrl,
+		required string videoUrl
+		) {
+
+		var incident = getIncident( incidentToken );
+		var priority = priorityService.getPriority( priorityID );
+
+		incidentService.updateIncident(
+			id = incident.id,
+			description = description,
+			ownership = ownership,
+			priorityID = priority.id,
+			ticketUrl = ticketUrl,
+			videoUrl = videoUrl
+		);
+
+	}
+
+
+	/**
 	* I update the status with the given ID.
 	*/
 	public void function updateStatus(
