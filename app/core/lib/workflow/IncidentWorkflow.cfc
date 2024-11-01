@@ -10,7 +10,7 @@ component
 	property name="priorityService" ioc:type="core.lib.model.PriorityService";
 	property name="slugGenerator" ioc:type="core.lib.SlugGenerator";
 	property name="stageService" ioc:type="core.lib.model.StageService";
-	property name="statusMarkdownParser" ioc:type="core.lib.markdown.status.Parser";
+	property name="markdownParser" ioc:type="core.lib.markdown.Parser";
 	property name="statusService" ioc:type="core.lib.model.StatusService";
 	property name="statusValidation" ioc:type="core.lib.model.StatusValidation";
 
@@ -29,7 +29,7 @@ component
 
 		var incident = getIncident( incidentToken );
 		var stage = stageService.getStage( stageID );
-		var contentHtml = statusMarkdownParser.toHtml( contentMarkdown );
+		var contentHtml = markdownParser.toHtml( contentMarkdown );
 		var createdAt = clock.utcNow();
 
 		var statusID = statusService.createStatus(
@@ -141,7 +141,7 @@ component
 		}
 
 		var stage = stageService.getStage( stageID );
-		var contentHtml = statusMarkdownParser.toHtml( contentMarkdown );
+		var contentHtml = markdownParser.toHtml( contentMarkdown );
 
 		statusService.updateStatus(
 			id = status.id,

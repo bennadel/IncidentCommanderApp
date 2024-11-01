@@ -11,7 +11,7 @@ component
 	*/
 	public void function init() {
 
-		variables.policyFile = expandPath( "/core/lib/markdown/status/util/HtmlSanitizerPolicy.xml" );
+		variables.policyFile = expandPath( "/core/lib/markdown/util/HtmlSanitizerPolicy.xml" );
 
 	}
 

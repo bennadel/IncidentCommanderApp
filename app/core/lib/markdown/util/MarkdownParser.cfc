@@ -1,10 +1,10 @@
 component
 	output = false
-	hint = "I provide methods for parsing status markdown into HTML."
+	hint = "I provide methods for parsing markdown into HTML."
 	{
 
 	// Define properties for dependency-injection.
-	property name="classLoader" ioc:type="core.lib.markdown.status.util.MarkdownParserClassLoader";
+	property name="classLoader" ioc:type="core.lib.markdown.util.MarkdownParserClassLoader";
 	property name="parser" ioc:skip;
 	property name="renderer" ioc:skip;
 
