@@ -1,5 +1,6 @@
 <cfscript>
 
+	accessControl = request.ioc.get( "core.lib.AccessControl" );
 	incidentWorkflow = request.ioc.get( "core.lib.workflow.IncidentWorkflow" );
 	stageService = request.ioc.get( "core.lib.model.StageService" );
 	requestHelper = request.ioc.get( "client.main.lib.RequestHelper" );
@@ -10,7 +11,7 @@
 
 	param name="request.context.statusID" type="numeric" default=0;
 
-	status = getStatus( request.context.incidentToken, val( request.context.statusID ) );
+	status = accessControl.getStatus( request.incident, val( request.context.statusID ) );
 	stage = getStage( status );
 	title = "Delete Status";
 	errorMessage = "";
@@ -52,19 +53,6 @@
 		var stageIndex = utilities.indexBy( stageService.getStageByFilter(), "id" );
 
 		return stageIndex[ status.stageID ];
-
-	}
-
-
-	/**
-	* I get the status with the given ID.
-	*/
-	private struct function getStatus(
-		required string incidentToken,
-		required numeric statusID
-		) {
-
-		return incidentWorkflow.getStatus( incidentToken, statusID );
 
 	}
 

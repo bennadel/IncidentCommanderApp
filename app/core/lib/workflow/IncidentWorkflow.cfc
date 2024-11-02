@@ -4,15 +4,14 @@ component
 	{
 
 	// Define properties for dependency-injection.
+	property name="accessControl" ioc:type="core.lib.AccessControl";
 	property name="clock" ioc:type="core.lib.util.Clock";
 	property name="incidentService" ioc:type="core.lib.model.IncidentService";
-	property name="incidentValidation" ioc:type="core.lib.model.IncidentValidation";
 	property name="priorityService" ioc:type="core.lib.model.PriorityService";
 	property name="slugGenerator" ioc:type="core.lib.SlugGenerator";
 	property name="stageService" ioc:type="core.lib.model.StageService";
 	property name="markdownParser" ioc:type="core.lib.markdown.Parser";
 	property name="statusService" ioc:type="core.lib.model.StatusService";
-	property name="statusValidation" ioc:type="core.lib.model.StatusValidation";
 
 	// ---
 	// PUBLIC METHODS.
@@ -27,7 +26,7 @@ component
 		required string contentMarkdown
 		) {
 
-		var incident = getIncident( incidentToken );
+		var incident = accessControl.getIncident( incidentToken );
 		var stage = stageService.getStage( stageID );
 		var contentHtml = markdownParser.toHtml( contentMarkdown );
 		var createdAt = clock.utcNow();
@@ -50,7 +49,7 @@ component
 	*/
 	public void function deleteIncident( required string incidentToken ) {
 
-		var incident = getIncident( incidentToken );
+		var incident = accessControl.getIncident( incidentToken );
 
 		transaction {
 
@@ -70,55 +69,10 @@ component
 		required numeric statusID
 		) {
 
-		var status = getStatus( incidentToken, statusID );
+		var incident = accessControl.getIncident( incidentToken );
+		var status = accessControl.getStatus( incident, statusID );
 
 		statusService.deleteStatus( status.id );
-
-	}
-
-
-	/**
-	* I get the incident with the given id:slug token.
-	*/
-	public struct function getIncident( required string incidentToken ) {
-
-		var incidentID = incidentToken.listFirst( "-" );
-		var incidentSlug = incidentToken.listRest( "-" );
-		var incident = incidentService.getIncident( incidentID );
-
-		// Since we don't have an authentication system for users (anyone can jump in and
-		// open an incident), we are using the case-sensitive slug to ensure that someone
-		// isn't trying to randomly guess values.
-		if ( compare( incident.slug, incidentSlug ) ) {
-
-			incidentValidation.throwIncidentNotFoundError();
-
-		}
-
-		return incident;
-
-	}
-
-
-	/**
-	* I get the status with the given ID and assert ownership under given incident.
-	*/
-	public struct function getStatus(
-		required string incidentToken,
-		required numeric statusID
-		) {
-
-		var incident = getIncident( incidentToken );
-		var status = statusService.getStatus( statusID );
-
-		// Ensure the status is associated with the given incident.
-		if ( status.incidentID != incident.id ) {
-
-			statusValidation.throwStatusNotFoundError();
-
-		}
-
-		return status;
 
 	}
 
@@ -164,7 +118,7 @@ component
 		required string videoUrl
 		) {
 
-		var incident = getIncident( incidentToken );
+		var incident = accessControl.getIncident( incidentToken );
 		var priority = priorityService.getPriority( priorityID );
 
 		incidentService.updateIncident(
@@ -189,7 +143,8 @@ component
 		required string contentMarkdown
 		) {
 
-		var status = getStatus( incidentToken, statusID );
+		var incident = accessControl.getIncident( incidentToken );
+		var status = accessControl.getStatus( incident, statusID );
 		var stage = stageService.getStage( stageID );
 		var contentHtml = markdownParser.toHtml( contentMarkdown );
 

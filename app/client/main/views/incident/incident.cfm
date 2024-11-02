@@ -1,6 +1,6 @@
 <cfscript>
 
-	incidentWorkflow = request.ioc.get( "core.lib.workflow.IncidentWorkflow" );
+	accessControl = request.ioc.get( "core.lib.AccessControl" );
 
 	// ------------------------------------------------------------------------------- //
 	// ------------------------------------------------------------------------------- //
@@ -9,7 +9,7 @@
 	param name="request.context.incidentToken" type="string" default="";
 
 	// This entire subsystem requires an incident.
-	request.incident = getIncident( request.context.incidentToken );
+	request.incident = accessControl.getIncident( request.context.incidentToken );
 
 	switch ( request.event[ 2 ] ) {
 		case "delete":
@@ -30,17 +30,5 @@
 	}
 
 	cfmodule( template = "./common/layout.cfm" );
-
-	// ------------------------------------------------------------------------------- //
-	// ------------------------------------------------------------------------------- //
-
-	/**
-	* I get the incident with the given token.
-	*/
-	private function getIncident( required string incidentToken ) {
-
-		return incidentWorkflow.getIncident( incidentToken );
-
-	}
 
 </cfscript>

@@ -1,5 +1,6 @@
 <cfscript>
 
+	accessControl = request.ioc.get( "core.lib.AccessControl" );
 	incidentWorkflow = request.ioc.get( "core.lib.workflow.IncidentWorkflow" );
 	stageService = request.ioc.get( "core.lib.model.StageService" );
 	requestHelper = request.ioc.get( "client.main.lib.RequestHelper" );
@@ -12,7 +13,7 @@
 	param name="form.stageID" type="numeric" default=0;
 	param name="form.contentMarkdown" type="string" default="";
 
-	status = getStatus( request.context.incidentToken, val( request.context.statusID ) );
+	status = accessControl.getStatus( request.incident, val( request.context.statusID ) );
 	stages = getStages();
 	title = "Edit Status";
 	errorMessage = "";
@@ -23,8 +24,9 @@
 
 		try {
 
-			incidentWorkflow.addStatus(
+			incidentWorkflow.updateStatus(
 				incidentToken = request.context.incidentToken,
+				statusID = status.id,
 				stageID = val( form.stageID ),
 				contentMarkdown = form.contentMarkdown.trim()
 			);
@@ -58,19 +60,6 @@
 	private array function getStages() {
 
 		return stageService.getStageByFilter();
-
-	}
-
-
-	/**
-	* I get the status with the given ID.
-	*/
-	private struct function getStatus(
-		required string incidentToken,
-		required numeric statusID
-		) {
-
-		return incidentWorkflow.getStatus( incidentToken, statusID );
 
 	}
 

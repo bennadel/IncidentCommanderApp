@@ -11,6 +11,8 @@ component
 	*/
 	public void function init() {
 
+		// Read more here:
+		// - https://docs.wavemaker.com/learn/app-development/app-security/xss-antisamy-policy-configuration/
 		variables.policyFile = expandPath( "/core/lib/markdown/util/HtmlSanitizerPolicy.xml" );
 
 	}
