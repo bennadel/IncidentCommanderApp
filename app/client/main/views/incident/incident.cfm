@@ -12,6 +12,9 @@
 	request.incident = getIncident( request.context.incidentToken );
 
 	switch ( request.event[ 2 ] ) {
+		case "delete":
+			cfmodule( template = "./delete/delete.cfm" );
+		break;
 		case "settings":
 			cfmodule( template = "./settings/settings.cfm" );
 		break;

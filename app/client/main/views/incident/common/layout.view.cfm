@@ -18,6 +18,7 @@
 				<p>
 					<a href="/index.cfm?event=incident.settings&incidentToken=#encodeForUrl( request.context.incidentToken )#">Incident Settings</a> ,
 					<a href="/index.cfm?event=incident.status.list&incidentToken=#encodeForUrl( request.context.incidentToken )#">Status Updates</a> ,
+					<a href="/index.cfm?event=incident.delete&incidentToken=#encodeForUrl( request.context.incidentToken )#">Delete Incident</a> ,
 					<a href="/index.cfm?event=start">Start New Incident</a>
 				</p>
 			</nav>

@@ -54,6 +54,19 @@ component
 
 
 	/**
+	* I delete the status that match the given filtering.
+	*/
+	public void function deleteStatusByFilter(
+		numeric id,
+		numeric incidentID
+		) {
+
+		gateway.deleteStatusByFilter( argumentCollection = arguments );
+
+	}
+
+
+	/**
 	* I get the status entity with the given ID.
 	*/
 	public struct function getStatus( required numeric id ) {

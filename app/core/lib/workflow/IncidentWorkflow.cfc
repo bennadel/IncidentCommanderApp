@@ -46,6 +46,23 @@ component
 
 
 	/**
+	* I delete the incident and all child status updates with the given id:slug token.
+	*/
+	public void function deleteIncident( required string incidentToken ) {
+
+		var incident = getIncident( incidentToken );
+
+		transaction {
+
+			statusService.deleteStatusByFilter( incidentID = incident.id );
+			incidentService.deleteIncident( incident.id );
+
+		}
+
+	}
+
+
+	/**
 	* I delete the status with the given ID.
 	*/
 	public void function deleteStatus(

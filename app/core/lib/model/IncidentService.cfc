@@ -48,6 +48,18 @@ component
 
 
 	/**
+	* I delete the incident entity with the given ID.
+	*/
+	public void function deleteIncident( required numeric id ) {
+
+		var incident = getIncident( id );
+
+		gateway.deleteIncidentByFilter( id = incident.id );
+
+	}
+
+
+	/**
 	* I get the incident entity with the given ID.
 	*/
 	public struct function getIncident( required numeric id ) {
