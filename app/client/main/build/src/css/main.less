@@ -1,0 +1,581 @@
+
+// ---
+// LESS CSS Utilities.
+// ---
+
+.less-remove-inner-margins() {
+	> *:first-child:where( h2, h3, h4, h5, h6, p, ul, ol, dl ) {
+		margin-top: 0 ;
+	}
+
+	> *:last-child:where( h2, h3, h4, h5, h6, p, ul, ol, dl ) {
+		margin-bottom: 0 ;
+	}
+}
+
+.less-form-control-border() {
+	border: 1px solid #111111 ;
+}
+
+// ---
+// Base Styles.
+// ---
+
+html {
+	--accent-color: #ea0961 ;
+
+	box-sizing: border-box ;
+	font-family: monospace ;
+	font-size: 18px ;
+	line-height: 1.5 ;
+}
+
+html *,
+html *:before,
+html *:after {
+	box-sizing: inherit ;
+}
+
+body {
+	background-color: #ffffff ;
+	color: #161616 ;
+	font-size: 1rem ;
+	margin: 0 ;
+	padding: 0 ;
+}
+
+article,
+aside,
+figcaption,
+figure,
+footer,
+header,
+main,
+nav,
+section {
+	display: block ;
+}
+
+h1 {
+	font-size: 2rem ;
+	margin: 0 0 1.6rem ;
+}
+
+h2 {
+	font-size: 1.6rem ;
+	margin: 1.6rem 0 1.3rem ;
+}
+
+h3 {
+	font-size: 1.3rem ;
+	margin: 1.6rem 0 1.1rem ;
+}
+
+h4 {
+	font-size: 1.1rem ;
+	margin: 1.3rem 0 1.1rem ;
+}
+
+h5,
+h6 {
+	font-size: 1rem ;
+	margin: 1rem 0 ;
+}
+
+p {
+	margin: 1rem 0 ;
+}
+
+ul,
+ol {
+	margin-bottom: 1.2rem ;
+	margin-top: 1.2rem ;
+}
+
+li {
+	.less-remove-inner-margins() ;
+
+	margin-bottom: 0.1rem ;
+	margin-top: 0 ;
+
+	&:last-child {
+		margin-bottom: 0 ;
+	}
+}
+
+dl {
+	margin: 1.2rem 0 ;
+}
+
+dl > div {
+	margin-bottom: 1rem ;
+
+	&:last-child {
+		margin-bottom: 0 ;
+	}
+}
+
+dt {
+	font-weight: bold ;
+	margin: 0 0 0.5rem ;
+}
+
+dd {
+	.less-remove-inner-margins() ;
+
+	margin: 0 0 0 2.2rem ;
+}
+
+table {
+	border-collapse: collapse ;
+	border-spacing: 0 ;
+	margin-bottom: 1.5rem ;
+	margin-top: 1.5rem ;
+}
+
+th {
+	.less-remove-inner-margins() ;
+
+	font-size: 1rem ;
+	font-weight: bold ;
+	padding: 0.3rem 0.5rem ;
+}
+
+td {
+	.less-remove-inner-margins() ;
+
+	font-size: 1rem ;
+	padding: 0.3rem 0.5rem ;
+}
+
+a {
+	color: inherit ;
+	cursor: pointer ;
+}
+
+mark {
+	background-color: #fffd76 ;
+	color: #000000 ;
+}
+
+img {
+	border: none ;
+	display: block ;
+	margin: 0 ;
+	max-width: 100% ;
+}
+
+svg {
+	display: block ;
+	margin: 0 ;
+	max-width: 100% ;
+}
+
+figure {
+	margin: 1rem 0 ;
+}
+
+form {
+	margin: 1.4rem 0 ;
+	padding: 0 ;
+}
+
+input,
+button,
+select,
+textarea {
+	color: inherit ;
+	font-family: inherit;
+	font-size: inherit ;
+	line-height: inherit ;
+}
+
+input,
+button,
+select,
+textarea {
+	padding: 0.4rem 0.7rem ;
+	margin: 0 ;
+}
+button {
+	padding: 0.4rem 0.9rem ;
+}
+select {
+	padding: 0.5rem 0.7rem ;
+}
+
+button {
+	cursor: pointer ;
+}
+
+*:focus-visible {
+	outline: 2px solid var( --accent-color ) ;
+	outline-offset: 2px ;
+}
+
+// ---
+// Utilities.
+// ---
+
+.u-no-margin-bottom {
+	margin-bottom: 0 ;
+}
+.u-no-margin-top {
+	margin-top: 0 ;
+}
+
+.u-no-margin-y {
+	.u-no-margin-top() ;
+	.u-no-margin-bottom() ;
+}
+
+.u-no-inner-margin-bottom {
+	> *:last-child {
+		margin-bottom: 0 ;
+	}
+}
+
+.u-no-inner-margin-top {
+	> *:first-child {
+		margin-top: 0 ;
+	}
+}
+
+.u-no-inner-margin-y {
+	.u-no-inner-margin-top() ;
+	.u-no-inner-margin-bottom() ;
+}
+
+ul.u-no-marker,
+ol.u-no-marker {
+	list-style-type: none ;
+	margin-left: 0 ;
+	padding: 0 ;
+
+	> li {
+		padding: 0 ;
+	}
+}
+
+.u-breathing-room {
+	> * {
+		margin-bottom: 0.3rem ;
+		margin-top: 0.3rem ;
+
+		&:last-child {
+			margin-bottom: 0 ;
+		}
+	}
+
+	&.is-large > * {
+		margin-bottom: 1rem ;
+		margin-top: 1rem ;
+
+		&:last-child {
+			margin-bottom: 0 ;
+		}
+	}
+}
+
+.u-hidden {
+	display: none ;
+}
+
+// ---
+// Core Styles.
+// ---
+
+.ui-breakdown-bar {
+	display: flex ;
+	gap: 2px ;
+
+	&__item {
+		border-radius: 2px ;
+		height: 24px ;
+		min-width: 2px ;
+	}
+}
+
+.ui-content-wrapper {
+	padding: 1.6rem 2rem 0.6rem ;
+}
+
+.ui-dots {
+	display: flex ;
+	gap: 5px ;
+	justify-content: center ;
+
+	&__dot {
+		border-radius: 10px ;
+		height: 10px ;
+		width: 10px ;
+	}
+}
+
+.ui-emoji {
+	font-family: arial, verdana, sans-serif ;
+}
+
+.ui-folder {
+	&__header {
+		background-color: #ffffff ;
+		border-bottom: 2px solid #333333 ;
+		display: flex ;
+		font-weight: 400 ;
+		margin: 2.4rem 0 0 0 ;
+		position: sticky ;
+		top: 0 ;
+		z-index: 2 ;
+	}
+
+	&__tab {
+		background-color: #333333 ;
+		border-top-right-radius: 3px ;
+		color: #ffffff ;
+		flex: 0 0 auto ;
+		padding: 0.5rem 1.8rem 0.4rem 1.5rem ;
+	}
+
+	&__main {
+		.u-no-inner-margin-y() ;
+
+		border: 2px solid #333333 ;
+		padding: 1.5rem 1.6rem 1.6rem 1.5rem ;
+	}
+}
+
+.ui-readable-width {
+	max-width: 1000px ;
+}
+
+.ui-revert {
+	background-color: #ff294e ;
+	color: #ffffff ;
+}
+
+.ui-row {
+	align-items: center ;
+	display: flex ;
+	gap: 12px ;
+
+	&__item {
+		flex: 0 1 auto ;
+	}
+}
+
+.ui-rule {
+	border: none ;
+	border-top: 1px solid #999999 ;
+	margin: 1.9rem 0 1.8rem ;
+	padding: 0 ;
+
+	&.is-soft {
+		border-top: 1px dashed #aaaaaa ;
+	}
+}
+
+.ui-snippet {
+	background-color: #fafafa ;
+	border: 1px solid #cccccc ;
+	border-radius: 4px ;
+	color: #000000 ;
+	display: block ;
+	font-size: 90% ;
+	line-height: 1.6 ;
+	margin: 1.8rem 0 ;
+	padding: 0.9rem 1rem 0.8rem 1.1rem ;
+	tab-size: 4 ;
+	white-space: pre-wrap ;
+
+	> code {
+		display: block ;
+	}
+}
+
+.ui-tag {
+	border-radius: 0.2rem ;
+	display: block ;
+	padding: 0.2rem 0.5rem ;
+
+	&.is-inline {
+		display: inline-block ;
+	}
+
+	&.is-stroked {
+		border: 1px solid #cccccc ;
+	}
+
+	&.is-value {
+		border: 1px solid #f55dff ;
+	}
+
+	&.is-role {
+		border: 1px solid #cccccc ;
+	}
+}
+
+.ui-tag-list {
+	display: flex ;
+	flex-wrap: wrap ;
+	gap: 0.8rem ;
+}
+
+/*
+Color palette utility:
+https://www.bennadel.com/utils/color-palette/#(236,100,66.8),(109,41.2,52),(40,92.3,63.7),(343,100,65.1),(268,66.1,52.1),(55,100,52.5),(182,67.6,54.2),(131,100,71.6),(3,100,66.2)
+*/
+
+.ui-variant-1 {
+	background-color: #5661ff ;
+	color: #f1f2ff ;
+}
+.ui-variant-2 {
+	background-color: #65b752 ;
+	color: #f7fff6 ;
+}
+.ui-variant-3 {
+	background-color: #f8bf4d ;
+	color: #0c0c0c ;
+}
+.ui-variant-4 {
+	background-color: #ff4d7f ;
+	color: #fdfdfd ;
+}
+.ui-variant-5 {
+	background-color: #7f34d6 ;
+	color: #feffff ;
+}
+.ui-variant-6 {
+	background-color: #ffeb0d ;
+	color: #272727 ;
+}
+.ui-variant-7 {
+	background-color: #3bd4d9 ;
+	color: #ffffff ;
+}
+.ui-variant-8 {
+	background-color: #6eff89 ;
+	color: #11323b ;
+}
+.ui-variant-9,
+.ui-variant-10,
+.ui-variant-11,
+.ui-variant-12,
+.ui-variant-13,
+.ui-variant-14,
+.ui-variant-15,
+.ui-variant-0 {
+	background-color: #ff5b53 ;
+	color: #ffffff ;
+}
+
+// ---
+// Form styles.
+// ---
+
+.ui-button {
+	.less-form-control-border() ;
+
+	background-color: #efefef ;
+	border-radius: 2px ;
+	display: block ;
+	padding: 0.5rem 1.3rem 0.4rem ;
+
+	&.is-plain {
+		background-color: transparent ;
+		border-color: transparent ;
+	}
+
+	&.is-submit {
+		background-color: #333333 ;
+		border-color: #111111 ;
+		color: #ffffff ;
+	}
+
+	&.is-destructive {
+		background-color: #d9534f ;
+		border-color: #d43f3a ;
+		color: #ffffff ;
+	}
+
+	&.is-cancel {
+		background-color: transparent ;
+		border-color: #d0d0d0 ;
+
+		&:hover {
+			.less-form-control-border() ;
+		}
+	}
+
+	&.is-text {
+		background-color: transparent ;
+		border: none ;
+		border-radius: 0 ;
+		padding: 0 ;
+		text-decoration: underline ;
+	}
+}
+
+.ui-form-buttons {
+	border-top: 1px solid #cccccc ;
+	margin-top: 1.4rem ;
+	padding-top: 1.4rem ;
+}
+
+.ui-input {
+	.less-form-control-border() ;
+
+	border-radius: 2px ;
+	display: block ;
+	padding: 0.5rem 0.7rem 0.4rem ;
+	width: 400px ;
+
+	&.is-large {
+		width: 600px ;
+	}
+}
+
+.ui-radio {
+	.less-form-control-border() ;
+
+		-webkit-appearance: none ;
+	appearance: none ;
+	border-radius: 18px ;
+	display: flex ;
+	height: 18px ;
+	margin: 0 ;
+	padding: 0 ;
+	width: 18px ;
+
+	&:checked::after {
+		background-color: var( --accent-color ) ;
+		border-radius: 8px ;
+		content: "" ;
+		height: 8px ;
+		margin: auto ;
+		width: 8px ;
+	}
+}
+
+.ui-select {
+	.less-form-control-border() ;
+
+		-webkit-appearance: none ;
+	appearance: none ;
+	background-image: url( 'data:image/svg+xml;utf8,<svg width="13" height="7" viewBox="0 0 13 7" xmlns="http://www.w3.org/2000/svg"><polygon stroke="none" fill="currentColor" fill-rule="evenodd" points="0 0 6.5 7 13 0"></polygon></svg>' ) ;
+	background-position-x: right 10px ;
+	background-position-y: top 52% ;
+	background-repeat: no-repeat ;
+	border-radius: 2px ;
+	padding: 0.5rem 2rem 0.4rem 0.7rem ;
+}
+
+.ui-textarea {
+	.less-form-control-border() ;
+
+	border-radius: 2px ;
+	display: block ;
+	height: 6rem ;
+	padding: 0.5rem 0.7rem 0.4rem ;
+	width: 600px ;
+}

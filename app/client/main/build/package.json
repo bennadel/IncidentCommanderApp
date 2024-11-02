@@ -1,0 +1,26 @@
+{
+	"name": "client-main",
+	"version": "0.0.0",
+	"private": true,
+	"scripts": {
+		"clean": "rm -rf ./dist/*",
+		"watch": "parcel watch --no-hmr",
+		"build": "npm run clean && parcel build"
+	},
+	"targets": {
+		"default": {
+			"source": [
+				"./src/main.html"
+			],
+			"distDir": "./dist/",
+			"publicUrl": "/client/main"
+		}
+	},
+	"browserslist": "defaults",
+	"devDependencies": {
+		"@parcel/resolver-glob": "2.12.0",
+		"@parcel/transformer-less": "2.12.0",
+		"alpinejs": "3.14.3",
+		"parcel": "2.12.0"
+	}
+}
