@@ -5,7 +5,7 @@
 	// ------------------------------------------------------------------------------- //
 	// ------------------------------------------------------------------------------- //
 
-	param name="request.event[ 2 ]" type="string" default="settings";
+	param name="request.event[ 2 ]" type="string" default="status";
 	param name="request.context.incidentToken" type="string" default="";
 
 	// This entire subsystem requires an incident.

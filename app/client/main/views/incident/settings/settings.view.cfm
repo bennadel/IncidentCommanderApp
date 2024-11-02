@@ -5,6 +5,10 @@
 			#encodeForHtml( title )#
 		</h1>
 
+		<p>
+			You can add more detail to the incident metadata below. Or, you can <a href="/index.cfm?event=incident.status.list&incidentToken=#encodeForUrl( request.context.incidentToken )#"><mark>start the investigation</mark></a> &rarr;
+		</p>
+
 		<cfmodule
 			template="/client/main/tags/errorMessage.cfm"
 			message="#errorMessage#"
@@ -90,9 +94,11 @@
 				</div>
 			</dl>
 
-			<button type="submit">
-				Update Incident
-			</button>
+			<p>
+				<button type="submit">
+					Update Incident
+				</button>
+			</p>
 		</form>
 
 	</cfoutput>

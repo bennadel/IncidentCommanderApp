@@ -32,9 +32,6 @@
 			case "start":
 				cfmodule( template = "./start/start.cfm" );
 			break;
-			// case "playground":
-			// 	cfmodule( template = "./playground/playground.cfm" );
-			// break;
 			default:
 				throw(
 					type = "App.Routing.InvalidEvent",

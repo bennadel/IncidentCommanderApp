@@ -25,6 +25,19 @@
 				</div>
 				<div>
 					<dt>
+						<strong>Video Call:</strong>
+					</dt>
+					<dd>
+						<cfif request.incident.videoUrl.len()>
+							<a href="#encodeForHtmlAttribute( request.incident.videoUrl )#" target="_blank">#encodeForHtml( request.incident.videoUrl )#</a>
+							<!-- Todo: Add copy button. -->
+						<cfelse>
+							<a href="/index.cfm?event=incident.settings&incidentToken=#encodeForUrl( request.context.incidentToken )#">Add url</a>
+						</cfif>
+					</dd>
+				</div>
+				<div>
+					<dt>
 						<strong>Stage:</strong>
 					</dt>
 					<dd>
@@ -54,9 +67,11 @@
 				</div>
 			</dl>
 
-			<button type="submit">
-				Post Update
-			</button>
+			<p>
+				<button type="submit">
+					Post Update
+				</button>
+			</p>
 		</form>
 
 		<h2>
