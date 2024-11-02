@@ -12,5 +12,15 @@
 		"port": 3306,
 		"username": "root",
 		"password": "password"
+	},
+	"bugsnag": {
+		"server": {
+			"apiKey": "",
+			"releaseStage": "Development"
+		},
+		"client": {
+			"apiKey": "",
+			"releaseStage": "Development"
+		}
 	}
 }
