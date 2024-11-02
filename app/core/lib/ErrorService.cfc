@@ -43,7 +43,7 @@ component
 				});
 			break;
 			case "App.Model.Incident.NotFound":
-				return as422({
+				return as404({
 					type: error.type,
 					message: "The incident you requested cannot be found."
 				});
@@ -97,13 +97,13 @@ component
 				});
 			break;
 			case "App.Model.Priority.NotFound":
-				return as422({
+				return as404({
 					type: error.type,
 					message: "The priority you requested cannot be found."
 				});
 			break;
 			case "App.Model.Stage.NotFound":
-				return as422({
+				return as404({
 					type: error.type,
 					message: "The stage you requested cannot be found."
 				});
@@ -139,7 +139,7 @@ component
 				});
 			break;
 			case "App.Model.Status.NotFound":
-				return as422({
+				return as404({
 					type: error.type,
 					message: "The status you requested cannot be found."
 				});

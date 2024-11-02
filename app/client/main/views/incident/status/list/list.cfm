@@ -19,8 +19,9 @@
 	stages = getStages();
 	stagesIndex = getStagesIndex( stages );
 	title = "Status Updates";
-	pageUrl = "/index.cfm?event=#encodeForUrl( request.context.event )#&incidentToken=#encodeForUrl( request.context.incidentToken )#";
 	errorMessage = "";
+
+	request.template.title = title;
 
 	if ( form.submitted ) {
 

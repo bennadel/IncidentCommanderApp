@@ -3,18 +3,16 @@
 	incidentWorkflow = request.ioc.get( "core.lib.workflow.IncidentWorkflow" );
 	stageService = request.ioc.get( "core.lib.model.StageService" );
 	requestHelper = request.ioc.get( "client.main.lib.RequestHelper" );
-	ui = request.ioc.get( "client.main.lib.ViewHelper" );
+	utilities = request.ioc.get( "core.lib.util.Utilities" );
 
 	// ------------------------------------------------------------------------------- //
 	// ------------------------------------------------------------------------------- //
 
 	param name="request.context.statusID" type="numeric" default=0;
-	param name="form.stageID" type="numeric" default=0;
-	param name="form.contentMarkdown" type="string" default="";
 
 	status = getStatus( request.context.incidentToken, val( request.context.statusID ) );
-	stages = getStages();
-	title = "Edit Status";
+	stage = getStage( status );
+	title = "Delete Status";
 	errorMessage = "";
 
 	request.template.title = title;
@@ -23,10 +21,9 @@
 
 		try {
 
-			incidentWorkflow.addStatus(
+			incidentWorkflow.deleteStatus(
 				incidentToken = request.context.incidentToken,
-				stageID = val( form.stageID ),
-				contentMarkdown = form.contentMarkdown.trim()
+				statusID = status.id
 			);
 
 			requestHelper.goto({
@@ -40,24 +37,21 @@
 
 		}
 
-	} else {
-
-		form.stageID = status.stageID;
-		form.contentMarkdown = status.contentMarkdown;
-
 	}
 
-	include "./edit.view.cfm";
+	include "./delete.view.cfm";
 
 	// ------------------------------------------------------------------------------- //
 	// ------------------------------------------------------------------------------- //
 
 	/**
-	* I get the incident states.
+	* I get the stage for the given status.
 	*/
-	private array function getStages() {
+	private struct function getStage( required struct status ) {
 
-		return stageService.getStageByFilter();
+		var stageIndex = utilities.indexBy( stageService.getStageByFilter(), "id" );
+
+		return stageIndex[ status.stageID ];
 
 	}
 

@@ -10,7 +10,7 @@
 			message="#errorMessage#"
 		/>
 
-		<form method="post" action="#pageUrl#">
+		<form method="post" action="/index.cfm?event=#encodeForUrl( request.context.event )#&incidentToken=#encodeForUrl( request.context.incidentToken )#">
 			<cfmodule template="/client/main/tags/xsrf.cfm">
 			<input type="hidden" name="sort" value="#encodeForHtmlAttribute( request.context.sort )#" />
 
@@ -65,8 +65,8 @@
 
 		<p>
 			Sort
-			<a href="#pageUrl#&sort=desc">newest first</a> ,
-			<a href="#pageUrl#&sort=asc">oldest first</a>
+			<a href="/index.cfm?event=#encodeForUrl( request.context.event )#&incidentToken=#encodeForUrl( request.context.incidentToken )#&sort=desc">newest first</a> ,
+			<a href="/index.cfm?event=#encodeForUrl( request.context.event )#&incidentToken=#encodeForUrl( request.context.incidentToken )#&sort=asc">oldest first</a>
 		</p>
 
 		<dl>
@@ -76,9 +76,12 @@
 						<p>
 							<strong>#dateFormat( status.createdAt, "dddd, mmmm d" )# at
 							#timeFormat( status.createdAt, "h:mmtt" )#</strong>
-							&middot;
 
+							&middot;
 							<a href="/index.cfm?event=incident.status.edit&incidentToken=#encodeForUrl( request.context.incidentToken )#&statusID=#encodeForUrl( status.id )#">Edit</a>
+							&middot;
+							<a href="/index.cfm?event=incident.status.delete&incidentToken=#encodeForUrl( request.context.incidentToken )#&statusID=#encodeForUrl( status.id )#">Delete</a>
+
 							<br />
 
 							<strong>Stage:</strong>

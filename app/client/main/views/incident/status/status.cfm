@@ -5,6 +5,9 @@
 	request.template.activeNavItem = "status";
 
 	switch ( request.event[ 3 ] ) {
+		case "delete":
+			cfmodule( template = "./delete/delete.cfm" );
+		break;
 		case "edit":
 			cfmodule( template = "./edit/edit.cfm" );
 		break;
