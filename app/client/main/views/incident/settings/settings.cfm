@@ -8,25 +8,24 @@
 	// ------------------------------------------------------------------------------- //
 	// ------------------------------------------------------------------------------- //
 
-	param name="request.context.incidentToken" type="string";
 	param name="form.description" type="string" default="";
 	param name="form.ownership" type="string" default="";
 	param name="form.priorityID" type="numeric" default=0;
 	param name="form.ticketUrl" type="string" default="";
 	param name="form.videoUrl" type="string" default="";
 
-	incident = incidentWorkflow.getIncident( request.context.incidentToken );
 	priorities = getPriorities();
 	title = "Incident Settings";
 	errorMessage = "";
 
+	request.template.activeNavItem = "settings";
 	request.template.title = title;
 
 	if ( form.submitted ) {
 
 		try {
 
-			incidentToken = incidentWorkflow.updateIncident(
+			incidentWorkflow.updateIncident(
 				incidentToken = request.context.incidentToken,
 				description = form.description.trim(),
 				ownership = form.ownership.trim(),
@@ -35,10 +34,10 @@
 				videoUrl = form.videoUrl.trim()
 			);
 
-			// requestHelper.goto({
-			// 	event: "incident.settings",
-			// 	incidentToken: incidentToken
-			// });
+			requestHelper.goto({
+				event: "incident.status.list",
+				incidentToken: request.context.incidentToken
+			});
 
 		} catch ( any error ) {
 
@@ -48,11 +47,11 @@
 
 	} else {
 
-		form.description = incident.description;
-		form.ownership = incident.ownership;
-		form.priorityID = incident.priorityID;
-		form.ticketUrl = incident.ticketUrl;
-		form.videoUrl = incident.videoUrl;
+		form.description = request.incident.description;
+		form.ownership = request.incident.ownership;
+		form.priorityID = request.incident.priorityID;
+		form.ticketUrl = request.incident.ticketUrl;
+		form.videoUrl = request.incident.videoUrl;
 
 	}
 
@@ -61,6 +60,9 @@
 	// ------------------------------------------------------------------------------- //
 	// ------------------------------------------------------------------------------- //
 
+	/**
+	* I get the list of incident priorities.
+	*/
 	private array function getPriorities() {
 
 		return priorityService.getPriorityByFilter();

@@ -72,6 +72,20 @@ component
 
 
 	/**
+	* I get the status entities that match the given filters.
+	*/
+	public array function getStatusByFilter(
+		numeric id,
+		numeric incidentID
+		) {
+
+		return gateway.getStatusByFilter( argumentCollection = arguments );
+
+	}
+
+
+
+	/**
 	* I update the status entity with the given ID.
 	*/
 	public void function updateStatus(
