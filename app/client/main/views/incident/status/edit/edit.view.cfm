@@ -10,9 +10,9 @@
 			message="#errorMessage#"
 		/>
 
-		<form method="post" action="#pageUrl#">
+		<form method="post" action="/index.cfm?event=#encodeForUrl( request.context.event )#&incidentToken=#encodeForUrl( request.context.incidentToken )#">
 			<cfmodule template="/client/main/tags/xsrf.cfm">
-			<input type="hidden" name="sort" value="#encodeForHtmlAttribute( request.context.sort )#" />
+			<input type="hidden" name="statusID" value="#encodeForHtmlAttribute( status.id )#" />
 
 			<dl>
 				<div>
@@ -54,43 +54,15 @@
 				</div>
 			</dl>
 
-			<button type="submit">
-				Post Update
-			</button>
+			<p>
+				<button type="submit">
+					Update Status
+				</button>
+				<a href="/index.cfm?event=incident.status.list&incidentToken=#encodeForUrl( request.context.incidentToken )#">
+					Cancel
+				</a>
+			</p>
 		</form>
-
-		<h2>
-			Previous Updates
-		</h2>
-
-		<p>
-			Sort
-			<a href="#pageUrl#&sort=desc">newest first</a> ,
-			<a href="#pageUrl#&sort=asc">oldest first</a>
-		</p>
-
-		<dl>
-			<cfloop array="#sortedStatuses#" index="status">
-				<div>
-					<dt>
-						<p>
-							<strong>#dateFormat( status.createdAt, "dddd, mmmm d" )# at
-							#timeFormat( status.createdAt, "h:mmtt" )#</strong>
-							&middot;
-
-							<a href="/index.cfm?event=incident.status.edit&incidentToken=#encodeForUrl( request.context.incidentToken )#&statusID=#encodeForUrl( status.id )#">Edit</a>
-							<br />
-
-							<strong>Stage:</strong>
-							#encodeForHtml( stagesIndex[ status.stageID ].name )#
-						</p>
-					</dt>
-					<dd>
-						#status.contentHtml#
-					</dd>
-				</div>
-			</cfloop>
-		</dl>
 
 	</cfoutput>
 </cfsavecontent>

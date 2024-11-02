@@ -53,15 +53,7 @@ component
 		required numeric statusID
 		) {
 
-		var incident = getIncident( incidentToken );
-		var status = statusService.getStatus( statusID );
-
-		// Ensure the status is associated with the given incident.
-		if ( status.incidentID != incident.id ) {
-
-			statusValidation.throwStatusNotFoundError();
-
-		}
+		var status = getStatus( incidentToken, statusID );
 
 		statusService.deleteStatus( status.id );
 
@@ -87,6 +79,29 @@ component
 		}
 
 		return incident;
+
+	}
+
+
+	/**
+	* I get the status with the given ID and assert ownership under given incident.
+	*/
+	public struct function getStatus(
+		required string incidentToken,
+		required numeric statusID
+		) {
+
+		var incident = getIncident( incidentToken );
+		var status = statusService.getStatus( statusID );
+
+		// Ensure the status is associated with the given incident.
+		if ( status.incidentID != incident.id ) {
+
+			statusValidation.throwStatusNotFoundError();
+
+		}
+
+		return status;
 
 	}
 
@@ -157,16 +172,7 @@ component
 		required string contentMarkdown
 		) {
 
-		var incident = getIncident( incidentToken );
-		var status = statusService.getStatus( statusID );
-
-		// Ensure the status is associated with the given incident.
-		if ( status.incidentID != incident.id ) {
-
-			statusValidation.throwStatusNotFoundError();
-
-		}
-
+		var status = getStatus( incidentToken, statusID );
 		var stage = stageService.getStage( stageID );
 		var contentHtml = markdownParser.toHtml( contentMarkdown );
 

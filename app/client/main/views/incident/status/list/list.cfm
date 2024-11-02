@@ -5,11 +5,11 @@
 	statusService = request.ioc.get( "core.lib.model.StatusService" );
 	requestHelper = request.ioc.get( "client.main.lib.RequestHelper" );
 	ui = request.ioc.get( "client.main.lib.ViewHelper" );
+	utilities = request.ioc.get( "core.lib.util.Utilities" );
 
 	// ------------------------------------------------------------------------------- //
 	// ------------------------------------------------------------------------------- //
 
-	param name="request.context.incidentToken" type="string";
 	param name="request.context.sort" type="string" default="desc";
 	param name="form.stageID" type="numeric" default=0;
 	param name="form.contentMarkdown" type="string" default="";
@@ -17,6 +17,7 @@
 	statuses = getStatuses( request.incident );
 	sortedStatuses = getSortedStatuses( statuses, request.context.sort );
 	stages = getStages();
+	stagesIndex = getStagesIndex( stages );
 	title = "Status Updates";
 	pageUrl = "/index.cfm?event=#encodeForUrl( request.context.event )#&incidentToken=#encodeForUrl( request.context.incidentToken )#";
 	errorMessage = "";
@@ -99,6 +100,16 @@
 	private array function getStages() {
 
 		return stageService.getStageByFilter();
+
+	}
+
+
+	/**
+	* I get the stages index by ID.
+	*/
+	private struct function getStagesIndex( required array stages ) {
+
+		return utilities.indexBy( stages, "id" );
 
 	}
 

@@ -5,6 +5,9 @@
 	request.template.activeNavItem = "status";
 
 	switch ( request.event[ 3 ] ) {
+		case "edit":
+			cfmodule( template = "./edit/edit.cfm" );
+		break;
 		case "list":
 			cfmodule( template = "./list/list.cfm" );
 		break;
