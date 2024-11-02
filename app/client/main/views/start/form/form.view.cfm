@@ -38,17 +38,20 @@
 						<strong>Priority:</strong>
 					</dt>
 					<dd>
-						<select name="priorityID">
-							<cfloop array="#priorities#" index="priority">
-								<option
-									value="#encodeForHtmlAttribute( priority.id )#"
-									#ui.attrSelected( form.priorityID == priority.id )#>
-									#encodeForHtml( priority.name )#
-									&mdash;
+						<cfloop array="#priorities#" index="priority">
+							<p>
+								<label style="display: block ;">
+									<input
+										type="radio"
+										name="priorityID"
+										value="#encodeForHtmlAttribute( priority.id )#"
+										#ui.attrChecked( form.priorityID == priority.id )#
+									/>
+									<strong>#encodeForHtml( priority.name )#</strong><br />
 									#encodeForHtml( priority.description )#
-								</option>
-							</cfloop>
-						</select>
+								</label>
+							</p>
+						</cfloop>
 					</dd>
 				</div>
 			</dl>
