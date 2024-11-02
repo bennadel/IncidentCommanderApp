@@ -152,6 +152,9 @@ component
 					= ioc.provide( "config", getConfigSettings( useCachedConfig = false ) )
 		;
 
+		// This is used to cache-bust some of the static assets.
+		ioc.provide( "staticAssetVersion", "2024.11.02.06.50" );
+
 		// As the very last step in the initialization process, we want to flag that the
 		// application has been fully bootstrapped. This way, we can test the state of the
 		// application in the global onError() event handler.

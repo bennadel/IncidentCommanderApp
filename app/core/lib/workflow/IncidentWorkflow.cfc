@@ -73,8 +73,8 @@ component
 	*/
 	public struct function getIncident( required string incidentToken ) {
 
-		var incidentID = incidentToken.listFirst( ":" );
-		var incidentSlug = incidentToken.listRest( ":" );
+		var incidentID = incidentToken.listFirst( "-" );
+		var incidentSlug = incidentToken.listRest( "-" );
 		var incident = incidentService.getIncident( incidentID );
 
 		// Since we don't have an authentication system for users (anyone can jump in and
@@ -115,7 +115,7 @@ component
 			createdAt = clock.utcNow()
 		);
 
-		return "#incidentID#:#slug#";
+		return "#incidentID#-#slug#";
 
 	}
 

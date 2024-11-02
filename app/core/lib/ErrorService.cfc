@@ -154,6 +154,8 @@ component
 				return as404();
 			break;
 			case "App.Routing.InvalidEvent":
+			case "App.Routing.Start.InvalidEvent":
+			case "App.Routing.Incident.InvalidEvent":
 				return as404({
 					type: error.type
 				});
