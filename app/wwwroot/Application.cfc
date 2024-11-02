@@ -199,7 +199,12 @@ component
 			.append( form )
 		;
 
+		// Define the action variable. This will be a dot-delimited action string of what
+		// to process.
+		param name="request.context.event" type="string" default="";
+
 		request.ioc = application.ioc;
+		request.event = request.context.event.listToArray( "." );
 
 	}
 
@@ -222,6 +227,90 @@ component
 		request.ioc.get( "core.lib.MemoryLeakDetector" )
 			.inspect()
 		;
+
+	}
+
+
+	/**
+	* I handle uncaught errors within the application.
+	*/
+	public void function onError(
+		required any exception,
+		string eventName = ""
+		) {
+
+		// Override the request timeout so that we have time to handle any errors.
+		cfsetting( requesttimeout = ( 60 * 5 ) );
+
+		var error = ( exception.rootCause ?: exception.cause ?: exception );
+
+		try {
+
+			application.ioc?.get( "core.lib.logger" )
+				.logException( error )
+			;
+
+		} catch ( any loggingError ) {
+
+			// If the logger aggregator hasn't been instantiated yet; or, if there was
+			// error during logging, fallback to using ColdFusion's native console and
+			// logging features.
+			cfdump(
+				var = loggingError,
+				output = "console"
+			);
+			cflog(
+				type = "fatal",
+				log = "application",
+				application = true,
+				text = "#loggingError.type#: #loggingError.message#"
+			);
+
+		}
+
+		// If the bootstrapping flag is null, it means that the application failed to
+		// fully initialize. However, we can't be sure where in the process the error
+		// occurred, so we want to just stop the application and let the next inbound
+		// request re-trigger the application start-up.
+		if ( isNull( application.isBootstrapped ) ) {
+
+			cfheader( statusCode = 503, statusText = "Service Unavailable" );
+			writeOutput( "<h1> Service Unavailable </h1>" );
+			writeOutput( "<p> Please try back in a few minutes. </p>" );
+
+			// If the application isn't actually running yet, attempting to stop it will
+			// throw an error.
+			try {
+
+				applicationStop();
+
+			} catch ( any stopError ) {
+
+				// Swallow error, let next request start application.
+
+			}
+
+			return;
+
+		}
+
+		// Check to see if we are live or not. If we are live then we want to display
+		// the user-friendly error page. However, if we're not live, then we want to
+		// render the error for debugging.
+		if ( ! this.config.isLive ) {
+
+			// We are local, dump the error out for debugging.
+			cfheader( statusCode = 500, statusText = "Server Error" );
+			writeDump( var = exception, top = 5 );
+			abort;
+
+		}
+
+		// Since we don't know where exactly the error occurred, it's possible that the
+		// request has been flushed already or is in an entirely unusable state. As such,
+		// the best we can do is just show a vanilla error message.
+		writeOutput( "An error occurred." );
+		abort;
 
 	}
 
