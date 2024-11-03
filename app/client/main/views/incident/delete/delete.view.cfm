@@ -9,6 +9,10 @@
 			Are you sure you want to permanently delete your incident? This action cannot be undone.
 		</p>
 
+		<p>
+			Also, before you delete your incident, you might want to <a href="/index.cfm?event=incident.export&incidentToken=#encodeForUrl( request.context.incidentToken )#">export your data</a>.
+		</p>
+
 		<cfmodule
 			template="/client/main/tags/errorMessage.cfm"
 			message="#errorMessage#"
@@ -20,7 +24,7 @@
 			<dl>
 				<div>
 					<dt>
-						<strong>Description:</strong>
+						Description:
 					</dt>
 					<dd>
 						#encodeForHtml( request.incident.description )#
@@ -28,7 +32,7 @@
 				</div>
 				<div>
 					<dt>
-						<strong>Ownership:</strong>
+						Ownership:
 					</dt>
 					<dd>
 						#encodeForHtml( request.incident.ownership )#
@@ -36,13 +40,19 @@
 				</div>
 			</dl>
 
-			<p>
-				<button type="submit">
-					Delete Incident
-				</button>
-				<a href="/index.cfm?event=incident&incidentToken=#encodeForHtml( request.context.incidentToken )#">
-					Cancel
-				</a>
+			<p class="ui-form-buttons ui-row">
+				<span class="ui-row__item">
+					<button type="submit" class="ui-button is-submit is-destructive">
+						Delete Incident
+					</button>
+				</span>
+				<span class="ui-row__item">
+					<a
+						href="/index.cfm?event=incident&incidentToken=#encodeForHtml( request.context.incidentToken )#"
+						class="ui-button is-cancel">
+						Cancel
+					</a>
+				</span>
 			</p>
 		</form>
 

@@ -17,7 +17,7 @@
 			<dl>
 				<div>
 					<dt>
-						<strong>Incident:</strong>
+						Incident:
 					</dt>
 					<dd>
 						#encodeForHtml( request.incident.description )#
@@ -25,7 +25,7 @@
 				</div>
 				<div>
 					<dt>
-						<strong>Stage:</strong>
+						Stage:
 					</dt>
 					<dd>
 						#encodeForHtml( stage.name )#
@@ -33,7 +33,7 @@
 				</div>
 				<div>
 					<dt>
-						<strong>Status:</strong>
+						Status:
 					</dt>
 					<dd>
 						#status.contentHtml#
@@ -41,13 +41,19 @@
 				</div>
 			</dl>
 
-			<p>
-				<button type="submit">
-					Delete Status
-				</button>
-				<a href="/index.cfm?event=incident.status.list&incidentToken=#encodeForUrl( request.context.incidentToken )#">
-					Cancel
-				</a>
+			<p class="ui-form-buttons ui-row">
+				<span class="ui-row__item">
+					<button type="submit" class="ui-button is-submit is-destructive">
+						Delete Status
+					</button>
+				</span>
+				<span class="ui-row__item">
+					<a
+						href="/index.cfm?event=incident.status.list&incidentToken=#encodeForUrl( request.context.incidentToken )#"
+						class="ui-button is-cancel">
+						Cancel
+					</a>
+				</span>
 			</p>
 		</form>
 

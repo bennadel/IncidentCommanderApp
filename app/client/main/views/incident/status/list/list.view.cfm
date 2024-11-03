@@ -12,12 +12,11 @@
 
 		<form method="post" action="/index.cfm?event=#encodeForUrl( request.context.event )#&incidentToken=#encodeForUrl( request.context.incidentToken )#">
 			<cfmodule template="/client/main/tags/xsrf.cfm">
-			<input type="hidden" name="sort" value="#encodeForHtmlAttribute( request.context.sort )#" />
 
 			<dl>
 				<div>
 					<dt>
-						<strong>Incident:</strong>
+						Incident:
 					</dt>
 					<dd>
 						#encodeForHtml( request.incident.description )#
@@ -25,7 +24,7 @@
 				</div>
 				<div>
 					<dt>
-						<strong>Video Call:</strong>
+						Video Call:
 					</dt>
 					<dd>
 						<cfif request.incident.videoUrl.len()>
@@ -38,10 +37,10 @@
 				</div>
 				<div>
 					<dt>
-						<strong>Stage:</strong>
+						Stage:
 					</dt>
 					<dd>
-						<select name="stageID">
+						<select name="stageID" class="ui-select">
 							<cfloop array="#stages#" index="stage">
 								<option
 									value="#encodeForHtmlAttribute( stage.id )#"
@@ -54,23 +53,24 @@
 				</div>
 				<div>
 					<dt>
-						<strong>Status:</strong>
+						Status:
 					</dt>
 					<dd>
 						<textarea
 							name="contentMarkdown"
-							cols="50"
-							rows="5"
 							maxlength="65535"
+							class="ui-textarea"
 							>#encodeForHtml( form.contentMarkdown )#</textarea>
 					</dd>
 				</div>
 			</dl>
 
-			<p>
-				<button type="submit">
-					Post Update
-				</button>
+			<p class="ui-form-buttons ui-row">
+				<span class="ui-row__item">
+					<button type="submit" class="ui-button is-submit">
+						Post Update
+					</button>
+				</span>
 			</p>
 		</form>
 
@@ -78,14 +78,8 @@
 			Previous Updates
 		</h2>
 
-		<p>
-			Sort
-			<a href="/index.cfm?event=#encodeForUrl( request.context.event )#&incidentToken=#encodeForUrl( request.context.incidentToken )#&sort=desc">newest first</a> ,
-			<a href="/index.cfm?event=#encodeForUrl( request.context.event )#&incidentToken=#encodeForUrl( request.context.incidentToken )#&sort=asc">oldest first</a>
-		</p>
-
 		<dl>
-			<cfloop array="#sortedStatuses#" index="status">
+			<cfloop array="#statuses#" index="status">
 				<div>
 					<dt>
 						<p>

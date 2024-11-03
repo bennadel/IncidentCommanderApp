@@ -21,7 +21,7 @@
 			<dl>
 				<div>
 					<dt>
-						<strong>Description:</strong>
+						Description:
 					</dt>
 					<dd>
 						<input
@@ -35,19 +35,26 @@
 				</div>
 				<div>
 					<dt>
-						<strong>Priority:</strong>
+						Priority:
 					</dt>
 					<dd>
 						<cfloop array="#priorities#" index="priority">
 							<p>
 								<label style="display: block ;">
-									<input
-										type="radio"
-										name="priorityID"
-										value="#encodeForHtmlAttribute( priority.id )#"
-										#ui.attrChecked( form.priorityID == priority.id )#
-									/>
-									<strong>#encodeForHtml( priority.name )#</strong><br />
+									<span class="ui-row">
+										<span class="ui-row__item">
+											<input
+												type="radio"
+												name="priorityID"
+												value="#encodeForHtmlAttribute( priority.id )#"
+												#ui.attrChecked( form.priorityID == priority.id )#
+												class="ui-radio"
+											/>
+										</span>
+										<strong class="ui-row__item">
+											#encodeForHtml( priority.name )#
+										</strong>
+									</span>
 									#encodeForHtml( priority.description )#
 								</label>
 							</p>
@@ -56,9 +63,11 @@
 				</div>
 			</dl>
 
-			<button type="submit">
-				Open a New Incident
-			</button>
+			<p class="ui-form-buttons">
+				<button type="submit" class="ui-button is-submit">
+					Open a New Incident
+				</button>
+			</p>
 		</form>
 
 	</cfoutput>

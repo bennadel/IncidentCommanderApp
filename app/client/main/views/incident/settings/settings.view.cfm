@@ -20,7 +20,7 @@
 			<dl>
 				<div>
 					<dt>
-						<strong>Description:</strong>
+						Description:
 					</dt>
 					<dd>
 						<input
@@ -29,12 +29,13 @@
 							value="#encodeForHtmlAttribute( form.description )#"
 							size="75"
 							maxlength="1000"
+							class="ui-input is-large"
 						/>
 					</dd>
 				</div>
 				<div>
 					<dt>
-						<strong>Ownership:</strong>
+						Ownership:
 					</dt>
 					<dd>
 						<input
@@ -43,24 +44,32 @@
 							value="#encodeForHtmlAttribute( form.ownership )#"
 							size="50"
 							maxlength="50"
+							class="ui-input"
 						/>
 					</dd>
 				</div>
 				<div>
 					<dt>
-						<strong>Priority:</strong>
+						Priority:
 					</dt>
 					<dd>
 						<cfloop array="#priorities#" index="priority">
 							<p>
 								<label style="display: block ;">
-									<input
-										type="radio"
-										name="priorityID"
-										value="#encodeForHtmlAttribute( priority.id )#"
-										#ui.attrChecked( form.priorityID == priority.id )#
-									/>
-									<strong>#encodeForHtml( priority.name )#</strong><br />
+									<span class="ui-row">
+										<span class="ui-row__item">
+											<input
+												type="radio"
+												name="priorityID"
+												value="#encodeForHtmlAttribute( priority.id )#"
+												#ui.attrChecked( form.priorityID == priority.id )#
+												class="ui-radio"
+											/>
+										</span>
+										<strong class="ui-row__item">
+											#encodeForHtml( priority.name )#
+										</strong>
+									</span>
 									#encodeForHtml( priority.description )#
 								</label>
 							</p>
@@ -69,7 +78,7 @@
 				</div>
 				<div>
 					<dt>
-						<strong>Ticket Url:</strong>
+						Ticket Url:
 					</dt>
 					<dd>
 						<input
@@ -78,12 +87,13 @@
 							value="#encodeForHtmlAttribute( form.ticketUrl )#"
 							size="50"
 							maxlength="300"
+							class="ui-input is-large"
 						/>
 					</dd>
 				</div>
 				<div>
 					<dt>
-						<strong>Video Url:</strong>
+						Video Url:
 					</dt>
 					<dd>
 						<input
@@ -92,13 +102,14 @@
 							value="#encodeForHtmlAttribute( form.videoUrl )#"
 							size="50"
 							maxlength="300"
+							class="ui-input is-large"
 						/>
 					</dd>
 				</div>
 			</dl>
 
-			<p>
-				<button type="submit">
+			<p class="ui-form-buttons">
+				<button type="submit" class="ui-button is-submit">
 					Update Incident
 				</button>
 			</p>

@@ -17,7 +17,7 @@
 			<dl>
 				<div>
 					<dt>
-						<strong>Incident:</strong>
+						Incident:
 					</dt>
 					<dd>
 						#encodeForHtml( request.incident.description )#
@@ -25,10 +25,10 @@
 				</div>
 				<div>
 					<dt>
-						<strong>Stage:</strong>
+						Stage:
 					</dt>
 					<dd>
-						<select name="stageID">
+						<select name="stageID" class="ui-select">
 							<cfloop array="#stages#" index="stage">
 								<option
 									value="#encodeForHtmlAttribute( stage.id )#"
@@ -41,26 +41,31 @@
 				</div>
 				<div>
 					<dt>
-						<strong>Status:</strong>
+						Status:
 					</dt>
 					<dd>
 						<textarea
 							name="contentMarkdown"
-							cols="50"
-							rows="5"
 							maxlength="65535"
+							class="ui-textarea"
 							>#encodeForHtml( form.contentMarkdown )#</textarea>
 					</dd>
 				</div>
 			</dl>
 
-			<p>
-				<button type="submit">
-					Update Status
-				</button>
-				<a href="/index.cfm?event=incident.status.list&incidentToken=#encodeForUrl( request.context.incidentToken )#">
-					Cancel
-				</a>
+			<p class="ui-form-buttons ui-row">
+				<span class="ui-row__item">
+					<button type="submit" class="ui-button is-submit">
+						Update Status
+					</button>
+				</span>
+				<span class="ui-row__item">
+					<a
+						href="/index.cfm?event=incident.status.list&incidentToken=#encodeForUrl( request.context.incidentToken )#"
+						class="ui-button is-cancel">
+						Cancel
+					</a>
+				</span>
 			</p>
 		</form>
 

@@ -10,12 +10,10 @@
 	// ------------------------------------------------------------------------------- //
 	// ------------------------------------------------------------------------------- //
 
-	param name="request.context.sort" type="string" default="desc";
 	param name="form.stageID" type="numeric" default=0;
 	param name="form.contentMarkdown" type="string" default="";
 
 	statuses = getStatuses( request.incident );
-	sortedStatuses = getSortedStatuses( statuses, request.context.sort );
 	stages = getStages();
 	stagesIndex = getStagesIndex( stages );
 	title = "Status Updates";
@@ -60,42 +58,6 @@
 	// ------------------------------------------------------------------------------- //
 
 	/**
-	* I get the statuses, sorted in the given direction.
-	*/
-	private array function getSortedStatuses(
-		required array statuses,
-		required string sort
-		) {
-
-		if ( ! statuses.len() ) {
-
-			return [];
-
-		}
-
-		return statuses
-			.slice( 1 )
-			.sort(
-				( a, b ) => {
-
-					if ( sort == "desc" ) {
-
-						return sgn( b.id - a.id );
-
-					} else {
-
-						return sgn( a.id - b.id );
-
-					}
-
-				}
-			)
-		;
-
-	}
-
-
-	/**
 	* I get the incident states.
 	*/
 	private array function getStages() {
@@ -120,7 +82,16 @@
 	*/
 	private array function getStatuses( required struct incident ) {
 
-		return statusService.getStatusByFilter( incidentID = incident.id );
+		return statusService
+			.getStatusByFilter( incidentID = incident.id )
+			.sort(
+				( a, b ) => {
+
+					return sgn( b.id - a.id );
+
+				}
+			)
+		;
 
 	}
 

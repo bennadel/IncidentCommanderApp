@@ -148,9 +148,11 @@
 
 			</header>
 			<main id="main-content-anchor" x-ref="main" tabindex="-1" ys84gd class="shell__main">
+				<section class="ui-content-wrapper">
 
-				#request.template.primaryContent#
+					#request.template.primaryContent#
 
+				</section>
 			</main>
 		</div>
 
