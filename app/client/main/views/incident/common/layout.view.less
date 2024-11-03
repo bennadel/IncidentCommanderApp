@@ -1,0 +1,106 @@
+[ys84gd] {
+	&.body {
+		margin: 0 ;
+	}
+
+	&.skip-to-main {
+		background-color: #121212 ;
+		border-radius: 3px ;
+		color: #f0f0f0 ;
+		left: 6px ;
+		padding: 1rem 2rem ;
+		position: fixed ;
+		top: -100px ;
+		z-index: 100 ;
+
+		&:focus {
+			top: 6px ;
+		}
+	}
+
+	&.shell {
+		align-items: flex-start ;
+		display: flex ;
+
+		&__header {
+			background-color: #ffffff ;
+			box-shadow: 1px 0px 0px #d0d0d0 ;
+			display: flex ;
+			flex-direction: column ;
+			flex: 0 0 auto ;
+			min-height: 100vh ;
+			position: sticky ;
+			top: 0 ;
+		}
+
+		&__main {
+			flex: 1 1 auto ;
+
+			// Since the main element touches the edges of the browser, the normal outline
+			// will be clipped by the browser viewport. As such, we're going to inset the
+			// programmatic focus on the main content.
+			&:focus-visible {
+				outline-width: 3px ;
+				outline-offset: -6px ;
+			}
+		}
+	}
+
+	&.nav {
+		display: flex ;
+		flex: 1 1 auto ;
+		flex-direction: column ;
+		padding: 5px 0 ;
+		width: 300px ;
+
+		&__item {
+			align-items: center ;
+			border: 4px solid #ffffff ;
+			border-radius: 3px ;
+			border-width: 4px 8px ;
+			color: #212121 ;
+			display: flex ;
+			gap: 13px ;
+			padding: 7px 8px ;
+			text-decoration: none ;
+			white-space: nowrap ;
+
+			&.is-logo {
+				margin-bottom: 20px ;
+			}
+
+			&.is-exit {
+				margin-top: auto ;
+			}
+
+			&.is-on {
+				background-color: #f2f2f3 ;
+				font-weight: bold ;
+			}
+		}
+
+		&__icon {
+			display: flex ;
+			height: 32px ;
+			width: 32px ;
+
+			svg {
+				height: 24px ;
+				margin: auto ;
+				width: 24px ;
+			}
+		}
+
+		&__label {
+			u {
+				text-decoration: none ;
+			}
+		}
+
+		&__item:hover &__label {
+			u {
+				text-decoration: underline  ;
+			}
+		}
+	}
+}

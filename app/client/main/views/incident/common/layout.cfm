@@ -1,5 +1,10 @@
 <cfscript>
 
+	ui = request.ioc.get( "client.main.lib.ViewHelper" );
+
+	// ------------------------------------------------------------------------------- //
+	// ------------------------------------------------------------------------------- //
+
 	param name="request.template.statusCode" type="numeric" default=200;
 	param name="request.template.statusText" type="string" default="OK";
 	param name="request.template.title" type="string" default="";
