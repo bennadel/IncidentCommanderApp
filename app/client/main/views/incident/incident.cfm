@@ -15,8 +15,14 @@
 		case "delete":
 			cfmodule( template = "./delete/delete.cfm" );
 		break;
+		case "export":
+			cfmodule( template = "./export/export.cfm" );
+		break;
 		case "settings":
 			cfmodule( template = "./settings/settings.cfm" );
+		break;
+		case "share":
+			cfmodule( template = "./share/share.cfm" );
 		break;
 		case "status":
 			cfmodule( template = "./status/status.cfm" );
