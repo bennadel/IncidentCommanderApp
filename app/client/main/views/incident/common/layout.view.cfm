@@ -148,7 +148,7 @@
 
 			</header>
 			<main id="main-content-anchor" x-ref="main" tabindex="-1" ys84gd class="shell__main">
-				<section class="ui-content-wrapper">
+				<section ys84gd class="shell__content">
 
 					#request.template.primaryContent#
 

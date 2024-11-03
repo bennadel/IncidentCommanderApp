@@ -38,6 +38,10 @@
 						Ownership:
 					</dt>
 					<dd>
+						<p>
+							Which team is responsible for writing the root cause analysis (RCA)?
+						</p>
+
 						<input
 							type="text"
 							name="ownership"
@@ -55,7 +59,7 @@
 					<dd>
 						<cfloop array="#priorities#" index="priority">
 							<p>
-								<label style="display: block ;">
+								<label gdqn3f class="radio-card">
 									<span class="ui-row">
 										<span class="ui-row__item">
 											<input
@@ -70,7 +74,9 @@
 											#encodeForHtml( priority.name )#
 										</strong>
 									</span>
-									#encodeForHtml( priority.description )#
+									<span gdqn3f class="radio-card__description">
+										#encodeForHtml( priority.description )#
+									</span>
 								</label>
 							</p>
 						</cfloop>
