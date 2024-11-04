@@ -19,9 +19,10 @@
 
 			incidentWorkflow.deleteIncident( request.context.incidentToken );
 
-			requestHelper.goto({
-				event: "start"
-			});
+			requestHelper.goto([
+				event: "start",
+				flash: "incident.deleted"
+			]);
 
 		} catch ( any error ) {
 

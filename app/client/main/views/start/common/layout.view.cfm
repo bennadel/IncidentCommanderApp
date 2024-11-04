@@ -19,6 +19,8 @@
 	</head>
 	<body>
 
+		<cfmodule template="/client/main/tags/flashMessage.cfm">
+
 		<main>
 			#request.template.primaryContent#
 		</main>

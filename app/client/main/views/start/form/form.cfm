@@ -36,10 +36,11 @@
 
 			xsrfService.cycleCookie();
 
-			requestHelper.goto({
-				event: "incident.settings",
-				incidentToken: incidentToken
-			});
+			requestHelper.goto([
+				event: "incident.status.list",
+				incidentToken: incidentToken,
+				flash: "incident.started"
+			]);
 
 		} catch ( any error ) {
 

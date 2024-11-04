@@ -150,6 +150,8 @@
 			<main id="main-content-anchor" x-ref="main" tabindex="-1" ys84gd class="shell__main">
 				<section ys84gd class="shell__content">
 
+					<cfmodule template="/client/main/tags/flashMessage.cfm">
+
 					#request.template.primaryContent#
 
 				</section>

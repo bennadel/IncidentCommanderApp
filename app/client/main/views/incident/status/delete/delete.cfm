@@ -27,10 +27,11 @@
 				statusID = status.id
 			);
 
-			requestHelper.goto({
+			requestHelper.goto([
 				event: "incident.status.list",
-				incidentToken: request.context.incidentToken
-			});
+				incidentToken: request.context.incidentToken,
+				flash: "incident.status.deleted"
+			]);
 
 		} catch ( any error ) {
 

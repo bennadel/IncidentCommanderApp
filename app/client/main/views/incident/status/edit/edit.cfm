@@ -31,10 +31,11 @@
 				contentMarkdown = form.contentMarkdown.trim()
 			);
 
-			requestHelper.goto({
+			requestHelper.goto([
 				event: "incident.status.list",
-				incidentToken: request.context.incidentToken
-			});
+				incidentToken: request.context.incidentToken,
+				flash: "incident.status.updated"
+			]);
 
 		} catch ( any error ) {
 
