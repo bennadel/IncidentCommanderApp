@@ -55,6 +55,8 @@
 						id="id-contentMarkdown"
 						aria-describedby="id-contentMarkdown--description"
 						name="contentMarkdown"
+						@keydown.meta.enter="$el.form.submit()"
+						@keydown.ctrl.enter="$el.form.submit()"
 						maxlength="65535"
 						class="ui-textarea"
 						>#encodeForHtml( form.contentMarkdown )#</textarea>
