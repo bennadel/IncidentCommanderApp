@@ -15,7 +15,7 @@
 
 	status = accessControl.getStatus( request.incident, val( request.context.statusID ) );
 	stages = getStages();
-	title = "Edit Status";
+	title = "Edit Status Update";
 	errorMessage = "";
 
 	request.template.title = title;

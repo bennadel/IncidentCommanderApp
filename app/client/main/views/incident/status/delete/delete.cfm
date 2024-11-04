@@ -13,7 +13,7 @@
 
 	status = accessControl.getStatus( request.incident, val( request.context.statusID ) );
 	stage = getStage( status );
-	title = "Delete Status";
+	title = "Delete Status Update";
 	errorMessage = "";
 
 	request.template.title = title;

@@ -14,49 +14,57 @@
 			<cfmodule template="/client/main/tags/xsrf.cfm">
 			<input type="hidden" name="statusID" value="#encodeForHtmlAttribute( status.id )#" />
 
-			<dl>
-				<div>
-					<dt>
-						Incident:
-					</dt>
-					<dd>
+			<div class="ui-field">
+				<div class="ui-field__label">
+					Incident Description:
+				</div>
+				<div class="ui-field__content">
+					<p>
 						#encodeForHtml( request.incident.description )#
-					</dd>
+					</p>
 				</div>
-				<div>
-					<dt>
-						Stage:
-					</dt>
-					<dd>
-						<select name="stageID" class="ui-select">
-							<cfloop array="#stages#" index="stage">
-								<option
-									value="#encodeForHtmlAttribute( stage.id )#"
-									#ui.attrSelected( form.stageID == stage.id )#>
-									#encodeForHtml( stage.name )#
-								</option>
-							</cfloop>
-						</select>
-					</dd>
-				</div>
-				<div>
-					<dt>
-						Status:
-					</dt>
-					<dd>
-						<textarea
-							name="contentMarkdown"
-							maxlength="65535"
-							class="ui-textarea"
-							>#encodeForHtml( form.contentMarkdown )#</textarea>
-					</dd>
-				</div>
-			</dl>
+			</div>
 
-			<p class="ui-form-buttons ui-row">
+			<div class="ui-field">
+				<label for="id-stageID" class="ui-field__label">
+					Remediation Stage:
+				</label>
+				<div class="ui-field__content">
+					<select id="id-stageID" name="stageID" class="ui-select">
+						<cfloop array="#stages#" index="stage">
+							<option
+								value="#encodeForHtmlAttribute( stage.id )#"
+								#ui.attrSelected( form.stageID == stage.id )#>
+								#encodeForHtml( stage.name )#
+							</option>
+						</cfloop>
+					</select>
+				</div>
+			</div>
+
+			<div class="ui-field">
+				<label for="id-contentMarkdown" class="ui-field__label">
+					Status Update Message:
+				</label>
+				<div class="ui-field__content">
+					<p id="id-contentMarkdown--description">
+						The update content supports <a href="https://www.markdownguide.org/basic-syntax/" target="_blank">basic markdown formatting</a> such as bold (<code>**</code>), italic (<code>_</code>), bulleted lists, blockquotes (<code>&gt;</code>), and code blocks (<code>```</code>).
+					</p>
+
+					<textarea
+						id="id-contentMarkdown"
+						aria-describedby="id-contentMarkdown--description"
+						name="contentMarkdown"
+						maxlength="65535"
+						class="ui-textarea"
+						>#encodeForHtml( form.contentMarkdown )#</textarea>
+				</div>
+			</div>
+
+			<div class="ui-form-buttons ui-row">
 				<span class="ui-row__item">
 					<button type="submit" class="ui-button is-submit">
-						Update Status
+						Save Status Update
 					</button>
 				</span>
 				<span class="ui-row__item">
@@ -66,7 +74,7 @@
 						Cancel
 					</a>
 				</span>
-			</p>
+			</div>
 		</form>
 
 	</cfoutput>

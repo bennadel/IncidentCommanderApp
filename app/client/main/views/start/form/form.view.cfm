@@ -18,56 +18,70 @@
 			<cfmodule template="/client/main/tags/event.cfm">
 			<cfmodule template="/client/main/tags/xsrf.cfm">
 
-			<dl>
-				<div>
-					<dt>
-						Description:
-					</dt>
-					<dd>
-						<input
-							type="text"
-							name="description"
-							placeholder="#encodeForHtmlAttribute( placeholder )#"
-							size="75"
-							maxlength="1000"
-						/>
-					</dd>
+			<div class="ui-field">
+				<label for="id-description" class="ui-field__label">
+					Summary Description:
+				</label>
+				<div class="ui-field__content">
+					<input
+						id="id-description"
+						type="text"
+						name="description"
+						value="#encodeForHtmlAttribute( form.description )#"
+						size="75"
+						maxlength="1000"
+						class="ui-input"
+					/>
 				</div>
-				<div>
-					<dt>
-						Priority:
-					</dt>
-					<dd>
-						<cfloop array="#priorities#" index="priority">
-							<p>
-								<label style="display: block ;">
-									<span class="ui-row">
-										<span class="ui-row__item">
-											<input
-												type="radio"
-												name="priorityID"
-												value="#encodeForHtmlAttribute( priority.id )#"
-												#ui.attrChecked( form.priorityID == priority.id )#
-												class="ui-radio"
-											/>
-										</span>
-										<strong class="ui-row__item">
-											#encodeForHtml( priority.name )#
-										</strong>
-									</span>
-									#encodeForHtml( priority.description )#
-								</label>
-							</p>
-						</cfloop>
-					</dd>
-				</div>
-			</dl>
+			</div>
 
-			<p class="ui-form-buttons">
+			<div class="ui-field">
+				<div class="ui-field__label">
+					Priority:
+				</div>
+				<div class="ui-field__content">
+
+					<fieldset class="ui-fieldset">
+						<legend class="ui-legend">
+							This is the scope and severity of the impact:
+						</legend>
+
+						<cfloop array="#priorities#" index="priority">
+
+							<cfset baseID = "id-priority-#encodeForHtmlAttribute( priority.id )#" />
+
+							<label for="#baseID#" class="ui-option-card">
+								<input
+									id="#baseID#"
+									aria-labelledby="#baseID#--label"
+									aria-describedby="#baseID#--description"
+									type="radio"
+									name="priorityID"
+									value="#encodeForHtmlAttribute( priority.id )#"
+									#ui.attrChecked( form.priorityID == priority.id )#
+									class="ui-radio ui-option-card__control"
+								/>
+							
+								<p id="#baseID#--label" class="ui-option-card__label">
+									#encodeForHtml( priority.name )#
+								</p>
+
+								<p id="#baseID#--description" class="ui-option-card__description">
+									#encodeForHtml( priority.description )#
+								</p>
+							</label>
+
+						</cfloop>
+					</fieldset>
+
+				</div>
+			</div>
+
+			<div class="ui-form-buttons">
 				<button type="submit" class="ui-button is-submit">
 					Open a New Incident
 				</button>
-			</p>
+			</div>
 		</form>
 
 	</cfoutput>

@@ -4,11 +4,11 @@
 // ---
 
 .less-remove-inner-margins() {
-	> *:first-child:where( h2, h3, h4, h5, h6, p, ul, ol, dl ) {
+	> *:first-child:where( h2, h3, h4, h5, h6, p, ul, ol, dl, fieldset ) {
 		margin-top: 0 ;
 	}
 
-	> *:last-child:where( h2, h3, h4, h5, h6, p, ul, ol, dl ) {
+	> *:last-child:where( h2, h3, h4, h5, h6, p, ul, ol, dl, fieldset ) {
 		margin-bottom: 0 ;
 	}
 }
@@ -298,6 +298,10 @@ ol.u-no-marker {
 	display: flex ;
 	gap: 12px ;
 
+	&.is-top-aligned {
+		align-items: flex-start ;
+	}
+
 	&__item {
 		flex: 0 1 auto ;
 	}
@@ -324,7 +328,7 @@ ol.u-no-marker {
 	background-color: #efefef ;
 	border-radius: 2px ;
 	display: block ;
-	padding: 0.5rem 1.3rem 0.4rem ;
+	padding: 0.6rem 1.3rem 0.5rem ;
 
 	&.is-plain {
 		background-color: transparent ;
@@ -356,15 +360,10 @@ ol.u-no-marker {
 		background-color: transparent ;
 		border: none ;
 		border-radius: 0 ;
+		display: inline ;
 		padding: 0 ;
 		text-decoration: underline ;
 	}
-}
-
-.ui-form-buttons {
-	border-top: 1px solid #cccccc ;
-	margin-top: 1.7rem ;
-	padding-top: 1.7rem ;
 }
 
 .ui-input {
@@ -372,11 +371,19 @@ ol.u-no-marker {
 
 	border-radius: 2px ;
 	display: block ;
-	padding: 0.5rem 0.7rem 0.4rem ;
-	width: 400px ;
+	padding: 0.6rem 0.7rem 0.5rem ;
+	width: 100% ;
+
+	&.is-small {
+		max-width: 200px ;
+	}
+
+	&.is-medium {
+		max-width: 400px ;
+	}
 
 	&.is-large {
-		width: 600px ;
+		max-width: 600px ;
 	}
 }
 
@@ -412,7 +419,7 @@ ol.u-no-marker {
 	background-position-y: top 52% ;
 	background-repeat: no-repeat ;
 	border-radius: 2px ;
-	padding: 0.5rem 2rem 0.4rem 0.7rem ;
+	padding: 0.6rem 2rem 0.5rem 0.7rem ;
 }
 
 .ui-textarea {
@@ -420,7 +427,81 @@ ol.u-no-marker {
 
 	border-radius: 2px ;
 	display: block ;
-	height: 6rem ;
-	padding: 0.5rem 0.7rem 0.4rem ;
-	width: 600px ;
+	height: 10rem ;
+	padding: 0.6rem 0.7rem 0.5rem ;
+	width: 100% ;
+}
+
+.ui-field {
+	margin: 1.2rem 0 ;
+
+	&__label {
+		display: block ;
+		font-weight: bold ;
+		margin-bottom: 0.5rem ;
+
+		&:where( label ) {
+			cursor: pointer ;
+		}
+	}
+
+	&__content {
+		.less-remove-inner-margins() ;
+
+		margin-left: 2.2rem ;
+	}
+}
+
+.ui-fieldset {
+	border: 1px solid #cccccc ;
+	margin: 1rem 0 ;
+	padding: 1rem 1.5rem ;
+
+	> *:first-child,
+	> legend + * {
+		margin-top: 0 ;
+	}
+
+	> *:last-child {
+		margin-bottom: 0 ;
+	}
+}
+
+.ui-legend {
+	padding: 0px 0.8rem ;
+}
+
+.ui-option-card {
+	cursor: pointer ;
+	display: grid ;
+	gap: 0.5rem 0.9rem ;
+	grid-template-areas:
+		"control label"
+		". description"
+	;
+	grid-template-columns: auto 1fr ;
+	margin: 1.2rem 0 ;
+
+	&__control {
+		align-self: center ;
+		grid-area: control ;
+	}
+
+	&__label {
+		align-self: center ;
+		font-weight: bold ;
+		grid-area: label ;
+		margin: 0 ;
+	}
+
+	&__description {
+		grid-area: description ;
+		margin: 0 ;
+	}
+}
+
+.ui-form-buttons {
+	border-top: 1px solid #cccccc ;
+	margin: 1.7rem 0 1rem 0 ;
+	padding-top: 1.7rem ;
 }

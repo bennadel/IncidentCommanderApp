@@ -14,37 +14,41 @@
 			<cfmodule template="/client/main/tags/xsrf.cfm">
 			<input type="hidden" name="statusID" value="#encodeForHtmlAttribute( status.id )#" />
 
-			<dl>
-				<div>
-					<dt>
-						Incident:
-					</dt>
-					<dd>
+			<div class="ui-field">
+				<div class="ui-field__label">
+					Incident Description:
+				</div>
+				<div class="ui-field__content">
+					<p>
 						#encodeForHtml( request.incident.description )#
-					</dd>
+					</p>
 				</div>
-				<div>
-					<dt>
-						Stage:
-					</dt>
-					<dd>
-						#encodeForHtml( stage.name )#
-					</dd>
-				</div>
-				<div>
-					<dt>
-						Status:
-					</dt>
-					<dd>
-						#status.contentHtml#
-					</dd>
-				</div>
-			</dl>
+			</div>
 
-			<p class="ui-form-buttons ui-row">
+			<div class="ui-field">
+				<div class="ui-field__label">
+					Remediation Stage:
+				</div>
+				<div class="ui-field__content">
+					<p>
+						#encodeForHtml( stage.name )#
+					</p>
+				</div>
+			</div>
+
+			<div class="ui-field">
+				<div class="ui-field__label">
+					Status Update Message:
+				</div>
+				<div class="ui-field__content">
+					#status.contentHtml#
+				</div>
+			</div>
+
+			<div class="ui-form-buttons ui-row">
 				<span class="ui-row__item">
 					<button type="submit" class="ui-button is-submit is-destructive">
-						Delete Status
+						Delete Status Update
 					</button>
 				</span>
 				<span class="ui-row__item">
@@ -54,7 +58,7 @@
 						Cancel
 					</a>
 				</span>
-			</p>
+			</div>
 		</form>
 
 	</cfoutput>

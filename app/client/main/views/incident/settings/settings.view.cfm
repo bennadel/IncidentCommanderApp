@@ -17,108 +17,135 @@
 		<form method="post" action="/index.cfm?event=#encodeForUrl( request.context.event )#&incidentToken=#encodeForUrl( request.context.incidentToken )#">
 			<cfmodule template="/client/main/tags/xsrf.cfm">
 
-			<dl>
-				<div>
-					<dt>
-						Description:
-					</dt>
-					<dd>
-						<input
-							type="text"
-							name="description"
-							value="#encodeForHtmlAttribute( form.description )#"
-							size="75"
-							maxlength="1000"
-							class="ui-input is-large"
-						/>
-					</dd>
+			<div class="ui-field">
+				<label for="id-description" class="ui-field__label">
+					Summary Description:
+				</label>
+				<div class="ui-field__content">
+					<input
+						id="id-description"
+						type="text"
+						name="description"
+						value="#encodeForHtmlAttribute( form.description )#"
+						size="75"
+						maxlength="1000"
+						class="ui-input"
+					/>
 				</div>
-				<div>
-					<dt>
-						Ownership:
-					</dt>
-					<dd>
-						<p>
-							Which team is responsible for writing the root cause analysis (RCA)?
-						</p>
+			</div>
 
-						<input
-							type="text"
-							name="ownership"
-							value="#encodeForHtmlAttribute( form.ownership )#"
-							size="50"
-							maxlength="50"
-							class="ui-input"
-						/>
-					</dd>
+			<div class="ui-field">
+				<label for="id-videoUrl" class="ui-field__label">
+					Video Conference Url:
+				</label>
+				<div class="ui-field__content">
+					<p id="id-videoUrl--description">
+						This is the triage call (Zoom, Hangouts, Teams, etc.) that is held open during the incident investigation. Team members can join this call to get a real-time sense of what is happening.
+					</p>
+
+					<input
+						id="id-videoUrl"
+						aria-describedby="id-videoUrl--description"
+						type="text"
+						name="videoUrl"
+						value="#encodeForHtmlAttribute( form.videoUrl )#"
+						size="50"
+						maxlength="300"
+						class="ui-input"
+					/>
 				</div>
-				<div>
-					<dt>
-						Priority:
-					</dt>
-					<dd>
+			</div>
+
+			<div class="ui-field">
+				<label for="id-ticketUrl" class="ui-field__label">
+					Support Ticket Url:
+				</label>
+				<div class="ui-field__content">
+					<p>
+						This is the internal Support ticket that was used to open the incident.
+					</p>
+
+					<input
+						id="id-ticketUrl"
+						type="text"
+						name="ticketUrl"
+						value="#encodeForHtmlAttribute( form.ticketUrl )#"
+						size="50"
+						maxlength="300"
+						class="ui-input"
+					/>
+				</div>
+			</div>
+
+			<div class="ui-field">
+				<label for="id-ownership" class="ui-field__label">
+					Ownership:
+				</label>
+				<div class="ui-field__content">
+					<p id="id-ownership--description">
+						This is the team responsible for writing the root cause analysis (RCA) after the immediate incident has been remediated.
+					</p>
+
+					<input
+						id="id-ownership"
+						aria-describedby="id-ownership--description"
+						type="text"
+						name="ownership"
+						value="#encodeForHtmlAttribute( form.ownership )#"
+						size="50"
+						maxlength="50"
+						class="ui-input"
+					/>
+				</div>
+			</div>
+
+			<div class="ui-field">
+				<div class="ui-field__label">
+					Priority:
+				</div>
+				<div class="ui-field__content">
+
+					<fieldset class="ui-fieldset">
+						<legend class="ui-legend">
+							This is the scope and severity of the impact:
+						</legend>
+
 						<cfloop array="#priorities#" index="priority">
-							<p>
-								<label gdqn3f class="radio-card">
-									<span class="ui-row">
-										<span class="ui-row__item">
-											<input
-												type="radio"
-												name="priorityID"
-												value="#encodeForHtmlAttribute( priority.id )#"
-												#ui.attrChecked( form.priorityID == priority.id )#
-												class="ui-radio"
-											/>
-										</span>
-										<strong class="ui-row__item">
-											#encodeForHtml( priority.name )#
-										</strong>
-									</span>
-									<span gdqn3f class="radio-card__description">
-										#encodeForHtml( priority.description )#
-									</span>
-								</label>
-							</p>
-						</cfloop>
-					</dd>
-				</div>
-				<div>
-					<dt>
-						Ticket Url:
-					</dt>
-					<dd>
-						<input
-							type="text"
-							name="ticketUrl"
-							value="#encodeForHtmlAttribute( form.ticketUrl )#"
-							size="50"
-							maxlength="300"
-							class="ui-input is-large"
-						/>
-					</dd>
-				</div>
-				<div>
-					<dt>
-						Video Url:
-					</dt>
-					<dd>
-						<input
-							type="text"
-							name="videoUrl"
-							value="#encodeForHtmlAttribute( form.videoUrl )#"
-							size="50"
-							maxlength="300"
-							class="ui-input is-large"
-						/>
-					</dd>
-				</div>
-			</dl>
 
-			<p class="ui-form-buttons">
+							<cfset baseID = "id-priority-#encodeForHtmlAttribute( priority.id )#" />
+
+							<label for="#baseID#" class="ui-option-card">
+								<input
+									id="#baseID#"
+									aria-labelledby="#baseID#--label"
+									aria-describedby="#baseID#--description"
+									type="radio"
+									name="priorityID"
+									value="#encodeForHtmlAttribute( priority.id )#"
+									#ui.attrChecked( form.priorityID == priority.id )#
+									class="ui-radio ui-option-card__control"
+								/>
+							
+								<p id="#baseID#--label" class="ui-option-card__label">
+									#encodeForHtml( priority.name )#
+								</p>
+
+								<p id="#baseID#--description" class="ui-option-card__description">
+									#encodeForHtml( priority.description )#
+								</p>
+							</label>
+
+						</cfloop>
+					</fieldset>
+
+				</div>
+			</div>
+
+			<div class="ui-form-buttons">
 				<button type="submit" class="ui-button is-submit">
 					Update Incident
 				</button>
-			</p>
+			</div>
 		</form>
 
 	</cfoutput>
