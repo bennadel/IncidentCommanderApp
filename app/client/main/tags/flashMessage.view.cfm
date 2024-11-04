@@ -2,6 +2,7 @@
 
 	<div
 		x-data="izm317.FlashMessage"
+		tabindex="-1"
 		role="alert"
 		aria-live="polite"
 		izm317

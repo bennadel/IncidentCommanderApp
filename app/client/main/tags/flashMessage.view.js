@@ -32,6 +32,13 @@ function FlashMessage() {
 
 		window.history.replaceState( {}, "", url );
 
+		// Focus the flash message as well.
+		this.$el.focus();
+		this.$el.scrollIntoView({
+			behavior: "smooth",
+			block: "start"
+		});
+
 	}
 
 }
