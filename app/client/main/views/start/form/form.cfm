@@ -23,12 +23,6 @@
 
 		try {
 
-			if ( ! form.description.len() ) {
-
-				form.description = getFallbackDescription();
-
-			}
-
 			incidentToken = incidentWorkflow.startIncident(
 				description = form.description.trim(),
 				priorityID = val( form.priorityID )
@@ -59,17 +53,17 @@
 	// ------------------------------------------------------------------------------- //
 	// ------------------------------------------------------------------------------- //
 
-	private string function getFallbackDescription() {
-
-		return "The application is behaving incorrectly.";
-
-	}
-
-
+	/**
+	* I get the placeholder text to be used in the description input.
+	*/
 	private string function getPlaceholder() {
 
 		var options = [
-			"Users can't log into the application..."
+			"Ex, Users can't log into the application...",
+			"Ex, Logs are no longer being emitted...",
+			"Ex, The database is pegged at 100% CPU and is unresponsive...",
+			"Ex, The file-system is full and uploads are failing...",
+			"Ex, All API calls are being rejected..."
 		];
 
 		return options[ randRange( 1, options.len() ) ];
@@ -77,6 +71,9 @@
 	}
 
 
+	/**
+	* I get the list of priorities.
+	*/
 	private array function getPriorities() {
 
 		return priorityService.getPriorityByFilter();

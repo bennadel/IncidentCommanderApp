@@ -19,11 +19,15 @@
 	</head>
 	<body>
 
-		<cfmodule template="/client/main/tags/flashMessage.cfm">
+		<div go25jv class="wrapper">
 
-		<main>
-			#request.template.primaryContent#
-		</main>
+			<cfmodule template="/client/main/tags/flashMessage.cfm">
+
+			<main>
+				#request.template.primaryContent#
+			</main>
+
+		</div>
 
 		<cfmodule template="/client/main/tags/localDebugging.cfm">
 

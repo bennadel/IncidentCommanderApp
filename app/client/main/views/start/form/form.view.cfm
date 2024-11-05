@@ -6,7 +6,7 @@
 		</h1>
 
 		<p>
-			Don't panic. We'll get through this together. Start by telling us a little bit about what's going wrong with your application? You can edit this information at any time in the future.
+			<mark>Don't panic</mark> &mdash; we'll get through this together. Start with a brief description of what you're seeing in the application and then we'll go from there.
 		</p>
 
 		<cfmodule
@@ -28,7 +28,7 @@
 						type="text"
 						name="description"
 						value="#encodeForHtmlAttribute( form.description )#"
-						size="75"
+						placeholder="#encodeForHtmlAttribute( placeholder )#"
 						maxlength="1000"
 						class="ui-input"
 					/>
