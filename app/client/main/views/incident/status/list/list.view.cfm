@@ -97,7 +97,7 @@
 			</h2>
 
 			<p>
-				The most recent updates are listed first. If you want to share this timeline with your team, consider using the <a href="/index.cfm?event=incident.share&incidentToken=#encodeForUrl( request.context.incidentToken )#">shareable timeline</a> instead.
+				The most recent updates are listed first. If you want to share this timeline with your team, consider using the <a href="/index.cfm?event=incident.share&incidentToken=#encodeForUrl( request.context.incidentToken )#">shareable timeline</a>.
 			</p>
 
 			<cfloop array="#statuses#" index="status">

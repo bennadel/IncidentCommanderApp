@@ -47,7 +47,7 @@
 
 		// Default to the most recently-used stage.
 		form.stageID = statuses.len()
-			? statuses.last().stageID
+			? statuses.first().stageID
 			: stages.first().id
 		;
 
