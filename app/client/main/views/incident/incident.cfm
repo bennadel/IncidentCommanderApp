@@ -47,7 +47,7 @@
 		break;
 		default:
 			throw(
-				type = "App.InvalidLayout",
+				type = "InvalidLayout",
 				message = "Unknown layout type."
 			);
 		break;
