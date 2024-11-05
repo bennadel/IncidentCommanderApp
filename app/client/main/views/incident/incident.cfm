@@ -11,6 +11,9 @@
 	// This entire subsystem requires an incident.
 	request.incident = accessControl.getIncident( request.context.incidentToken );
 
+	// This subsystem allows for multiple templates.
+	request.template.layout = "default";
+
 	switch ( request.event[ 2 ] ) {
 		case "delete":
 			cfmodule( template = "./delete/delete.cfm" );
@@ -35,6 +38,19 @@
 		break;
 	}
 
-	cfmodule( template = "./common/layout.cfm" );
+	switch ( request.template.layout ) {
+		case "default":
+			cfmodule( template = "./common/layout/default/default.cfm" );
+		break;
+		case "json":
+			cfmodule( template = "./common/layout/json/json.cfm" );
+		break;
+		default:
+			throw(
+				type = "App.InvalidLayout",
+				message = "Unknown layout type."
+			);
+		break;
+	}
 
 </cfscript>

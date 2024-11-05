@@ -9,6 +9,8 @@
 	param name="request.template.statusText" type="string" default="OK";
 	param name="request.template.title" type="string" default="";
 	param name="request.template.primaryContent" type="string" default="";
+	param name="request.template.activeNavItem" type="string" default="";
+	param name="request.context.incidentToken" type="string";
 
 	// Override the response status code.
 	cfheader(
@@ -18,6 +20,6 @@
 	// Reset the output buffer.
 	cfcontent( type = "text/html; charset=utf-8" );
 
-	include "./layout.view.cfm";
+	include "./default.view.cfm";
 
 </cfscript>
