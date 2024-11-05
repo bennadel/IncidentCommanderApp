@@ -11,11 +11,21 @@
 	// ------------------------------------------------------------------------------- //
 
 	request.template.layout = "json";
-	request.template.filename = "incident.json";
-	request.template.primaryContent = getPayload( request.incident );
+	request.template.filename = getFilename( request.incident );
+	request.template.primaryContent = getPrimaryContent( request.incident );
 
 	// ------------------------------------------------------------------------------- //
 	// ------------------------------------------------------------------------------- //
+
+	/**
+	* I build the filename to be used as the JSON export.
+	*/
+	private string function getFilename( required struct incident ) {
+
+		return "incident-#dateFormat( incident.createdAt, 'yyyy-mm-dd' )#.json";
+
+	}
+
 
 	/**
 	* I build the export payload for the JSON export.
@@ -23,7 +33,7 @@
 	* Todo: Should this be moved to a workflow? Since this is a single file download, I'm
 	* not sure it merits any additional effort?
 	*/
-	private struct function getPayload( required struct incident ) {
+	private struct function getPrimaryContent( required struct incident ) {
 
 		var statuses = getStatuses( incident );
 		var stages = getStages();
