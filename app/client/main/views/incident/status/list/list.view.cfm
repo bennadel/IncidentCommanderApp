@@ -63,18 +63,22 @@
 				</label>
 				<div class="ui-field__content">
 					<p id="id-contentMarkdown--description">
-						The update content supports <a href="https://www.markdownguide.org/basic-syntax/" target="_blank">basic markdown formatting</a> such as bold (<code>**</code>), italic (<code>_</code>), bulleted lists, blockquotes (<code>&gt;</code>), and code blocks (<code>```</code>).
+						The update message supports <a href="https://www.markdownguide.org/basic-syntax/" target="_blank">basic markdown formatting</a> such as bold (<code>**</code>), italic (<code>_</code>), bulleted lists, blockquotes (<code>&gt;</code>), and code blocks (<code>```</code>).
 					</p>
 
 					<textarea
 						id="id-contentMarkdown"
-						aria-describedby="id-contentMarkdown--description"
+						aria-describedby="id-contentMarkdown--description id-contentMarkdown--note"
 						name="contentMarkdown"
 						@keydown.meta.enter="$el.form.submit()"
 						@keydown.ctrl.enter="$el.form.submit()"
 						maxlength="65535"
 						class="ui-textarea"
 						>#encodeForHtml( form.contentMarkdown )#</textarea>
+
+					<p id="id-contentMarkdown--note" class="ui-hint">
+						You can use <code>CMD+Enter</code> or <code>CTRL+Enter</code> to submit from the textarea.
+					</p>
 				</div>
 			</div>
 
@@ -87,35 +91,35 @@
 			</div>
 		</form>
 
-		<h2>
-			Previous Updates
-		</h2>
+		<article tcr65f class="all-updates">
+			<h2>
+				All Status Updates
+			</h2>
 
-		<dl>
+			<p>
+				The most recent updates are listed first. If you want to share this timeline with your team, consider using the <a href="/index.cfm?event=incident.share&incidentToken=#encodeForUrl( request.context.incidentToken )#">shareable timeline</a> instead.
+			</p>
+
 			<cfloop array="#statuses#" index="status">
-				<div>
-					<dt>
-						<p>
-							<strong>#dateFormat( status.createdAt, "dddd, mmmm d" )# at
-							#timeFormat( status.createdAt, "h:mmtt" )#</strong>
+				<section tcr65f class="update">
+					<h3 tcr65f class="update__header">
+						#encodeForHtml( stagesIndex[ status.stageID ].name )#:
+						#dateFormat( status.createdAt, "dddd, mmmm d" )# at
+						#timeFormat( status.createdAt, "h:mmtt" )#
+					</h3>
 
-							&middot;
+					<div tcr65f class="update__content u-break-word">
+						#status.contentHtml#
+
+						<div class="update-controls">
 							<a href="/index.cfm?event=incident.status.edit&incidentToken=#encodeForUrl( request.context.incidentToken )#&statusID=#encodeForUrl( status.id )#">Edit</a>
 							&middot;
 							<a href="/index.cfm?event=incident.status.delete&incidentToken=#encodeForUrl( request.context.incidentToken )#&statusID=#encodeForUrl( status.id )#">Delete</a>
-
-							<br />
-
-							<strong>Stage:</strong>
-							#encodeForHtml( stagesIndex[ status.stageID ].name )#
-						</p>
-					</dt>
-					<dd>
-						#status.contentHtml#
-					</dd>
-				</div>
+						</div>
+					</div>
+				</section>
 			</cfloop>
-		</dl>
+		</article>
 
 	</cfoutput>
 </cfsavecontent>

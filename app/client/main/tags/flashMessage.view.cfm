@@ -19,6 +19,11 @@
 					Your new incident has been opened. You can adjust the settings at any time.
 				</p>
 			</cfcase>
+			<cfcase value="incident.status.created">
+				<p>
+					Your status update has been posted.
+				</p>
+			</cfcase>
 			<cfcase value="incident.status.deleted">
 				<p>
 					Your status update has been deleted.

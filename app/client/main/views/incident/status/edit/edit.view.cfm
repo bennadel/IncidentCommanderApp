@@ -48,18 +48,22 @@
 				</label>
 				<div class="ui-field__content">
 					<p id="id-contentMarkdown--description">
-						The update content supports <a href="https://www.markdownguide.org/basic-syntax/" target="_blank">basic markdown formatting</a> such as bold (<code>**</code>), italic (<code>_</code>), bulleted lists, blockquotes (<code>&gt;</code>), and code blocks (<code>```</code>).
+						The update message supports <a href="https://www.markdownguide.org/basic-syntax/" target="_blank">basic markdown formatting</a> such as bold (<code>**</code>), italic (<code>_</code>), bulleted lists, blockquotes (<code>&gt;</code>), and code blocks (<code>```</code>).
 					</p>
 
 					<textarea
 						id="id-contentMarkdown"
-						aria-describedby="id-contentMarkdown--description"
+						aria-describedby="id-contentMarkdown--description id-contentMarkdown--note"
 						name="contentMarkdown"
 						@keydown.meta.enter="$el.form.submit()"
 						@keydown.ctrl.enter="$el.form.submit()"
 						maxlength="65535"
 						class="ui-textarea"
 						>#encodeForHtml( form.contentMarkdown )#</textarea>
+
+					<p id="id-contentMarkdown--note" class="ui-hint">
+						You can use <code>CMD+Enter</code> or <code>CTRL+Enter</code> to submit from the textarea.
+					</p>
 				</div>
 			</div>
 
