@@ -16,6 +16,8 @@ component
 	*/
 	public string function toHtml( required string markdown ) {
 
+		// Todo: use Jsoup to add target="_blank" to anchors.
+
 		return htmlSanitizer.sanitize( markdownParser.toHtml( markdown ) );
 
 	}

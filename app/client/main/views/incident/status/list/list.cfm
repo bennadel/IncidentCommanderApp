@@ -1,9 +1,10 @@
 <cfscript>
 
+	incidentSerializer = request.ioc.get( "core.lib.serializer.IncidentSerializer" );
 	incidentWorkflow = request.ioc.get( "core.lib.workflow.IncidentWorkflow" );
+	requestHelper = request.ioc.get( "client.main.lib.RequestHelper" );
 	stageService = request.ioc.get( "core.lib.model.StageService" );
 	statusService = request.ioc.get( "core.lib.model.StatusService" );
-	requestHelper = request.ioc.get( "client.main.lib.RequestHelper" );
 	ui = request.ioc.get( "client.main.lib.ViewHelper" );
 	utilities = request.ioc.get( "core.lib.util.Utilities" );
 
@@ -16,6 +17,7 @@
 	statuses = getStatuses( request.incident );
 	stages = getStages();
 	stagesIndex = getStagesIndex( stages );
+	slackContent = getSlackContent( request.incident );
 	title = "Status Updates";
 	errorMessage = "";
 
@@ -57,6 +59,16 @@
 
 	// ------------------------------------------------------------------------------- //
 	// ------------------------------------------------------------------------------- //
+
+	/**
+	* I get the Slack-compatible message for the given incident.
+	*/
+	private string function getSlackContent( required struct incident ) {
+
+		return incidentSerializer.serializeForSlack( incident.id );
+
+	}
+
 
 	/**
 	* I get the incident states.

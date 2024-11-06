@@ -91,6 +91,30 @@
 			</div>
 		</form>
 
+		<h2>
+			Copy/Paste Slack Message
+		</h2>
+
+		<form>
+			<p>
+				The following textarea contains a Slack-compatible, abbreviated insight into the current state of the incident.
+			</p>
+
+			<textarea
+				readonly
+				@click="$el.select()"
+				class="ui-textarea"
+				>#encodeForHtml( slackContent )#</textarea>
+
+			<div class="ui-form-buttons ui-row">
+				<span class="ui-row__item">
+					<button type="button" class="ui-button is-submit">
+						Copy Slack Message
+					</button>
+				</span>
+			</div>
+		</form>
+
 		<article tcr65f class="all-updates">
 			<h2>
 				All Status Updates
