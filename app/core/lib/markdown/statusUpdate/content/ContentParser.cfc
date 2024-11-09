@@ -4,8 +4,8 @@ component
 	{
 
 	// Define properties for dependency-injection.
-	property name="htmlSanitizer" ioc:type="core.lib.markdown.util.HtmlSanitizer";
-	property name="markdownParser" ioc:type="core.lib.markdown.util.MarkdownParser";
+	property name="htmlSanitizer" ioc:type="core.lib.markdown.statusUpdate.content.HtmlSanitizer";
+	property name="markdownParser" ioc:type="core.lib.markdown.statusUpdate.content.MarkdownParser";
 
 	// ---
 	// PUBLIC METHODS.
@@ -15,8 +15,6 @@ component
 	* I parse the given markdown into sanitized HTML. Illegal HTML is stripped-out.
 	*/
 	public string function toHtml( required string markdown ) {
-
-		// Todo: use Jsoup to add target="_blank" to anchors.
 
 		return htmlSanitizer.sanitize( markdownParser.toHtml( markdown ) );
 

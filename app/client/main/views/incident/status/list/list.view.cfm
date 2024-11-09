@@ -103,6 +103,7 @@
 			<textarea
 				readonly
 				@click="$el.select()"
+				@focus="$el.select()"
 				class="ui-textarea"
 				>#encodeForHtml( slackContent )#</textarea>
 
