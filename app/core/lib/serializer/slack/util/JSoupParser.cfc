@@ -4,7 +4,7 @@ component
 	{
 
 	// Define properties for dependency-injection.
-	property name="classloader" ioc:type="core.lib.serializer.slack.util.JSoupClassLoader";
+	property name="classloader" ioc:type="core.lib.classLoader.JSoupClassLoader";
 	property name="jsoup" ioc:skip memoryLeakDetector:skip;;
 
 	/**

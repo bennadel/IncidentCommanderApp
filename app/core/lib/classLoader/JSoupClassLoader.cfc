@@ -5,7 +5,7 @@ component
 
 	// Define properties for dependency-injection.
 	property name="classLoader" ioc:skip memoryLeakDetector:skip;
-	property name="classLoaderFactory" ioc:type="core.lib.ClassLoaderFactory";
+	property name="classLoaderFactory" ioc:type="core.lib.classLoader.ClassLoaderFactory";
 
 	/**
 	* I initialize the class loader factory.

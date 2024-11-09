@@ -4,7 +4,7 @@ component
 	{
 
 	// Define properties for dependency-injection.
-	property name="classLoader" ioc:type="core.lib.markdown.util.MarkdownParserClassLoader";
+	property name="classLoader" ioc:type="core.lib.classLoader.FlexmarkClassLoader";
 	property name="parser" ioc:skip;
 	property name="renderer" ioc:skip;
 
