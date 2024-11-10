@@ -91,30 +91,52 @@
 			</div>
 		</form>
 
-		<h2>
-			Copy/Paste Slack Message
-		</h2>
+		<article tcr65f class="slack-message">
 
-		<form>
-			<p>
-				The following textarea contains a Slack-compatible, abbreviated insight into the current state of the incident.
-			</p>
+			<h2>
+				Copy-Paste Slack Message
+			</h2>
 
-			<textarea
-				readonly
-				@click="$el.select()"
-				@focus="$el.select()"
-				class="ui-textarea"
-				>#encodeForHtml( slackContent )#</textarea>
+			<form x-data="tcr65f.SlackMessage" @submit.prevent="copyMessage()">
+				<div class="ui-field">
+					<label for="id-slackContent" class="ui-field__label">
+						Slack Message:
+					</label>
+					<div class="ui-field__content">
+						<p id="id-slackContent--description">
+							The following textarea contains a Slack-friendly abbreviated message with insight into the current state of the incident. It also contains a link to the shareable timeline. Dropping this message in Slack will help keep your team informed.
+						</p>
 
-			<div class="ui-form-buttons ui-row">
-				<span class="ui-row__item">
-					<button type="button" class="ui-button is-submit">
-						Copy Slack Message
-					</button>
-				</span>
-			</div>
-		</form>
+						<textarea
+							id="id-slackContent"
+							aria-describedby="id-slackContent--description"
+							readonly
+							x-ref="messageContent"
+							@click="$el.select()"
+							@focus="$el.select()"
+							class="ui-textarea"
+							>#encodeForHtml( slackContent )#</textarea>
+					</div>
+				</div>
+
+				<div class="ui-form-buttons ui-row">
+					<span class="ui-row__item">
+						<button type="submit" class="ui-button is-submit">
+							Copy Slack Message
+						</button>
+					</span>
+					<span
+						tcr65f
+						role="status"
+						aria-live="polite"
+						class="ui-row__item copy-success"
+						x-text="successMessage">
+						<!-- Will be rendered dynamically. -->
+					</span>
+				</div>
+			</form>
+
+		</article>
 
 		<article tcr65f class="all-updates">
 			<h2>
