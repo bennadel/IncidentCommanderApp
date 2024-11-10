@@ -13,18 +13,14 @@
 	title = errorResponse.title;
 	message = errorResponse.message;
 
+	request.template.statusCode = errorResponse.statusCode;
+	request.template.statusText = errorResponse.statusText;
 	request.template.title = title;
 	// Used to render the error in local development debugging.
 	request.lastProcessedError = attributes.error;
 
-	// Override the response status code.
-	cfheader(
-		statusCode = errorResponse.statusCode,
-		statusText = errorResponse.statusText
-	);
-	// Reset the output buffer.
-	cfcontent( type = "text/html; charset=utf-8" );
-
 	include "./error.view.cfm";
+
+	cfmodule( template = "./common/layout.cfm" );
 
 </cfscript>
