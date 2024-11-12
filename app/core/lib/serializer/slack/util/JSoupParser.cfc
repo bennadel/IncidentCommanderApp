@@ -5,7 +5,7 @@ component
 
 	// Define properties for dependency-injection.
 	property name="classloader" ioc:type="core.lib.classLoader.JSoupClassLoader";
-	property name="jsoup" ioc:skip memoryLeakDetector:skip;;
+	property name="jsoup" ioc:skip memoryLeakDetector:skip;
 
 	/**
 	* I initialize the class loader factory.
