@@ -1,11 +1,11 @@
 component
 	output = false
-	hint = "I provide a markdown to html parser."
+	hint = "I provide a markdown to html parser of incident-related content."
 	{
 
 	// Define properties for dependency-injection.
-	property name="htmlSanitizer" ioc:type="core.lib.markdown.statusUpdate.content.HtmlSanitizer";
-	property name="markdownParser" ioc:type="core.lib.markdown.statusUpdate.content.MarkdownParser";
+	property name="htmlSanitizer" ioc:type="core.lib.markdown.HtmlSanitizer";
+	property name="markdownParser" ioc:type="core.lib.markdown.MarkdownParser";
 
 	// ---
 	// PUBLIC METHODS.

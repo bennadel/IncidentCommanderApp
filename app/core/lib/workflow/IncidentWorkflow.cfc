@@ -6,8 +6,7 @@ component
 	// Define properties for dependency-injection.
 	property name="accessControl" ioc:type="core.lib.AccessControl";
 	property name="clock" ioc:type="core.lib.util.Clock";
-	property name="contentParser" ioc:type="core.lib.markdown.statusUpdate.content.ContentParser";
-	property name="descriptionParser" ioc:type="core.lib.markdown.incident.description.DescriptionParser";
+	property name="contentParser" ioc:type="core.lib.markdown.ContentParser";
 	property name="incidentService" ioc:type="core.lib.model.IncidentService";
 	property name="priorityService" ioc:type="core.lib.model.PriorityService";
 	property name="slugGenerator" ioc:type="core.lib.SlugGenerator";
@@ -88,7 +87,7 @@ component
 		required numeric priorityID
 		) {
 
-		var descriptionHtml = descriptionParser.toHtml( descriptionMarkdown );
+		var descriptionHtml = contentParser.toHtml( descriptionMarkdown );
 		var priority = priorityService.getPriority( priorityID );
 		var slug = slugGenerator.nextSlug();
 		var createdAt = clock.utcNow();
@@ -123,7 +122,7 @@ component
 
 		var incident = accessControl.getIncident( incidentToken );
 		var priority = priorityService.getPriority( priorityID );
-		var descriptionHtml = descriptionParser.toHtml( descriptionMarkdown );
+		var descriptionHtml = contentParser.toHtml( descriptionMarkdown );
 
 		incidentService.updateIncident(
 			id = incident.id,
