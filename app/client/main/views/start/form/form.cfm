@@ -9,7 +9,7 @@
 	// ------------------------------------------------------------------------------- //
 	// ------------------------------------------------------------------------------- //
 
-	param name="form.description" type="string" default="";
+	param name="form.descriptionMarkdown" type="string" default="";
 	param name="form.priorityID" type="numeric" default=0;
 
 	placeholder = getPlaceholder();
@@ -24,7 +24,7 @@
 		try {
 
 			incidentToken = incidentWorkflow.startIncident(
-				description = form.description.trim(),
+				descriptionMarkdown = form.descriptionMarkdown.trim(),
 				priorityID = val( form.priorityID )
 			);
 

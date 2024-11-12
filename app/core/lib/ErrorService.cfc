@@ -30,16 +30,28 @@ component
 			case "App.MethodNotAllowed":
 				return as405();
 			break;
-			case "App.Model.Incident.Description.Empty":
+			case "App.Model.Incident.DescriptionHtml.Empty":
 				return as422({
 					type: error.type,
-					message: "Your incident description is empty. Please provide a brief description so that your team has a sense of what is going wrong."
+					message: "Your incident description markdown could not be parsed into valid HTML. Please double-check your markdown and limit it to simple formatting directives."
 				});
 			break;
-			case "App.Model.Incident.Description.TooLong":
+			case "App.Model.Incident.DescriptionHtml.TooLong":
 				return as422({
 					type: error.type,
-					message: "Your incident description is too long. Please use a description that is less than 1,000 characters."
+					message: "Your incident description markdown resulted in HTML that is too long. Please limit your description to less than 65k characters."
+				});
+			break;
+			case "App.Model.Incident.DescriptionMarkdown.Empty":
+				return as422({
+					type: error.type,
+					message: "Your incident description markdown is empty. Please provide a brief description so that your team has a sense of what is going wrong."
+				});
+			break;
+			case "App.Model.Incident.DescriptionMarkdown.TooLong":
+				return as422({
+					type: error.type,
+					message: "Your incident description markdown is too long. Please limit your description to less than 65k characters."
 				});
 			break;
 			case "App.Model.Incident.NotFound":

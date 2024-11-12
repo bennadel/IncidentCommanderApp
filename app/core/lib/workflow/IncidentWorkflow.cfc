@@ -6,11 +6,12 @@ component
 	// Define properties for dependency-injection.
 	property name="accessControl" ioc:type="core.lib.AccessControl";
 	property name="clock" ioc:type="core.lib.util.Clock";
+	property name="contentParser" ioc:type="core.lib.markdown.statusUpdate.content.ContentParser";
+	property name="descriptionParser" ioc:type="core.lib.markdown.incident.description.DescriptionParser";
 	property name="incidentService" ioc:type="core.lib.model.IncidentService";
 	property name="priorityService" ioc:type="core.lib.model.PriorityService";
 	property name="slugGenerator" ioc:type="core.lib.SlugGenerator";
 	property name="stageService" ioc:type="core.lib.model.StageService";
-	property name="contentParser" ioc:type="core.lib.markdown.statusUpdate.content.ContentParser";
 	property name="statusService" ioc:type="core.lib.model.StatusService";
 
 	// ---
@@ -83,17 +84,19 @@ component
 	* are being returned from this method as a compound token.
 	*/
 	public string function startIncident(
-		required string description,
+		required string descriptionMarkdown,
 		required numeric priorityID
 		) {
 
+		var descriptionHtml = descriptionParser.toHtml( descriptionMarkdown );
 		var priority = priorityService.getPriority( priorityID );
 		var slug = slugGenerator.nextSlug();
 		var createdAt = clock.utcNow();
 
 		var incidentID = incidentService.createIncident(
 			slug = slug,
-			description = description,
+			descriptionMarkdown = descriptionMarkdown,
+			descriptionHtml = descriptionHtml,
 			ownership = "",
 			priorityID = priority.id,
 			ticketUrl = "",
@@ -111,7 +114,7 @@ component
 	*/
 	public void function updateIncident(
 		required string incidentToken,
-		required string description,
+		required string descriptionMarkdown,
 		required string ownership,
 		required numeric priorityID,
 		required string ticketUrl,
@@ -120,10 +123,12 @@ component
 
 		var incident = accessControl.getIncident( incidentToken );
 		var priority = priorityService.getPriority( priorityID );
+		var descriptionHtml = descriptionParser.toHtml( descriptionMarkdown );
 
 		incidentService.updateIncident(
 			id = incident.id,
-			description = description,
+			descriptionMarkdown = descriptionMarkdown,
+			descriptionHtml = descriptionHtml,
 			ownership = ownership,
 			priorityID = priority.id,
 			ticketUrl = ticketUrl,

@@ -22,9 +22,7 @@
 					Incident Description:
 				</div>
 				<div class="ui-field__content">
-					<p>
-						#encodeForHtml( request.incident.description )#
-					</p>
+					#request.incident.descriptionHtml#
 				</div>
 			</div>
 

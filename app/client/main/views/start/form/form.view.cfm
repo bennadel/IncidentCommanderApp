@@ -6,7 +6,7 @@
 		</h1>
 
 		<p>
-			<mark>Don't panic</mark> &mdash; we'll get through this together. Start with a brief description of what you're seeing in the application and then we'll go from there.
+			<mark>Don't panic</mark> &mdash; we'll get through this together. Start with a brief description of what issues you're seeing in the application and then we'll go from there.
 		</p>
 
 		<cfmodule
@@ -19,19 +19,25 @@
 			<cfmodule template="/client/main/tags/xsrf.cfm">
 
 			<div class="ui-field">
-				<label for="id-description" class="ui-field__label">
+				<label for="id-descriptionMarkdown" class="ui-field__label">
 					Summary Description:
 				</label>
 				<div class="ui-field__content">
-					<input
-						id="id-description"
-						type="text"
-						name="description"
-						value="#encodeForHtmlAttribute( form.description )#"
+					<p id="id-descriptionMarkdown--description">
+						The description supports <a href="https://www.markdownguide.org/basic-syntax/" target="_blank">basic markdown formatting</a> such as bold (<code>**</code>), italic (<code>_</code>), bulleted lists, blockquotes (<code>&gt;</code>), and code blocks (<code>```</code>).
+					</p>
+
+					<textarea
+						id="id-descriptionMarkdown"
+						aria-describedby="id-descriptionMarkdown--description"
+						name="descriptionMarkdown"
 						placeholder="#encodeForHtmlAttribute( placeholder )#"
-						maxlength="1000"
-						class="ui-input"
-					/>
+						x-data
+						@keydown.meta.enter="$el.form.submit()"
+						@keydown.ctrl.enter="$el.form.submit()"
+						maxlength="65535"
+						class="ui-textarea"
+						>#encodeForHtml( form.descriptionMarkdown )#</textarea>
 				</div>
 			</div>
 

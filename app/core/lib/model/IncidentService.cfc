@@ -16,7 +16,8 @@ component
 	*/
 	public numeric function createIncident(
 		required string slug,
-		required string description,
+		required string descriptionMarkdown,
+		required string descriptionHtml,
 		required string ownership,
 		required numeric priorityID,
 		required string ticketUrl,
@@ -25,7 +26,8 @@ component
 		) {
 
 		slug = validation.testSlug( slug );
-		description = validation.testDescription( description );
+		descriptionMarkdown = validation.testDescriptionMarkdown( descriptionMarkdown );
+		descriptionHtml = validation.testDescriptionHtml( descriptionHtml );
 		ownership = validation.testOwnership( ownership );
 		priorityID = validation.testPriorityID( priorityID );
 		ticketUrl = validation.testTicketUrl( ticketUrl );
@@ -34,7 +36,8 @@ component
 
 		var id = gateway.createIncident(
 			slug = slug,
-			description = description,
+			descriptionMarkdown = descriptionMarkdown,
+			descriptionHtml = descriptionHtml,
 			ownership = ownership,
 			priorityID = priorityID,
 			ticketUrl = ticketUrl,
@@ -82,7 +85,8 @@ component
 	*/
 	public void function updateIncident(
 		required numeric id,
-		string description,
+		string descriptionMarkdown,
+		string descriptionHtml,
 		string ownership,
 		numeric priorityID,
 		string ticketUrl,
@@ -91,9 +95,15 @@ component
 
 		var incident = getIncident( id );
 
-		if ( arguments.keyExists( "description" ) ) {
+		if ( arguments.keyExists( "descriptionMarkdown" ) ) {
 
-			incident.description = validation.testDescription( description );
+			incident.descriptionMarkdown = validation.testDescriptionMarkdown( descriptionMarkdown );
+
+		}
+
+		if ( arguments.keyExists( "descriptionHtml" ) ) {
+
+			incident.descriptionHtml = validation.testDescriptionHtml( descriptionHtml );
 
 		}
 
@@ -123,7 +133,8 @@ component
 
 		gateway.updateIncident(
 			id = incident.id,
-			description = incident.description,
+			descriptionMarkdown = incident.descriptionMarkdown,
+			descriptionHtml = incident.descriptionHtml,
 			ownership = incident.ownership,
 			priorityID = incident.priorityID,
 			ticketUrl = incident.ticketUrl,

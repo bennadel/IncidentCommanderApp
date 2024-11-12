@@ -5,7 +5,8 @@
 	<cffunction name="createIncident" access="public" returnType="numeric">
 
 		<cfargument name="slug" type="string" required="true" />
-		<cfargument name="description" type="string" required="true" />
+		<cfargument name="descriptionMarkdown" type="string" required="true" />
+		<cfargument name="descriptionHtml" type="string" required="true" />
 		<cfargument name="ownership" type="string" required="true" />
 		<cfargument name="priorityID" type="numeric" required="true" />
 		<cfargument name="ticketUrl" type="string" required="true" />
@@ -18,7 +19,8 @@
 				incident
 			SET
 				slug = <cfqueryparam value="#slug#" cfsqltype="cf_sql_varchar" />,
-				description = <cfqueryparam value="#description#" cfsqltype="cf_sql_varchar" />,
+				descriptionMarkdown = <cfqueryparam value="#descriptionMarkdown#" cfsqltype="cf_sql_varchar" />,
+				descriptionHtml = <cfqueryparam value="#descriptionHtml#" cfsqltype="cf_sql_varchar" />,
 				ownership = <cfqueryparam value="#ownership#" cfsqltype="cf_sql_varchar" />,
 				priorityID = <cfqueryparam value="#priorityID#" cfsqltype="cf_sql_tinyint" />,
 				ticketUrl = <cfqueryparam value="#ticketUrl#" cfsqltype="cf_sql_varchar" />,
@@ -81,7 +83,8 @@
 			SELECT
 				id,
 				slug,
-				description,
+				descriptionMarkdown,
+				descriptionHtml,
 				ownership,
 				priorityID,
 				ticketUrl,
@@ -115,7 +118,8 @@
 	<cffunction name="updateIncident" access="public" returnType="void">
 
 		<cfargument name="id" type="numeric" required="true" />
-		<cfargument name="description" type="string" required="false" />
+		<cfargument name="descriptionMarkdown" type="string" required="false" />
+		<cfargument name="descriptionHtml" type="string" required="false" />
 		<cfargument name="ownership" type="string" required="false" />
 		<cfargument name="priorityID" type="numeric" required="false" />
 		<cfargument name="ticketUrl" type="string" required="false" />
@@ -126,8 +130,12 @@
 			UPDATE
 				incident
 			SET
-				<cfif arguments.keyExists( "description" )>
-					description = <cfqueryparam value="#description#" cfsqltype="cf_sql_varchar" />,
+				<cfif arguments.keyExists( "descriptionMarkdown" )>
+					descriptionMarkdown = <cfqueryparam value="#descriptionMarkdown#" cfsqltype="cf_sql_varchar" />,
+				</cfif>
+
+				<cfif arguments.keyExists( "descriptionHtml" )>
+					descriptionHtml = <cfqueryparam value="#descriptionHtml#" cfsqltype="cf_sql_varchar" />,
 				</cfif>
 
 				<cfif arguments.keyExists( "ownership" )>

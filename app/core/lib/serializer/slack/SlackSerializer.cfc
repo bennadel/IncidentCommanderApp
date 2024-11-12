@@ -23,6 +23,7 @@ component
 			? incident.statuses.last().stage
 			: "Investigating"
 		;
+		var descriptionText = getDescriptionText( incident.descriptionHtml );
 
 		// Todo: We should treat the description like a mini markdown field since it may
 		// contain URLs. Slack will auto-link these. But, Slack is very generous about the
@@ -30,7 +31,7 @@ component
 		// by a known TLD will be auto-linked). This is likely even more generous than the
 		// markdown parser will do. It's a sticky situation. Punting on it for now.
 		var lines = [
-			"*Incident Description*: #incident.description#",
+			"*Incident Description*: #descriptionText#",
 			"*Priority*: #incident.priority#",
 			"*Video URL*: #videoText#",
 			"*Status*: #statusText#",
@@ -74,6 +75,33 @@ component
 	// ---
 	// PRIVATE METHODS.
 	// ---
+
+	/**
+	* I normalize the incident description into a small text snippet.
+	* 
+	* Todo: For the MVP, we're just gonna get the text content. In the future, I'd like to
+	* be smarter about how I serialize this stuff, allowing for some formatting. JSoup
+	* should allow us to do this.
+	*/
+	private string function getDescriptionText( required string descriptionHtml ) {
+
+		var dom = jsoupParser.parseFragment( descriptionHtml );
+
+		replaceAnchorsWithEscapedHref( dom );
+
+		var descriptionText = dom.text();
+		var maxLength = 500;
+
+		if ( descriptionText.len() > maxLength ) {
+
+			descriptionText = ( descriptionText.left( maxLength ) & "..." );
+
+		}
+
+		return descriptionText;
+
+	}
+
 
 	/**
 	* I normalize the status update into a small text snippet.

@@ -15,9 +15,7 @@
 					Summary Description:
 				</dt>
 				<dd>
-					<p>
-						#encodeForHtml( request.incident.description )#
-					</p>
+					#request.incident.descriptionHtml#
 				</dd>
 			</div>
 			<div>

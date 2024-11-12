@@ -43,7 +43,8 @@
 
 		return [
 			"token": "#incident.id#-#incident.slug#",
-			"description": incident.description,
+			"descriptionMarkdown": incident.descriptionMarkdown,
+			"descriptionHtml": incident.descriptionHtml,
 			"ownership": incident.ownership,
 			"priority": [
 				"name": prioritiesIndex[ incident.priorityID ].name,

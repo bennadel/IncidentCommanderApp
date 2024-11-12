@@ -23,23 +23,47 @@ component
 	/**
 	* I validate and return the normalized value.
 	*/
-	public string function testDescription( required string description ) {
+	public string function testDescriptionHtml( required string descriptionHtml ) {
 
-		description = toString( description ).trim();
+		descriptionHtml = toString( descriptionHtml ).trim();
 
-		if ( ! description.len() ) {
+		if ( ! descriptionHtml.len() ) {
 
-			throw( type = "App.Model.Incident.Description.Empty" );
-
-		}
-
-		if ( description.len() > 1000 ) {
-
-			throw( type = "App.Model.Incident.Description.TooLong" );
+			throw( type = "App.Model.Incident.DescriptionHtml.Empty" );
 
 		}
 
-		return description;
+		if ( descriptionHtml.len() > 65535 ) {
+
+			throw( type = "App.Model.Incident.DescriptionHtml.TooLong" );
+
+		}
+
+		return descriptionHtml;
+
+	}
+
+
+	/**
+	* I validate and return the normalized value.
+	*/
+	public string function testDescriptionMarkdown( required string descriptionMarkdown ) {
+
+		descriptionMarkdown = toString( descriptionMarkdown ).trim();
+
+		if ( ! descriptionMarkdown.len() ) {
+
+			throw( type = "App.Model.Incident.DescriptionMarkdown.Empty" );
+
+		}
+
+		if ( descriptionMarkdown.len() > 65535 ) {
+
+			throw( type = "App.Model.Incident.DescriptionMarkdown.TooLong" );
+
+		}
+
+		return descriptionMarkdown;
 
 	}
 

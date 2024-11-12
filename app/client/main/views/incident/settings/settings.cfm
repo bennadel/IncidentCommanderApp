@@ -8,7 +8,7 @@
 	// ------------------------------------------------------------------------------- //
 	// ------------------------------------------------------------------------------- //
 
-	param name="form.description" type="string" default="";
+	param name="form.descriptionMarkdown" type="string" default="";
 	param name="form.ownership" type="string" default="";
 	param name="form.priorityID" type="numeric" default=0;
 	param name="form.ticketUrl" type="string" default="";
@@ -27,7 +27,7 @@
 
 			incidentWorkflow.updateIncident(
 				incidentToken = request.context.incidentToken,
-				description = form.description.trim(),
+				descriptionMarkdown = form.descriptionMarkdown.trim(),
 				ownership = form.ownership.trim(),
 				priorityID = val( form.priorityID ),
 				ticketUrl = form.ticketUrl.trim(),
@@ -48,7 +48,7 @@
 
 	} else {
 
-		form.description = request.incident.description;
+		form.descriptionMarkdown = request.incident.descriptionMarkdown;
 		form.ownership = request.incident.ownership;
 		form.priorityID = request.incident.priorityID;
 		form.ticketUrl = request.incident.ticketUrl;

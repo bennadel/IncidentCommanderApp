@@ -18,19 +18,23 @@
 			<cfmodule template="/client/main/tags/xsrf.cfm">
 
 			<div class="ui-field">
-				<label for="id-description" class="ui-field__label">
+				<label for="id-descriptionMarkdown" class="ui-field__label">
 					Summary Description:
 				</label>
 				<div class="ui-field__content">
-					<input
-						id="id-description"
-						type="text"
-						name="description"
-						value="#encodeForHtmlAttribute( form.description )#"
-						size="75"
-						maxlength="1000"
-						class="ui-input"
-					/>
+					<p id="id-descriptionMarkdown--description">
+						The description supports <a href="https://www.markdownguide.org/basic-syntax/" target="_blank">basic markdown formatting</a> such as bold (<code>**</code>), italic (<code>_</code>), bulleted lists, blockquotes (<code>&gt;</code>), and code blocks (<code>```</code>).
+					</p>
+
+					<textarea
+						id="id-descriptionMarkdown"
+						aria-describedby="id-descriptionMarkdown--description"
+						name="descriptionMarkdown"
+						@keydown.meta.enter="$el.form.submit()"
+						@keydown.ctrl.enter="$el.form.submit()"
+						maxlength="65535"
+						class="ui-textarea"
+						>#encodeForHtml( form.descriptionMarkdown )#</textarea>
 				</div>
 			</div>
 

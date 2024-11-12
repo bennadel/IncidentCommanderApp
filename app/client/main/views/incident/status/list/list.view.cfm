@@ -15,17 +15,6 @@
 
 			<div class="ui-field">
 				<div class="ui-field__label">
-					Incident Description:
-				</div>
-				<div class="ui-field__content">
-					<p>
-						#encodeForHtml( request.incident.description )#
-					</p>
-				</div>
-			</div>
-
-			<div class="ui-field">
-				<div class="ui-field__label">
 					Video Conference Url:
 				</div>
 				<div class="ui-field__content">
@@ -166,6 +155,12 @@
 					</div>
 				</section>
 			</cfloop>
+
+			<cfif ! statuses.len()>
+				<p>
+					<em>Stay calm - no updates have been provided yet.</em>
+				</p>
+			</cfif>
 		</article>
 
 	</cfoutput>

@@ -2,25 +2,14 @@
 CREATE TABLE `incident` (
 	`id` bigint unsigned NOT NULL AUTO_INCREMENT,
 	`slug` varchar(255) NOT NULL,
-	`description` varchar(1000) NOT NULL,
+	`descriptionMarkdown` text NOT NULL,
+	`descriptionHtml` text NOT NULL,
 	`ownership` varchar(50) NOT NULL,
 	`priorityID` tinyint unsigned NOT NULL,
-	`stageID` tinyint unsigned NOT NULL,
 	`ticketUrl` varchar(300) NOT NULL,
 	`videoUrl` varchar(300) NOT NULL,
 	`createdAt` datetime NOT NULL,
 	PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
-CREATE TABLE `status_update` (
-	`id` bigint unsigned NOT NULL AUTO_INCREMENT,
-	`incidentID` bigint unsigned NOT NULL,
-	`stageID` tinyint unsigned NOT NULL,
-	`contentMarkdown` text NOT NULL,
-	`contentHtml` text NOT NULL,
-	`createdAt` datetime DEFAULT NULL,
-	PRIMARY KEY (`id`),
-	KEY `byIncident` (`incidentID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 CREATE TABLE `priority` (
@@ -85,3 +74,14 @@ INSERT INTO `stage` (
 	4,
 	'Resolved'
 );
+
+CREATE TABLE `status_update` (
+	`id` bigint unsigned NOT NULL AUTO_INCREMENT,
+	`incidentID` bigint unsigned NOT NULL,
+	`stageID` tinyint unsigned NOT NULL,
+	`contentMarkdown` text NOT NULL,
+	`contentHtml` text NOT NULL,
+	`createdAt` datetime DEFAULT NULL,
+	PRIMARY KEY (`id`),
+	KEY `byIncident` (`incidentID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

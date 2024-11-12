@@ -45,7 +45,7 @@ component
 
 		return {
 			url: "#config.site.url#/index.cfm?event=incident.share&incidentToken=#encodeForUrl( incidentToken )#",
-			description: incident.description,
+			descriptionHtml: incident.descriptionHtml,
 			priority: prioritiesIndex[ incident.priorityID ].name,
 			videoUrl: incident.videoUrl,
 			statuses: statuses.map(
