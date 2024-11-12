@@ -165,6 +165,13 @@ component
 			case "App.NotFound":
 				return as404();
 			break;
+			case "App.RateLimit.TooManyRequests":
+				return(
+					as429({
+						type: error.type
+					})
+				);
+			break;
 			case "App.Routing.InvalidEvent":
 			case "App.Routing.Start.InvalidEvent":
 			case "App.Routing.Incident.InvalidEvent":

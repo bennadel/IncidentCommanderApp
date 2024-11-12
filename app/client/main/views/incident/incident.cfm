@@ -1,12 +1,23 @@
 <cfscript>
 
 	accessControl = request.ioc.get( "core.lib.AccessControl" );
+	rateLimiter = request.ioc.get( "core.lib.RateLimiter" );
+	requestMetadata = request.ioc.get( "core.lib.RequestMetadata" );
 
 	// ------------------------------------------------------------------------------- //
 	// ------------------------------------------------------------------------------- //
 
 	param name="request.event[ 2 ]" type="string" default="status";
 	param name="request.context.incidentToken" type="string" default="";
+
+	rateLimiter.testRequest(
+		featureID = "incident-by-all",
+		windowID = "all"
+	);
+	rateLimiter.testRequest(
+		featureID = "incident-by-ip",
+		windowID = requestMetadata.getIpAddress()
+	);
 
 	// This entire subsystem requires an incident.
 	request.incident = accessControl.getIncident( request.context.incidentToken );

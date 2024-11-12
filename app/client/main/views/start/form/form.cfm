@@ -2,7 +2,9 @@
 
 	incidentWorkflow = request.ioc.get( "core.lib.workflow.IncidentWorkflow" );
 	priorityService = request.ioc.get( "core.lib.model.PriorityService" );
+	rateLimiter = request.ioc.get( "core.lib.RateLimiter" );
 	requestHelper = request.ioc.get( "client.main.lib.RequestHelper" );
+	requestMetadata = request.ioc.get( "core.lib.RequestMetadata" );
 	ui = request.ioc.get( "client.main.lib.ViewHelper" );
 	xsrfService = request.ioc.get( "client.main.lib.XsrfService" );
 
@@ -22,6 +24,11 @@
 	if ( form.submitted ) {
 
 		try {
+
+			rateLimiter.testRequest(
+				featureID = "start-by-ip",
+				windowID = requestMetadata.getIpAddress()
+			);
 
 			incidentToken = incidentWorkflow.startIncident(
 				descriptionMarkdown = form.descriptionMarkdown.trim(),
