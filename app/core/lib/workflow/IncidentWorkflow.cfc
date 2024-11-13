@@ -8,6 +8,7 @@ component
 	property name="clock" ioc:type="core.lib.util.Clock";
 	property name="contentParser" ioc:type="core.lib.markdown.ContentParser";
 	property name="incidentService" ioc:type="core.lib.model.IncidentService";
+	property name="logger" ioc:type="core.lib.Logger";
 	property name="priorityService" ioc:type="core.lib.model.PriorityService";
 	property name="screenshotService" ioc:type="core.lib.model.ScreenshotService";
 	property name="screenshotValidation" ioc:type="core.lib.model.ScreenshotValidation";
@@ -256,16 +257,26 @@ component
 		// Validate the file size. Not that the ColdFusion server has already allowed the
 		// file to be uploaded to the server; but, we're going to validate the size before
 		// we process it any further. If we need to hard-block larger files, that has to
-		// be done at the server administration level (probably because it's actually
-		// being implemented at the Tomcat configuration level, I'm guessing).
-		if ( getFileInfo( transientFilePath ).size > maxFilesize ) {
+		// be done at the server administration level (probably - I'm guessing - because
+		// it's actually being implemented at the Tomcat configuration layer).
+		var fileInfo = getFileInfo( transientFilePath );
+
+		// The ColdFusion server doesn't inherently block zero-length files.
+		if ( ! fileInfo.size ) {
+
+			fileDelete( transientFilePath );
+			screenshotValidation.throwScreenshotEmptyError();
+
+		}
+
+		if ( fileInfo.size > maxFilesize ) {
 
 			fileDelete( transientFilePath );
 			screenshotValidation.throwScreenshotTooLargeError();
 
 		}
 
-		// When we up load the file, were going to first upload it into a local temp
+		// When we upload the file, were going to first upload it into a local temp
 		// directory so that we can get the metadata. Then, we're going to copy it into an
 		// incident-based directory.
 		var tempDirectoryPath = expandPath( "/upload/temp" );
@@ -280,13 +291,31 @@ component
 
 		// Note: This will throw an error if the file doesn't adhere to one of the given
 		// mime types; but, in the UI, we're limiting the types that can be selected so
-		// this check here shouldn't throw an error (and is here for security).
-		var results = fileUpload(
-			destination = tempDirectoryPath,
-			fileField = fileField,
-			mimeType = "image/png,image/jpg,image/jpeg",
-			onConflict = "makeUnique"
-		);
+		// this check here shouldn't throw an error. That said, users often shoot
+		// themselves in the foot. So, a try/catch will help shed light on any confusing
+		// actions that the user is taking.
+		try {
+
+			var results = fileUpload(
+				destination = tempDirectoryPath,
+				fileField = fileField,
+				mimeType = "image/png, image/jpg, image/jpeg", // Needed for "strict".
+				allowedExtensions = ".png, .jpg, .jpeg",       // Needed to override global block-list.
+				onConflict = "makeUnique"
+			);
+
+		} catch ( coldfusion.tagext.io.FileUtils$InvalidUploadTypeException error ) {
+
+			logger.logException( error );
+			// Note: It would normally be considered a bad practice to BOTH log an error
+			// and then rethrow it (where it will presumably be logged again). However, in
+			// this case, since the root error is likely an accidental user-error, I want
+			// to the log them both so that I can examine the root error to see if there's
+			// anyway I could have better handled the problem. If ColdFusion had a nicer
+			// way of wrapping "cause" errors, I would have used that.
+			screenshotValidation.throwScreenshotExtMismatchError();
+
+		}
 
 		try {
 

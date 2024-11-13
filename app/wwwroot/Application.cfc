@@ -27,6 +27,9 @@ component
 	// Stop ColdFusion from replacing "<script>" tags with "InvalidTag". This doesn't
 	// really help us out.
 	this.scriptProtect = "none";
+	// Block all file extensions by default. This will require each fileUpload() call to
+	// have an explicit set of allow-listed mime-types.
+	this.blockedExtForFileUpload = "*";
 
 	// CAUTION: We use this directory value to both load configuration files and to setup
 	// mappings. As such, let's define it as the first thing we do.

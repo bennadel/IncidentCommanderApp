@@ -114,6 +114,18 @@ component
 					message: "The priority you requested cannot be found."
 				});
 			break;
+			case "App.Model.Screenshot.Empty":
+				return as422({
+					type: error.type,
+					message: "Your screenshot file appears to be empty (zero bytes)."
+				});
+			break;
+			case "App.Model.Screenshot.ExtMismatch":
+				return as422({
+					type: error.type,
+					message: "Your screenshot file doesn't appear to be an image. Please make sure that you're uploading a compatible PNG or JPEG image."
+				});
+			break;
 			case "App.Model.Screenshot.NotFound":
 				return as404({
 					type: error.type,

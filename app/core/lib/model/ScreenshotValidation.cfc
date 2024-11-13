@@ -74,6 +74,26 @@ component
 
 
 	/**
+	* I throw a screenshot empty error.
+	*/
+	public void function throwScreenshotEmptyError() {
+
+		throw( type = "App.Model.Screenshot.Empty" );
+
+	}
+
+
+	/**
+	* I throw a screenshot extension / mimeType mismatch error.
+	*/
+	public void function throwScreenshotExtMismatchError() {
+
+		throw( type = "App.Model.Screenshot.ExtMismatch" );
+
+	}
+
+
+	/**
 	* I throw a screenshot not found error.
 	*/
 	public void function throwScreenshotNotFoundError() {
