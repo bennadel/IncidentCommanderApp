@@ -245,6 +245,19 @@ component
 		// gives us a chance to validate the file-size.
 		var transientFilePath = form[ fileField ];
 
+		// As a security consideration, the very first thing we want to do is make sure
+		// that the file does not have ANY execute permissions. We're going to be locking
+		// the file down to image types; but, this is an important precaution.
+		// --
+		// Note: this is for *nix operating systems - I don't think it matters for Windows
+		// operating systems.
+		fileSetAccessMode( transientFilePath, "444" );
+
+		// Validate the file size. Not that the ColdFusion server has already allowed the
+		// file to be uploaded to the server; but, we're going to validate the size before
+		// we process it any further. If we need to hard-block larger files, that has to
+		// be done at the server administration level (probably because it's actually
+		// being implemented at the Tomcat configuration level, I'm guessing).
 		if ( getFileInfo( transientFilePath ).size > maxFilesize ) {
 
 			fileDelete( transientFilePath );
