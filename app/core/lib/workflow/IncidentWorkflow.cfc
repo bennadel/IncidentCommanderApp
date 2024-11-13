@@ -246,6 +246,19 @@ component
 		// gives us a chance to validate the file-size.
 		var transientFilePath = form[ fileField ];
 
+		// Make sure the transient file is located in the temp directory. This is where it
+		// will be if the system is running as a file upload. However, if the file is
+		// located in a different directory, or if it contains path navigation elements
+		// such as ("../"), then it might be a malicious request.
+		if ( getDirectoryFromPath( getCanonicalPath( transientFilePath ) ) != getTempDirectory() ) {
+
+			throw(
+				type = "SuspicousTempFile",
+				message = "Temp file should be in temp directory."
+			);
+
+		}
+
 		// As a security consideration, the very first thing we want to do is make sure
 		// that the file does not have ANY execute permissions. We're going to be locking
 		// the file down to image types; but, this is an important precaution.
