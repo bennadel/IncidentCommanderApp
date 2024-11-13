@@ -40,6 +40,7 @@ component
 		"/config": "#this.wwwroot#../config",
 		"/core": "#this.wwwroot#../core",
 		"/javaloader": "#this.wwwroot#../core/vendor/javaLoader",
+		"/upload": "#this.wwwroot#../upload",
 		"/wwwroot": this.wwwroot
 	};
 

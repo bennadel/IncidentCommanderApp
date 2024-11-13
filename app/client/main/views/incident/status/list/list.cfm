@@ -13,6 +13,7 @@
 
 	param name="form.stageID" type="numeric" default=0;
 	param name="form.contentMarkdown" type="string" default="";
+	param name="form.screenshotFile" type="string" default="";
 
 	statuses = getStatuses( request.incident );
 	stages = getStages();
@@ -30,7 +31,8 @@
 			incidentWorkflow.addStatus(
 				incidentToken = request.context.incidentToken,
 				stageID = val( form.stageID ),
-				contentMarkdown = form.contentMarkdown.trim()
+				contentMarkdown = form.contentMarkdown.trim(),
+				screenshotFormField = "screenshotFile"
 			);
 
 			requestHelper.goto([

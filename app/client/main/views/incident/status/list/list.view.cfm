@@ -10,7 +10,10 @@
 			message="#errorMessage#"
 		/>
 
-		<form method="post" action="/index.cfm?event=#encodeForUrl( request.context.event )#&incidentToken=#encodeForUrl( request.context.incidentToken )#">
+		<form
+			method="post"
+			action="/index.cfm?event=#encodeForUrl( request.context.event )#&incidentToken=#encodeForUrl( request.context.incidentToken )#"
+			enctype="multipart/form-data">
 			<cfmodule template="/client/main/tags/xsrf.cfm">
 
 			<div class="ui-field">
@@ -68,6 +71,26 @@
 					<p id="id-contentMarkdown--note" class="ui-hint">
 						You can use <code>CMD+Enter</code> or <code>CTRL+Enter</code> to submit from the textarea.
 					</p>
+				</div>
+			</div>
+
+			<div class="ui-field">
+				<label for="id-screenshotFile" class="ui-field__label">
+					Screenshot Image:
+				</label>
+				<div class="ui-field__content">
+					<p id="id-screenshotFile--description">
+						You can upload a PNG or JPEG image to help clarify your status update.
+					</p>
+
+					<input
+						id="id-screenshotFile"
+						aria-describedby="id-screenshotFile--description"
+						type="file"
+						name="screenshotFile"
+						value="#encodeForHtmlAttribute( form.screenshotFile )#"
+						accept=".png,.jpg,.jpeg"
+					/>
 				</div>
 			</div>
 

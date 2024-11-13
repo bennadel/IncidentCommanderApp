@@ -114,6 +114,18 @@ component
 					message: "The priority you requested cannot be found."
 				});
 			break;
+			case "App.Model.Screenshot.NotFound":
+				return as404({
+					type: error.type,
+					message: "The screenshot you requested cannot be found."
+				});
+			break;
+			case "App.Model.Screenshot.TooLarge":
+				return as422({
+					type: error.type,
+					message: "Your screenshot image is larger than the 3MB filesize limit. Please export your image at a smaller resolution."
+				});
+			break;
 			case "App.Model.Stage.NotFound":
 				return as404({
 					type: error.type,

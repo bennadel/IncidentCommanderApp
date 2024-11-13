@@ -49,6 +49,17 @@ INSERT INTO `priority` (
 	'Minimal impact; cosmetic issues or requests with no immediate effect on functionality. Addressed as resources allow.'
 );
 
+CREATE TABLE `screenshot` (
+	`id` bigint unsigned NOT NULL AUTO_INCREMENT,
+	`incidentID` bigint unsigned NOT NULL,
+	`statusID` bigint unsigned NOT NULL,
+	`mimeType` varchar(50) NOT NULL,
+	`createdAt` datetime NOT NULL,
+	PRIMARY KEY (`id`),
+	KEY `byIncident` (`incidentID`),
+	KEY `byStatus` (`statusID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
 CREATE TABLE `stage` (
 	`id` tinyint unsigned NOT NULL,
 	`name` varchar(50) NOT NULL,

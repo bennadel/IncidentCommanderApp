@@ -6,6 +6,8 @@ component
 	// Define properties for dependency-injection.
 	property name="incidentService" ioc:type="core.lib.model.IncidentService";
 	property name="incidentValidation" ioc:type="core.lib.model.IncidentValidation";
+	property name="screenshotService" ioc:type="core.lib.model.ScreenshotService";
+	property name="screenshotValidation" ioc:type="core.lib.model.ScreenshotValidation";
 	property name="statusService" ioc:type="core.lib.model.StatusService";
 	property name="statusValidation" ioc:type="core.lib.model.StatusValidation";
 
@@ -37,6 +39,28 @@ component
 
 
 	/**
+	* I get the screenshot with the given ID and assert ownership under given incident.
+	*/
+	public struct function getScreenshot(
+		required struct incident,
+		required numeric screenshotID
+		) {
+
+		var screenshot = screenshotService.getScreenshot( screenshotID );
+
+		// Ensure association under the given incident.
+		if ( screenshot.incidentID != incident.id ) {
+
+			screenshotValidation.throwScreenshotNotFoundError();
+
+		}
+
+		return screenshot;
+
+	}
+
+
+	/**
 	* I get the status with the given ID and assert ownership under given incident.
 	*/
 	public struct function getStatus(
@@ -46,7 +70,7 @@ component
 
 		var status = statusService.getStatus( statusID );
 
-		// Ensure the status is associated with the given incident.
+		// Ensure association under the given incident.
 		if ( status.incidentID != incident.id ) {
 
 			statusValidation.throwStatusNotFoundError();

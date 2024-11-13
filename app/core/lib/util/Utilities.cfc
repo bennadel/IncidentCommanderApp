@@ -4,6 +4,35 @@ component
 	{
 
 	/**
+	* I group the given collection using the given key as the associative entry.
+	*/
+	public struct function groupBy(
+		required array collection,
+		required string key
+		) {
+
+		var index = {};
+
+		for ( var element in collection ) {
+
+			var groupKey = element[ key ];
+
+			if ( ! index.keyExists( groupKey ) ) {
+
+				index[ groupKey ] = [];
+
+			}
+
+			index[ groupKey ].append( element );
+
+		}
+
+		return index;
+
+	}
+
+
+	/**
 	* I index the given collection using the given key as the associative entry.
 	*/
 	public struct function indexBy(

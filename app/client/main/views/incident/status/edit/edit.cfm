@@ -12,6 +12,7 @@
 	param name="request.context.statusID" type="numeric" default=0;
 	param name="form.stageID" type="numeric" default=0;
 	param name="form.contentMarkdown" type="string" default="";
+	param name="form.screenshotFile" type="string" default="";
 
 	status = accessControl.getStatus( request.incident, val( request.context.statusID ) );
 	stages = getStages();
@@ -28,7 +29,8 @@
 				incidentToken = request.context.incidentToken,
 				statusID = status.id,
 				stageID = val( form.stageID ),
-				contentMarkdown = form.contentMarkdown.trim()
+				contentMarkdown = form.contentMarkdown.trim(),
+				screenshotFormField = "screenshotFile"
 			);
 
 			requestHelper.goto([

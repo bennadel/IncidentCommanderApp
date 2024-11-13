@@ -93,6 +93,30 @@
 				<div rsyzpa class="update__content u-break-word">
 					#status.contentHtml#
 				</div>
+
+				<cfif screenshotsIndex.keyExists( status.id )>
+
+					<div rsyzpa class="update__screenshots">
+						<h4>
+							Supporting Screenshots
+						</h4>
+
+						<cfloop array="#screenshotsIndex[ status.id ]#" index="screenshot">
+
+							<figure>
+								<img
+									src="/index.cfm?event=incident.screenshotImage&incidentToken=#encodeForUrl( request.context.incidentToken )#&screenshotID=#encodeForUrl( screenshot.id )#"
+									loading="lazy"
+									rsyzpa
+									class="update__screenshot"
+								/>
+							</figure>
+
+						</cfloop>
+					</div>
+
+				</cfif>
+
 			</section>
 
 		</cfloop>

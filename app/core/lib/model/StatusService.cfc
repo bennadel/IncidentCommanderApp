@@ -97,7 +97,6 @@ component
 	}
 
 
-
 	/**
 	* I update the status entity with the given ID.
 	*/
