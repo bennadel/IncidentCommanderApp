@@ -6,7 +6,7 @@
 		</h1>
 
 		<p>
-			You can export your incident data as a JSON (JavaScript Object Notation) file.
+			You can export your incident data as a JSON (JavaScript Object Notation) file. Screenshot images will be embedded within the JSON as Base64-encoded data URLs.
 		</p>
 
 		<form method="post" action="/index.cfm?event=incident.export.json&incidentToken=#encodeForUrl( request.context.incidentToken )#">

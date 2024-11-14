@@ -47,7 +47,7 @@
 
 
 	/**
-	* I get the screenshots for the given index.
+	* I get the screenshots for the given incident.
 	*/
 	private array function getScreenshots( required struct incident ) {
 
