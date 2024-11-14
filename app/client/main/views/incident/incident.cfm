@@ -62,6 +62,9 @@
 		case "json":
 			cfmodule( template = "./common/layout/json/json.cfm" );
 		break;
+		case "notModified":
+			cfmodule( template = "./common/layout/notModified/notModified.cfm" );
+		break;
 		default:
 			throw(
 				type = "InvalidLayout",

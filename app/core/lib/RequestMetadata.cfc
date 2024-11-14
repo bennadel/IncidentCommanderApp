@@ -4,6 +4,16 @@ component
 	{
 
 	/**
+	* I return the ETag for the given request (or the empty string if none exists).
+	*/
+	public string function getETag() {
+
+		return cgi.http_if_none_match;
+
+	}
+
+
+	/**
 	* I return the request event parts.
 	*/
 	public array function getEvent() {

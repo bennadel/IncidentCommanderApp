@@ -3,6 +3,7 @@
 	param name="request.template.statusCode" type="numeric" default=200;
 	param name="request.template.statusText" type="string" default="OK";
 	param name="request.template.contentDisposition" type="string" default="attachment";
+	param name="request.template.etag" type="string" default="";
 	param name="request.template.mimeType" type="string" default="application/octet-stream";
 	param name="request.template.filename" type="string";
 	param name="request.template.primaryContent" type="binary";
@@ -12,6 +13,16 @@
 		statusCode = request.template.statusCode,
 		statusText = request.template.statusText
 	);
+
+	if ( request.template.etag.len() ) {
+
+		cfheader(
+			name = "ETag",
+			value = request.template.etag
+		);
+
+	}
+
 	cfheader(
 		name = "Content-Length",
 		value = arrayLen( request.template.primaryContent )
