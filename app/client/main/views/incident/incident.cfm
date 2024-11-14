@@ -53,6 +53,9 @@
 	}
 
 	switch ( request.template.layout ) {
+		case "binary":
+			cfmodule( template = "./common/layout/binary/binary.cfm" );
+		break;
 		case "default":
 			cfmodule( template = "./common/layout/default/default.cfm" );
 		break;
