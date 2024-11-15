@@ -32,8 +32,8 @@
 		case "export":
 			cfmodule( template = "./export/export.cfm" );
 		break;
-		case "screenshotImage":
-			cfmodule( template = "./screenshotImage/screenshotImage.cfm" );
+		case "screenshot":
+			cfmodule( template = "./screenshot/screenshot.cfm" );
 		break;
 		case "settings":
 			cfmodule( template = "./settings/settings.cfm" );

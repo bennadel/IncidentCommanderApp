@@ -105,7 +105,7 @@
 
 							<figure>
 								<img
-									src="/index.cfm?event=incident.screenshotImage&incidentToken=#encodeForUrl( request.context.incidentToken )#&screenshotID=#encodeForUrl( screenshot.id )#"
+									src="/index.cfm?event=incident.screenshot.image&incidentToken=#encodeForUrl( request.context.incidentToken )#&screenshotID=#encodeForUrl( screenshot.id )#"
 									loading="lazy"
 									rsyzpa
 									class="update__screenshot"

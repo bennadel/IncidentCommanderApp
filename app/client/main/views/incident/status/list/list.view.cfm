@@ -170,12 +170,29 @@
 					<div tcr65f class="update__content u-break-word">
 						#status.contentHtml#
 
-						<div class="update-controls">
+						<div tcr65f class="update-controls">
 							<a href="/index.cfm?event=incident.status.edit&incidentToken=#encodeForUrl( request.context.incidentToken )#&statusID=#encodeForUrl( status.id )#">Edit</a>
 							&middot;
 							<a href="/index.cfm?event=incident.status.delete&incidentToken=#encodeForUrl( request.context.incidentToken )#&statusID=#encodeForUrl( status.id )#">Delete</a>
 						</div>
 					</div>
+
+					<cfif screenshotsIndex.keyExists( status.id )>
+
+						<cfloop array="#screenshotsIndex[ status.id ]#" index="screenshot">
+
+							<a href="/index.cfm?event=incident.screenshot.delete&incidentToken=#encodeForUrl( request.context.incidentToken )#&screenshotID=#encodeForUrl( screenshot.id )#">
+								<img
+									src="/index.cfm?event=incident.screenshot.image&incidentToken=#encodeForUrl( request.context.incidentToken )#&screenshotID=#encodeForUrl( screenshot.id )#"
+									loading="lazy"
+									tcr65f
+									class="update__screenshot"
+								/>
+							</a>
+
+						</cfloop>
+
+					</cfif>
 				</section>
 			</cfloop>
 

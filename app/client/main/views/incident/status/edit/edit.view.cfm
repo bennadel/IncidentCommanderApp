@@ -70,11 +70,11 @@
 
 			<div class="ui-field">
 				<label for="id-screenshotFile" class="ui-field__label">
-					Screenshot Image:
+					Add Screenshot Image:
 				</label>
 				<div class="ui-field__content">
 					<p id="id-screenshotFile--description">
-						You can upload a PNG or JPEG image to help clarify your status update.
+						You can upload a PNG or JPEG image to help clarify your status update. This is an additive action - it will not replace any of your existing screenshots.
 					</p>
 
 					<input

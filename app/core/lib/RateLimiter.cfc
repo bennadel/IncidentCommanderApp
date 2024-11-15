@@ -30,7 +30,9 @@ component
 			// How many requests across ALL USERS can be made to the incident subsystem.
 			"incident-by-all": createSettings( 300, ONE_MINUTE ),
 			// How many requests by a given IP can be made to the incident subsystem.
-			"incident-by-ip": createSettings( 30, ONE_MINUTE ),
+			// Note that this is relatively high for now since this is also going to be
+			// serving up screenshot images.
+			"incident-by-ip": createSettings( 60, ONE_MINUTE ),
 			// How many incidents can be started by a given IP.
 			"start-by-ip": createSettings( 2, ONE_MINUTE )
 		};

@@ -95,6 +95,33 @@ component
 
 
 	/**
+	* I delete the screenshot with the given ID.
+	*/
+	public void function deleteScreenshot(
+		required string incidentToken,
+		required numeric screenshotID
+		) {
+
+		var incident = accessControl.getIncident( incidentToken );
+		var screenshot = accessControl.getScreenshot( incident, screenshotID );
+
+		transaction {
+
+			// Todo: Right now, the files are all stored locally on the server, so
+			// deleting them within the transaction boundary is fine. In the long-run,
+			// however, if we move file storage to a remote system (like S3 or R2), we'll
+			// need to use some sort of a queuing mechanism instead so that we don't have
+			// to worry about API call latency and fragility.
+			fileDelete( expandPath( "/upload/storage/#incident.id#/#screenshot.id#.upload" ) );
+
+			screenshotService.deleteScreenshot( screenshot.id );
+
+		}
+
+	}
+
+
+	/**
 	* I delete the status with the given ID.
 	*/
 	public void function deleteStatus(
