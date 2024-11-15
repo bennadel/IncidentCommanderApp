@@ -175,24 +175,30 @@
 							&middot;
 							<a href="/index.cfm?event=incident.status.delete&incidentToken=#encodeForUrl( request.context.incidentToken )#&statusID=#encodeForUrl( status.id )#">Delete</a>
 						</div>
+
+						<cfif screenshotsIndex.keyExists( status.id )>
+
+							<h4 class="ui-screen-reader">
+								Supporting Screenshots
+							</h4>
+
+							<ul tcr65f class="screenshot-list">
+								<cfloop array="#screenshotsIndex[ status.id ]#" index="screenshot">
+									<li tcr65f class="screenshot-list__item">
+										<a href="/index.cfm?event=incident.screenshot.delete&incidentToken=#encodeForUrl( request.context.incidentToken )#&screenshotID=#encodeForUrl( screenshot.id )#">
+											<img
+												src="/index.cfm?event=incident.screenshot.image&incidentToken=#encodeForUrl( request.context.incidentToken )#&screenshotID=#encodeForUrl( screenshot.id )#"
+												loading="lazy"
+												tcr65f
+												class="screenshot-list__thumbnail"
+											/>
+										</a>
+									</li>
+								</cfloop>
+							</ul>
+
+						</cfif>
 					</div>
-
-					<cfif screenshotsIndex.keyExists( status.id )>
-
-						<cfloop array="#screenshotsIndex[ status.id ]#" index="screenshot">
-
-							<a href="/index.cfm?event=incident.screenshot.delete&incidentToken=#encodeForUrl( request.context.incidentToken )#&screenshotID=#encodeForUrl( screenshot.id )#">
-								<img
-									src="/index.cfm?event=incident.screenshot.image&incidentToken=#encodeForUrl( request.context.incidentToken )#&screenshotID=#encodeForUrl( screenshot.id )#"
-									loading="lazy"
-									tcr65f
-									class="update__screenshot"
-								/>
-							</a>
-
-						</cfloop>
-
-					</cfif>
 				</section>
 			</cfloop>
 

@@ -28,11 +28,11 @@ component
 		// Features hold the settings for the workflows being rate-limited.
 		variables.features = {
 			// How many requests across ALL USERS can be made to the incident subsystem.
-			"incident-by-all": createSettings( 300, ONE_MINUTE ),
+			"incident-by-all": createSettings( 500, ONE_MINUTE ),
 			// How many requests by a given IP can be made to the incident subsystem.
 			// Note that this is relatively high for now since this is also going to be
 			// serving up screenshot images.
-			"incident-by-ip": createSettings( 60, ONE_MINUTE ),
+			"incident-by-ip": createSettings( 100, ONE_MINUTE ),
 			// How many incidents can be started by a given IP.
 			"start-by-ip": createSettings( 2, ONE_MINUTE )
 		};

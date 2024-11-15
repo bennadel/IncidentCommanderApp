@@ -334,6 +334,21 @@ ol.u-no-marker {
 	}
 }
 
+// Borrowed from the "Inclusive Component" styles - this is for elements that need to be
+// in the DOM for assistive technology, but should be hidden from sighted individuals (as
+// it would be redundant with the existing visuals).
+// --
+// https://inclusive-components.design/tooltips-toggletips/
+.ui-screen-reader {
+	clip: rect( 0 0 0 0 ) ;
+	clip-path: inset( 100% ) ;
+	height: 0 ;
+	overflow: hidden ;
+	position: absolute ;
+	white-space: nowrap ;
+	width: 0 ;
+}
+
 // ---
 // Form styles.
 // ---

@@ -12,10 +12,29 @@
 		}
 
 		&__controls {}
+	}
 
-		&__screenshot {
+	&.screenshot-list {
+		align-items: flex-start ;
+		display: flex ;
+		flex-wrap: wrap ;
+		gap: 13px ;
+		list-style-type: none ;
+		margin-left: 0 ;
+		margin-right: 0 ;
+		padding-left: 0 ;
+
+		&__item {
+			margin: 0 ;
+			padding: 0 ;
+		}
+
+		&__thumbnail {
+			border-radius: 2px ;
+			box-shadow: 0px 0px 0px 1px fade( #cccccc, 50% ) ;
 			max-height: 100px ;
-			max-width: 100px ;
+			max-width: 250px ;
+			min-height: 100px ;
 		}
 	}
 
