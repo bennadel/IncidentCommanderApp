@@ -10,13 +10,17 @@
 
 	eTag = getETag( request.context.screenshotID );
 
+	// Regardless of whether or not we're going to read in the record and serve the image,
+	// we always want to include these caching headers.
+	request.template.etag = eTag;
+	request.template.maxAgeInDays = 1;
+
 	// Since serving the screenshot binaries puts a burden on both the server and the
 	// browser, we want to allow for caching to short-circuit repeated requests for the
 	// same image.
 	if ( ! compare( requestMetadata.getETag(), eTag ) ) {
 
 		request.template.layout = "notModified";
-		request.template.etag = eTag;
 		exit;
 
 	}
@@ -26,7 +30,6 @@
 	primaryContent = getImageBinary( screenshot );
 
 	request.template.layout = "binary";
-	request.template.etag = eTag;
 	request.template.mimeType = screenshot.mimeType;
 	request.template.filename = filename;
 	request.template.primaryContent = primaryContent;

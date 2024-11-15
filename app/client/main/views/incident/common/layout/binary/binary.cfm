@@ -4,6 +4,7 @@
 	param name="request.template.statusText" type="string" default="OK";
 	param name="request.template.contentDisposition" type="string" default="attachment";
 	param name="request.template.etag" type="string" default="";
+	param name="request.template.maxAgeInDays" type="numeric" default=0;
 	param name="request.template.mimeType" type="string" default="application/octet-stream";
 	param name="request.template.filename" type="string";
 	param name="request.template.primaryContent" type="binary";
@@ -23,6 +24,15 @@
 
 	}
 
+	if ( request.template.maxAgeInDays ) {
+
+		cfheader(
+			name = "Cache-Control",
+			value = "max-age=#getMaxAge( request.template.maxAgeInDays )#"
+		);
+
+	}
+
 	cfheader(
 		name = "Content-Length",
 		value = arrayLen( request.template.primaryContent )
@@ -36,5 +46,21 @@
 		type = request.template.mimeType,
 		variable = request.template.primaryContent
 	);
+
+	// ------------------------------------------------------------------------------- //
+	// ------------------------------------------------------------------------------- //
+
+	/**
+	* I get the number of seconds for the max-age of the given day-span.
+	*/
+	private numeric function getMaxAge( required numeric maxAgeInDays ) {
+
+		var perMinute = 60;
+		var perHour = ( 60 * perMinute );
+		var perDay = ( 24 * perHour );
+
+		return ( maxAgeInDays * perDay );
+
+	}
 
 </cfscript>
