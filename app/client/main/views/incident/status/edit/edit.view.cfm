@@ -12,10 +12,9 @@
 
 		<form
 			method="post"
-			action="/index.cfm?event=#encodeForUrl( request.context.event )#&incidentToken=#encodeForUrl( request.context.incidentToken )#"
+			action="/index.cfm?event=#encodeForUrl( request.context.event )#&incidentToken=#encodeForUrl( request.context.incidentToken )#&statusID=#encodeForUrl( status.id )#"
 			enctype="multipart/form-data">
 			<cfmodule template="/client/main/tags/xsrf.cfm">
-			<input type="hidden" name="statusID" value="#encodeForHtmlAttribute( status.id )#" />
 
 			<div class="ui-field">
 				<div class="ui-field__label">
