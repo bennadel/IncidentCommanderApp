@@ -7,6 +7,7 @@
 	// ------------------------------------------------------------------------------- //
 
 	param name="request.context.screenshotID" type="numeric" default=0;
+	param name="request.context.disposition" type="string" default="attachment";
 
 	eTag = getETag( request.context.screenshotID );
 
@@ -27,15 +28,34 @@
 
 	screenshot = getScreenshot( request.incident, val( request.context.screenshotID ) );
 	filename = getFilename( screenshot );
+	contentDisposition = getContentDisposition( request.context.disposition );
 	primaryContent = getImageBinary( screenshot );
 
 	request.template.layout = "binary";
 	request.template.mimeType = screenshot.mimeType;
 	request.template.filename = filename;
+	request.template.contentDisposition = contentDisposition;
 	request.template.primaryContent = primaryContent;
 
 	// ------------------------------------------------------------------------------- //
 	// ------------------------------------------------------------------------------- //
+
+	/**
+	* I get the content disposition for the image serving.
+	*/
+	private string function getContentDisposition( required string disposition ) {
+
+		switch ( disposition ) {
+			case "inline":
+				return "inline";
+			break
+			default:
+				return "attachment";
+			break;
+		}
+
+	}
+
 
 	/**
 	* I get the ETag for the given screenshot.

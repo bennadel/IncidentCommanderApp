@@ -104,12 +104,14 @@
 						<cfloop array="#screenshotsIndex[ status.id ]#" index="screenshot">
 
 							<figure>
-								<img
-									src="/index.cfm?event=incident.screenshot.image&incidentToken=#encodeForUrl( request.context.incidentToken )#&screenshotID=#encodeForUrl( screenshot.id )#"
-									loading="lazy"
-									rsyzpa
-									class="update__screenshot"
-								/>
+								<a href="/index.cfm?event=incident.screenshot.image&incidentToken=#encodeForUrl( request.context.incidentToken )#&screenshotID=#encodeForUrl( screenshot.id )#&disposition=inline" target="_blank">
+									<img
+										src="/index.cfm?event=incident.screenshot.image&incidentToken=#encodeForUrl( request.context.incidentToken )#&screenshotID=#encodeForUrl( screenshot.id )#"
+										loading="lazy"
+										rsyzpa
+										class="update__screenshot"
+									/>
+								</a>
 							</figure>
 
 						</cfloop>
