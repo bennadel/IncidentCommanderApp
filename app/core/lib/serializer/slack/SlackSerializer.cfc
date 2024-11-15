@@ -4,7 +4,17 @@ component
 	{
 
 	// Define properties for dependency-injection.
-	property name="jsoupParser" ioc:type="core.lib.serializer.slack.util.JSoupParser";
+	property name="jsoup" ioc:skip;
+	property name="jsoupClassLoader" ioc:type="core.lib.classLoader.JSoupClassLoader";
+
+	/**
+	* I initialize the Slack serializer.
+	*/
+	public void function $init() {
+
+		variables.jsoup = jsoupClassLoader.create( "org.jsoup.Jsoup" );
+
+	}
 
 	// ---
 	// PUBLIC METHODS.
@@ -78,54 +88,53 @@ component
 
 	/**
 	* I normalize the incident description into a small text snippet.
-	* 
+	*/
+	private string function getDescriptionText( required string descriptionHtml ) {
+
+		return getInertText( descriptionHtml, 500 );
+
+	}
+
+
+	/**
+	* I transform the given HTML into an inert snippet of text that can be safely dropped
+	* into a Slack message.
+	*
 	* Todo: For the MVP, we're just gonna get the text content. In the future, I'd like to
 	* be smarter about how I serialize this stuff, allowing for some formatting. JSoup
 	* should allow us to do this.
 	*/
-	private string function getDescriptionText( required string descriptionHtml ) {
+	private string function getInertText(
+		required string contentHtml,
+		required numeric maxLength
+		) {
 
-		var dom = jsoupParser.parseFragment( descriptionHtml );
+		var dom = jsoup
+			.parseBodyFragment( javaCast( "string", contentHtml ) )
+			.body()
+		;
 
 		replaceAnchorsWithEscapedHref( dom );
 
-		var descriptionText = dom.text();
-		var maxLength = 500;
+		var inertText = dom.text();
 
-		if ( descriptionText.len() > maxLength ) {
+		if ( inertText.len() > maxLength ) {
 
-			descriptionText = ( descriptionText.left( maxLength ) & "..." );
+			inertText = ( inertText.left( maxLength ) & "..." );
 
 		}
 
-		return descriptionText;
+		return inertText;
 
 	}
 
 
 	/**
 	* I normalize the status update into a small text snippet.
-	* 
-	* Todo: For the MVP, we're just gonna get the text content. In the future, I'd like to
-	* be smarter about how I serialize this stuff, allowing for some formatting. JSoup
-	* should allow us to do this.
 	*/
 	private string function getStatusText( required string contentHtml ) {
 
-		var dom = jsoupParser.parseFragment( contentHtml );
-
-		replaceAnchorsWithEscapedHref( dom );
-
-		var statusText = dom.text();
-		var maxLength = 500;
-
-		if ( statusText.len() > maxLength ) {
-
-			statusText = ( statusText.left( maxLength ) & "..." );
-
-		}
-
-		return statusText;
+		return getInertText( contentHtml, 500 );
 
 	}
 
@@ -139,7 +148,7 @@ component
 		for ( var element in dom.select( "a[href]" ) ) {
 
 			var href = element.attr( "href" );
-			var textNode = jsoupParser.create( "org.jsoup.nodes.TextNode" )
+			var textNode = jsoupClassLoader.create( "org.jsoup.nodes.TextNode" )
 				.init( "`#href#`" )
 			;
 
