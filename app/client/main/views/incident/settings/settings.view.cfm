@@ -145,10 +145,19 @@
 				</div>
 			</div>
 
-			<div class="ui-form-buttons">
-				<button type="submit" class="ui-button is-submit">
-					Update Incident
-				</button>
+			<div class="ui-form-buttons ui-row">
+				<span class="ui-row__item">
+					<button type="submit" class="ui-button is-submit">
+						Update Incident
+					</button>
+				</span>
+				<span class="ui-row__item">
+					<a
+						href="/index.cfm?event=incident&incidentToken=#encodeForHtml( request.context.incidentToken )#"
+						class="ui-button is-cancel">
+						Cancel
+					</a>
+				</span>
 			</div>
 		</form>
 
