@@ -35,13 +35,8 @@ component
 			? incident.statuses.last().stage
 			: "Investigating"
 		;
-		var descriptionText = getDescriptionText( incident.descriptionHtml );
+		var descriptionText = getInertText( incident.descriptionHtml, 500 );
 
-		// Todo: We should treat the description like a mini markdown field since it may
-		// contain URLs. Slack will auto-link these. But, Slack is very generous about the
-		// format of URLs that it will auto-link (just about anything that is "." followed
-		// by a known TLD will be auto-linked). This is likely even more generous than the
-		// markdown parser will do. It's a sticky situation. Punting on it for now.
 		var lines = [
 			"*Incident Description*: #descriptionText#",
 			"*Priority*: #incident.priority#",
@@ -71,7 +66,7 @@ component
 			for ( var status in statuses ) {
 
 				var statusHeader = getStatusHeader( status.stage, status.createdAt );
-				var statusText = getStatusText( status.contentHtml );
+				var statusText = getInertText( status.contentHtml, 500 );
 
 				lines.append( "" );
 				lines.append( "*#statusHeader#:*" );
@@ -90,11 +85,13 @@ component
 	// ---
 
 	/**
-	* I normalize the incident description into a small text snippet.
+	* I recreate a JSoup text node with the given content.
 	*/
-	private string function getDescriptionText( required string descriptionHtml ) {
+	private any function createTextNode( required string textContent ) {
 
-		return getInertText( descriptionHtml, 500 );
+		return jsoupClassLoader.create( "org.jsoup.nodes.TextNode" )
+			.init( textContent )
+		;
 
 	}
 
@@ -102,10 +99,6 @@ component
 	/**
 	* I transform the given HTML into an inert snippet of text that can be safely dropped
 	* into a Slack message.
-	*
-	* Todo: For the MVP, we're just gonna get the text content. In the future, I'd like to
-	* be smarter about how I serialize this stuff, allowing for some formatting. JSoup
-	* should allow us to do this.
 	*/
 	private string function getInertText(
 		required string contentHtml,
@@ -117,17 +110,61 @@ component
 			.body()
 		;
 
-		replaceAnchorsWithEscapedHref( dom );
+		// Replace anchor links with escaped URLs (wrapped in ticks). Since Slack will
+		// scan naked URLs and attach previews to the message (which is not appropriate in
+		// this context), we want to make sure all URLs are wrapped.
+		for ( var element in dom.select( "a[href]" ) ) {
 
-		var inertText = dom.text();
+			var text = element.attr( "href" );
 
-		if ( inertText.len() > maxLength ) {
-
-			inertText = ( inertText.left( maxLength ) & "..." );
+			element.replaceWith( createTextNode( "`#text#`" ) );
 
 		}
 
-		return inertText;
+		// Todo: Slack will auto-link really minimal URLs. Basically and token followed by
+		// a valid TLD (top level domain) will be picked up, even without a `www.` or an
+		// explicit protocol. Flexmark will NOT do that. Which means, those minimal URLs
+		// won't be in anchor tags. In the future, we want to escape those here. The good
+		// news is that, for now, they don't seem to be triggering open-graph tags.
+
+		// Replace all PRE blocks with redacted ticks.
+		for ( var element in dom.select( "pre" ) ) {
+
+			element.replaceWith( createTextNode( "`[truncated code]`" ) );
+
+		}
+
+		// Replace all CODE blocks with escaped ticks.
+		for ( var element in dom.select( "code" ) ) {
+
+			var text = element.text();
+
+			element.replaceWith( createTextNode( "`#text#`" ) );
+
+		}
+
+		var inertText = dom.text();
+
+		// If no truncation needs to take place, we're done.
+		if ( inertText.len() <= maxLength ) {
+
+			return inertText;
+
+		}
+
+		// We need to truncate the inert text. However, when we truncate the text, we run
+		// the risk of truncating it in the middle of a tick-escape. As such, we may have
+		// to clean-up the text a bit after the truncation.
+		inertText = inertText.left( maxLength );
+
+		// If we have an odd number of ticks, we need to end on a tick.
+		if ( inertText.reMatch( "`" ).len() % 2 ) {
+
+			inertText &= "`";
+
+		}
+
+		return "#inertText#...";
 
 	}
 
@@ -143,36 +180,6 @@ component
 		var relativeDate = utilities.ucfirst( clock.fromNowDB( createdAt ) );
 
 		return "#relativeDate# [ #stage# ]";
-
-	}
-
-
-	/**
-	* I normalize the status update into a small text snippet.
-	*/
-	private string function getStatusText( required string contentHtml ) {
-
-		return getInertText( contentHtml, 500 );
-
-	}
-
-
-	/**
-	* I replace anchor elements with escaped hrefs to avoid open-graph tag interactions in
-	* Slack messages.
-	*/
-	private void function replaceAnchorsWithEscapedHref( required any dom ) {
-
-		for ( var element in dom.select( "a[href]" ) ) {
-
-			var href = element.attr( "href" );
-			var textNode = jsoupClassLoader.create( "org.jsoup.nodes.TextNode" )
-				.init( "`#href#`" )
-			;
-
-			element.replaceWith( textNode );
-
-		}
 
 	}
 

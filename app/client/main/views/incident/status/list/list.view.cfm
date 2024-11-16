@@ -69,7 +69,7 @@
 						>#encodeForHtml( form.contentMarkdown )#</textarea>
 
 					<p id="id-contentMarkdown--note" class="ui-hint">
-						You can use <code>CMD+Enter</code> or <code>CTRL+Enter</code> to submit from the textarea.
+						Pro tip: you can use <code>CMD+Enter</code> or <code>CTRL+Enter</code> to submit from the textarea.
 					</p>
 				</div>
 			</div>
@@ -116,18 +116,22 @@
 					</label>
 					<div class="ui-field__content">
 						<p id="id-slackContent--description">
-							The following textarea contains a Slack-friendly abbreviated message with insight into the current state of the incident. It also contains a link to the shareable timeline. Dropping this message in Slack will help keep your team informed.
+							The following textarea contains a Slack-friendly, abbreviated message with insight into the current state of the incident. It also contains a link to the shareable timeline. Dropping this message in Slack will help keep your team informed.
 						</p>
 
 						<textarea
 							id="id-slackContent"
-							aria-describedby="id-slackContent--description"
+							aria-describedby="id-slackContent--description id-slackContent--note"
 							readonly
 							x-ref="messageContent"
 							@click="$el.select()"
 							@focus="$el.select()"
 							class="ui-textarea"
 							>#encodeForHtml( slackContent )#</textarea>
+
+						<p id="id-slackContent--note" class="ui-hint">
+							Pro tip: after pasting this message into Slack, you may have to press <code>CMD+Shift+F</code> to apply the proper formatting.
+						</p>
 					</div>
 				</div>
 
