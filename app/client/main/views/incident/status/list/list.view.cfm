@@ -165,6 +165,10 @@
 						#encodeForHtml( stagesIndex[ status.stageID ].name )#:
 						#dateFormat( status.createdAt, "dddd, mmmm d" )# at
 						#timeFormat( status.createdAt, "h:mmtt" )#
+
+						-
+
+						#clock.fromNowDB( status.createdAt )#
 					</h3>
 
 					<div tcr65f class="update__content u-break-word">

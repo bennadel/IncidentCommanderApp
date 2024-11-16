@@ -143,4 +143,20 @@ component
 
 	}
 
+
+	/**
+	* I uppercase the first letter in the given input.
+	*/
+	public string function ucFirst( required string input ) {
+
+		if ( len( input ) <= 1 ) {
+
+			return input;
+
+		}
+
+		return ( ucase( left( input, 1 ) ) & right( input, -1 ) );
+
+	}
+
 }

@@ -1,5 +1,6 @@
 <cfscript>
 
+	clock = request.ioc.get( "core.lib.util.Clock" );
 	incidentSerializer = request.ioc.get( "core.lib.serializer.IncidentSerializer" );
 	incidentWorkflow = request.ioc.get( "core.lib.workflow.IncidentWorkflow" );
 	requestHelper = request.ioc.get( "client.main.lib.RequestHelper" );

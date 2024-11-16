@@ -4,8 +4,10 @@ component
 	{
 
 	// Define properties for dependency-injection.
+	property name="clock" ioc:type="core.lib.util.Clock";
 	property name="jsoup" ioc:skip;
 	property name="jsoupClassLoader" ioc:type="core.lib.classLoader.JSoupClassLoader";
+	property name="utilities" ioc:type="core.lib.util.Utilities";
 
 	/**
 	* I initialize the Slack serializer.
@@ -68,10 +70,11 @@ component
 
 			for ( var status in statuses ) {
 
+				var statusHeader = getStatusHeader( status.stage, status.createdAt );
 				var statusText = getStatusText( status.contentHtml );
 
 				lines.append( "" );
-				lines.append( "*#timeFormat( status.createdAt, 'HH:mm tt' )# UTC [ #status.stage# ]:*" );
+				lines.append( "*#statusHeader#:*" );
 				lines.append( "> #statusText#" );
 
 			}
@@ -125,6 +128,21 @@ component
 		}
 
 		return inertText;
+
+	}
+
+
+	/**
+	* I format the status header text.
+	*/
+	private string function getStatusHeader(
+		required string stage,
+		required date createdAt
+		) {
+
+		var relativeDate = utilities.ucfirst( clock.fromNowDB( createdAt ) );
+
+		return "#relativeDate# [ #stage# ]";
 
 	}
 
