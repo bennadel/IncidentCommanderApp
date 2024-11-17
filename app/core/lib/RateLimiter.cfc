@@ -34,7 +34,7 @@ component
 			// serving up screenshot images.
 			"incident-by-ip": createSettings( 100, ONE_MINUTE ),
 			// How many incidents can be started by a given IP.
-			"start-by-ip": createSettings( 2, ONE_MINUTE )
+			"start-by-ip": createSettings( 5, ONE_MINUTE )
 		};
 		// Windows hold specific instances of a feature being rate-limited for a specific
 		// window ID (ie, the user/client uniquely identifying the request).
