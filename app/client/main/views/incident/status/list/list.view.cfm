@@ -130,7 +130,7 @@
 							>#encodeForHtml( slackContent )#</textarea>
 
 						<p id="id-slackContent--note" class="ui-hint">
-							Pro tip: after pasting this message into Slack, you may have to press <code>CMD+Shift+F</code> to apply the proper formatting.
+							Pro tip: after pasting this message into Slack, you may have to press <code>CMD+Shift+F</code> or <code>CTRL+Shift+F</code> to apply the proper formatting.
 						</p>
 					</div>
 				</div>
@@ -167,12 +167,12 @@
 				<section tcr65f class="update">
 					<h3 tcr65f class="update__header">
 						#encodeForHtml( stagesIndex[ status.stageID ].name )#:
-						#dateFormat( status.createdAt, "dddd, mmmm d" )# at
-						#timeFormat( status.createdAt, "h:mmtt" )#
-
-						-
-
-						#clock.fromNowDB( status.createdAt )#
+						<time datetime="#status.createdAt.dateTimeFormat( 'iso' )#">
+							#dateFormat( status.createdAt, "mmm d" )#
+							<span class="u-weaker">at</span>
+							#timeFormat( status.createdAt, "h:mm" )##timeFormat( status.createdAt, "tt" ).lcase()#
+							<span class="u-weaker">UTC</span>
+						</time>
 					</h3>
 
 					<div tcr65f class="update__content u-break-word">

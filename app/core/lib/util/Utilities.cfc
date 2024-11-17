@@ -4,6 +4,16 @@ component
 	{
 
 	/**
+	* I return a shallow copy / slice of the given array.
+	*/
+	public array function arrayCopy( required array collection ) {
+
+		return [ ...collection ];
+
+	}
+
+
+	/**
 	* I group the given collection using the given key as the associative entry.
 	*/
 	public struct function groupBy(

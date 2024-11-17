@@ -3,6 +3,8 @@
 
 		<h1>
 			#encodeForHtml( title )#
+			&rarr;
+			#encodeForHtml( mostRecentStage )#
 		</h1>
 
 		<h2>
@@ -23,8 +25,10 @@
 					Created:
 				</dt>
 				<dd>
-					#dateFormat( request.incident.createdAt, "mmmm d, yyyy" )# at
-					#timeFormat( request.incident.createdAt, "h:mmtt" )# UTC
+					<time datetime="#request.incident.createdAt.dateTimeFormat( 'iso' )#">
+						#dateFormat( request.incident.createdAt, "mmmm d, yyyy" )# at
+						#timeFormat( request.incident.createdAt, "h:mmtt" )# UTC
+					</time>
 				</dd>
 			</div>
 			<div>
@@ -57,7 +61,7 @@
 				</dt>
 				<dd>
 					<cfif request.incident.videoUrl.len()>
-						<a href="#encodeForHtmlAttribute( request.incident.videoUrl )#">#encodeForHtml( request.incident.videoUrl )#</a>
+						<a href="#encodeForHtmlAttribute( request.incident.videoUrl )#" target="_blank">#encodeForHtml( request.incident.videoUrl )#</a>
 					<cfelse>
 						<em>None provided.</em>
 					</cfif>
@@ -69,7 +73,7 @@
 				</dt>
 				<dd>
 					<cfif request.incident.ticketUrl.len()>
-						<a href="#encodeForHtmlAttribute( request.incident.ticketUrl )#">#encodeForHtml( request.incident.ticketUrl )#</a>
+						<a href="#encodeForHtmlAttribute( request.incident.ticketUrl )#" target="_blank">#encodeForHtml( request.incident.ticketUrl )#</a>
 					<cfelse>
 						<em>None provided.</em>
 					</cfif>
@@ -81,13 +85,29 @@
 			Status Updates
 		</h2>
 
-		<cfloop array="#statuses#" index="status">
+		<p>
+			Sort messages:
+			<a href="/index.cfm?event=incident.share&incidentToken=#encodeForUrl( request.context.incidentToken )#&sort=desc">most recent update first</a> (default) or
+			<a href="/index.cfm?event=incident.share&incidentToken=#encodeForUrl( request.context.incidentToken )#&sort=asc">oldest update first</a>.
+		</p>
 
-			<section rsyzpa class="update">
+		<cfloop array="#statusesSorted#" index="status">
+
+			<section id="status-#status.id#" rsyzpa class="update">
 				<h3>
+					<a href="##status-#status.id#" aria-hidden="true"><span class="ui-screen-reader">Link to this update</span>##</a>
+
 					#encodeForHtml( stagesIndex[ status.stageID ].name )#:
-					#dateFormat( status.createdAt, "dddd, mmmm d" )# at
-					#timeFormat( status.createdAt, "h:mmtt" )#
+					<time datetime="#status.createdAt.dateTimeFormat( 'iso' )#">
+						<cfif useRelativeDates>
+							#relativeDateFormatter.fromNow( status.createdAt )#
+						<cfelse>
+							#dateFormat( status.createdAt, "mmm d" )#
+							<span class="u-weaker">at</span>
+							#timeFormat( status.createdAt, "h:mm" )##timeFormat( status.createdAt, "tt" ).lcase()#
+							<span class="u-weaker">UTC</span>
+						</cfif>
+					</time>
 				</h3>
 
 				<div rsyzpa class="update__content u-break-word">

@@ -15,7 +15,7 @@
 
 			<div class="ui-field">
 				<div class="ui-field__label">
-					Status Message:
+					Status Message (for reference):
 				</div>
 				<div class="ui-field__content">
 					#status.contentHtml#

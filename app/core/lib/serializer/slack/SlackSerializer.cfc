@@ -4,9 +4,9 @@ component
 	{
 
 	// Define properties for dependency-injection.
-	property name="clock" ioc:type="core.lib.util.Clock";
 	property name="jsoup" ioc:skip;
 	property name="jsoupClassLoader" ioc:type="core.lib.classLoader.JSoupClassLoader";
+	property name="relativeDateFormatter" ioc:type="core.lib.RelativeDateFormatter";
 	property name="utilities" ioc:type="core.lib.util.Utilities";
 
 	/**
@@ -177,7 +177,7 @@ component
 		required date createdAt
 		) {
 
-		var relativeDate = utilities.ucfirst( clock.fromNowDB( createdAt ) );
+		var relativeDate = utilities.ucfirst( relativeDateFormatter.fromNow( createdAt ) );
 
 		return "#relativeDate# [ #stage# ]";
 
