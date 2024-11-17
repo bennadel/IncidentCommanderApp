@@ -129,6 +129,9 @@ component
 	};
 	this.datasource = "incident_commander";
 
+	// Make sure that the request is being made over SSL (in production).
+	ensureSecureHttpRequest();
+
 	// ---
 	// LIFE-CYCLE METHODS.
 	// ---
@@ -324,6 +327,51 @@ component
 	// ---
 	// PRIVATE METHODS.
 	// ---
+
+	/**
+	* I make sure that the incoming request is being made over SSL. And, if not, it will
+	* redirect the request to the HTTPS equivalent.
+	*/
+	private void function ensureSecureHttpRequest() {
+
+		// For simplicity, I'm only using the ColdFusion server directly without a front-
+		// facing web-server in development. As such, I only have http locally.
+		// --
+		// Todo: Get SSL working locally, possibly with an nginx proxy.
+		if ( ! this.config.isLive ) {
+
+			return;
+
+		}
+
+		if ( cgi.https == "on" ) {
+
+			return;
+
+		}
+
+		var headers = getHttpRequestData( false ).headers;
+		var proto = ( headers[ "X-Forwarded-Proto" ] ?: "" );
+
+		if ( proto == "https" ) {
+
+			return;
+
+		}
+
+		var secureUrl = ( cgi.query_string.len() )
+			? "https://#cgi.server_name##cgi.script_name#?#cgi.query_string#"
+			: "https://#cgi.server_name##cgi.script_name#"
+		;
+
+		location(
+			url = secureUrl,
+			addtoken = false,
+			statuscode = 301
+		);
+
+	}
+
 
 	/**
 	* I return the application's environment-specific config object.
