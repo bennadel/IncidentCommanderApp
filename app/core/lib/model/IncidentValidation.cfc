@@ -95,6 +95,24 @@ component
 	/**
 	* I validate and return the normalized value.
 	*/
+	public string function testPassword( required string password ) {
+
+		password = toString( password ).trim();
+
+		if ( password.len() > 60 ) {
+
+			throw( type = "App.Model.Incident.Password.TooLong" );
+
+		}
+
+		return password;
+
+	}
+
+
+	/**
+	* I validate and return the normalized value.
+	*/
 	public numeric function testPriorityID( required numeric priorityID ) {
 
 		priorityID = fix( val( priorityID ) );

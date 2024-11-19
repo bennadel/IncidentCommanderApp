@@ -32,6 +32,7 @@ component
 		priorityID = validation.testPriorityID( priorityID );
 		ticketUrl = validation.testTicketUrl( ticketUrl );
 		videoUrl = validation.testVideoUrl( videoUrl );
+		password = validation.testPassword( "" ); // Todo: add password feature.
 		createdAt = validation.testCreatedAt( createdAt );
 
 		var id = gateway.createIncident(
@@ -42,6 +43,7 @@ component
 			priorityID = priorityID,
 			ticketUrl = ticketUrl,
 			videoUrl = videoUrl,
+			password = password,
 			createdAt = createdAt
 		);
 
@@ -131,6 +133,12 @@ component
 
 		}
 
+		if ( arguments.keyExists( "password" ) ) {
+
+			incident.password = validation.testPassword( password );
+
+		}
+
 		gateway.updateIncident(
 			id = incident.id,
 			descriptionMarkdown = incident.descriptionMarkdown,
@@ -138,7 +146,8 @@ component
 			ownership = incident.ownership,
 			priorityID = incident.priorityID,
 			ticketUrl = incident.ticketUrl,
-			videoUrl = incident.videoUrl
+			videoUrl = incident.videoUrl,
+			password = incident.password
 		);
 
 	}

@@ -11,6 +11,7 @@
 		<cfargument name="priorityID" type="numeric" required="true" />
 		<cfargument name="ticketUrl" type="string" required="true" />
 		<cfargument name="videoUrl" type="string" required="true" />
+		<cfargument name="password" type="string" required="true" />
 		<cfargument name="createdAt" type="date" required="true" />
 
 		<cfquery name="local.results" result="local.metaResults">
@@ -25,6 +26,7 @@
 				priorityID = <cfqueryparam value="#priorityID#" cfsqltype="cf_sql_tinyint" />,
 				ticketUrl = <cfqueryparam value="#ticketUrl#" cfsqltype="cf_sql_varchar" />,
 				videoUrl = <cfqueryparam value="#videoUrl#" cfsqltype="cf_sql_varchar" />,
+				password = <cfqueryparam value="#password#" cfsqltype="cf_sql_varchar" />,
 				createdAt = <cfqueryparam value="#createdAt#" cfsqltype="cf_sql_timestamp" />
 			;
 		</cfquery>
@@ -89,6 +91,7 @@
 				priorityID,
 				ticketUrl,
 				videoUrl,
+				password,
 				createdAt
 			FROM
 				incident
@@ -124,6 +127,7 @@
 		<cfargument name="priorityID" type="numeric" required="false" />
 		<cfargument name="ticketUrl" type="string" required="false" />
 		<cfargument name="videoUrl" type="string" required="false" />
+		<cfargument name="password" type="string" required="false" />
 
 		<cfquery name="local.results" result="local.metaResults">
 			/* DEBUG: incidentGateway.updateIncident() */
@@ -152,6 +156,10 @@
 
 				<cfif arguments.keyExists( "videoUrl" )>
 					videoUrl = <cfqueryparam value="#videoUrl#" cfsqltype="cf_sql_varchar" />,
+				</cfif>
+
+				<cfif arguments.keyExists( "password" )>
+					password = <cfqueryparam value="#password#" cfsqltype="cf_sql_varchar" />,
 				</cfif>
 
 				id = id
