@@ -13,6 +13,9 @@
 		"username": "root",
 		"password": "password"
 	},
+	"hmacKeys": {
+		"payloadEncoder": ""
+	},
 	"bugsnag": {
 		"server": {
 			"apiKey": "",
