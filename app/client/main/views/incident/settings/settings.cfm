@@ -13,6 +13,7 @@
 	param name="form.priorityID" type="numeric" default=0;
 	param name="form.ticketUrl" type="string" default="";
 	param name="form.videoUrl" type="string" default="";
+	param name="form.password" type="string" default="";
 
 	priorities = getPriorities();
 	title = "Incident Settings";
@@ -31,7 +32,8 @@
 				ownership = form.ownership.trim(),
 				priorityID = val( form.priorityID ),
 				ticketUrl = form.ticketUrl.trim(),
-				videoUrl = form.videoUrl.trim()
+				videoUrl = form.videoUrl.trim(),
+				password = form.password.trim()
 			);
 
 			requestHelper.goto([
@@ -53,6 +55,7 @@
 		form.priorityID = request.incident.priorityID;
 		form.ticketUrl = request.incident.ticketUrl;
 		form.videoUrl = request.incident.videoUrl;
+		form.password = incidentWorkflow.decodePassword( request.incident.password );
 
 	}
 

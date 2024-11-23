@@ -99,7 +99,7 @@ component
 
 		password = toString( password ).trim();
 
-		if ( password.len() > 60 ) {
+		if ( password.len() > 255 ) {
 
 			throw( type = "App.Model.Incident.Password.TooLong" );
 

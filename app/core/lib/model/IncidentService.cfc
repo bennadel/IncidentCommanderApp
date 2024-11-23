@@ -22,6 +22,7 @@ component
 		required numeric priorityID,
 		required string ticketUrl,
 		required string videoUrl,
+		required string password,
 		required date createdAt
 		) {
 
@@ -92,7 +93,8 @@ component
 		string ownership,
 		numeric priorityID,
 		string ticketUrl,
-		string videoUrl
+		string videoUrl,
+		string password
 		) {
 
 		var incident = getIncident( id );

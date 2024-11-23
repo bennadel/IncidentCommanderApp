@@ -16,6 +16,9 @@
 	"hmacKeys": {
 		"payloadEncoder": ""
 	},
+	"aesKeys": {
+		"passwordEncoder": ""
+	},
 	"bugsnag": {
 		"server": {
 			"apiKey": "",

@@ -6,9 +6,11 @@ component
 	// Define properties for dependency-injection.
 	property name="accessControl" ioc:type="core.lib.AccessControl";
 	property name="clock" ioc:type="core.lib.util.Clock";
+	property name="config" ioc:type="config";
 	property name="contentParser" ioc:type="core.lib.markdown.ContentParser";
 	property name="incidentService" ioc:type="core.lib.model.IncidentService";
 	property name="logger" ioc:type="core.lib.Logger";
+	property name="passwordEncoder" ioc:type="core.lib.PasswordEncoder";
 	property name="priorityService" ioc:type="core.lib.model.PriorityService";
 	property name="screenshotService" ioc:type="core.lib.model.ScreenshotService";
 	property name="screenshotValidation" ioc:type="core.lib.model.ScreenshotValidation";
@@ -58,6 +60,20 @@ component
 		}
 
 		return statusID;
+
+	}
+
+
+	/**
+	* I decode the given encoded password.
+	* 
+	* Note: For security purposes, the entity layer returns the password in the encrypted
+	* format. This way, the password is only decrypted when it is needed to be rendered in
+	* the application UI.
+	*/
+	public string function decodePassword( required string encodedPassword ) {
+
+		return passwordEncoder.decode( encodedPassword, config.aesKeys.passwordEncoder );
 
 	}
 
@@ -177,6 +193,7 @@ component
 			priorityID = priority.id,
 			ticketUrl = "",
 			videoUrl = "",
+			password = "",
 			createdAt = clock.utcNow()
 		);
 
@@ -194,7 +211,8 @@ component
 		required string ownership,
 		required numeric priorityID,
 		required string ticketUrl,
-		required string videoUrl
+		required string videoUrl,
+		required string password
 		) {
 
 		var incident = accessControl.getIncident( incidentToken );
@@ -208,7 +226,8 @@ component
 			ownership = ownership,
 			priorityID = priority.id,
 			ticketUrl = ticketUrl,
-			videoUrl = videoUrl
+			videoUrl = videoUrl,
+			password = passwordEncoder.encode( password, config.aesKeys.passwordEncoder )
 		);
 
 	}

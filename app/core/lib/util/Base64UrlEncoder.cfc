@@ -8,18 +8,27 @@ component
 	*/
 	public binary function decode( required string input ) {
 
-		var base64Input = input
+		return binaryDecode( decodeToBase64( input ), "base64" );
+
+	}
+
+
+	/**
+	* I decode the given Base64Url input into a Base64 value.
+	*/
+	public string function decodeToBase64( required string input ) {
+
+		var unpadded = input
 			.replace( "-", "+", "all" )
 			.replace( "_", "/", "all" )
 		;
 		// When we generate the URL-safe value, we strip out the padding characters at the
-		// end. When we decode the input, we then need to put the padding characters back
-		// in. I don't think this is strictly required in all context; but, is adheres to
-		// the Base64 specification on length.
-		var paddingLength = ( 4 - ( base64Input.len() % 4 ) );
+		// end. When we decode the input, we then need to append the padding characters
+		// back on the end.
+		var paddingLength = ( 4 - ( unpadded.len() % 4 ) );
 		var padding = repeatString( "=", paddingLength );
 
-		return binaryDecode( ( base64Input & padding ), "base64" );
+		return ( unpadded & padding );
 
 	}
 
@@ -42,7 +51,17 @@ component
 	*/
 	public string function encode( required binary input ) {
 
-		return binaryEncode( input, "base64" )
+		return encodeFromBase64( binaryEncode( input, "base64" ) );
+
+	}
+
+
+	/**
+	* I encode the given Base64 input into a Base64Url value.
+	*/
+	public string function encodeFromBase64( required string input ) {
+
+		return input
 			.replace( "+", "-", "all" )
 			.replace( "/", "_", "all" )
 			.replace( "=", "", "all" )

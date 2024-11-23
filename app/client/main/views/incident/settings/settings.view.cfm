@@ -145,6 +145,28 @@
 				</div>
 			</div>
 
+			<div class="ui-field">
+				<label for="id-password" class="ui-field__label">
+					Password:
+				</label>
+				<div class="ui-field__content">
+					<p id="id-password--description">
+						<strong><mark>Coming soon:</mark></strong> the password field is not yet supported during incident access.
+					</p>
+
+					<input
+						id="id-password"
+						aria-describedby="id-password--description"
+						type="text"
+						name="password"
+						value="#encodeForHtmlAttribute( form.password )#"
+						size="50"
+						maxlength="30"
+						class="ui-input"
+					/>
+				</div>
+			</div>
+
 			<div class="ui-form-buttons ui-row">
 				<span class="ui-row__item">
 					<button type="submit" class="ui-button is-submit">
