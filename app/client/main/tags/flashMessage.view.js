@@ -34,10 +34,14 @@ function FlashMessage() {
 
 		// Focus the flash message as well.
 		this.$el.focus();
-		this.$el.scrollIntoView({
-			behavior: "smooth",
-			block: "start"
-		});
+
+		// Todo: I found the scroll-to a little strange on this one. I'm going to disable
+		// it until I can come back and have a better offset (like the error message).
+		// --
+		// this.$el.scrollIntoView({
+		// 	behavior: "smooth",
+		// 	block: "start"
+		// });
 
 	}
 
