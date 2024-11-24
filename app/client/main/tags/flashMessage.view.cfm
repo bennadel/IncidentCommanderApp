@@ -14,6 +14,16 @@
 					Your incident and all of its data has been deleted.
 				</p>
 			</cfcase>
+			<cfcase value="incident.password.removed">
+				<p>
+					Your incident password has been removed. Anyone with the link can now access this incident.
+				</p>
+			</cfcase>
+			<cfcase value="incident.password.updated">
+				<p>
+					Your incident password has been updated. People that access this incident will now be prompted for the password before any information is made available.
+				</p>
+			</cfcase>
 			<cfcase value="incident.started">
 				<p>
 					Your new incident has been opened. You can adjust the settings at any time.

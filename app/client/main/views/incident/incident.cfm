@@ -44,6 +44,7 @@
 
 	// This subsystem allows for multiple templates.
 	request.template.layout = "default";
+	request.template.isPasswordProtected = !! request.incident.password.len();
 
 	switch ( request.event[ 2 ] ) {
 		case "delete":
@@ -51,6 +52,9 @@
 		break;
 		case "export":
 			cfmodule( template = "./export/export.cfm" );
+		break;
+		case "password":
+			cfmodule( template = "./password/password.cfm" );
 		break;
 		case "screenshot":
 			cfmodule( template = "./screenshot/screenshot.cfm" );

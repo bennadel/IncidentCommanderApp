@@ -75,4 +75,22 @@
 		</g>
 	</symbol>
 
+	<!--- https://www.streamlinehq.com/icons/download/lock-1--18160 --->
+	<symbol id="svg-sprite--lock-1--18160" viewBox="0 0 24 24">
+		<g fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
+			<path d="M5.25 9.75h13.5s1.5 0 1.5 1.5v10.5s0 1.5 -1.5 1.5H5.25s-1.5 0 -1.5 -1.5v-10.5s0 -1.5 1.5 -1.5"></path>
+			<path d="M6.75 9.75V6a5.25 5.25 0 0 1 10.5 0v3.75"></path>
+			<path d="m12 15 0 3"></path>
+		</g>
+	</symbol>
+
+	<!--- https://www.streamlinehq.com/icons/download/lock-unlock--18160 --->
+	<symbol id="svg-sprite--lock-unlock--18160" viewBox="0 0 24 24">
+		<g fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
+			<path d="M0.75 9.75V6a5.25 5.25 0 0 1 10.5 0v3.75"></path>
+			<path d="M8.25 9.75h13.5s1.5 0 1.5 1.5v10.5s0 1.5 -1.5 1.5H8.25s-1.5 0 -1.5 -1.5v-10.5s0 -1.5 1.5 -1.5"></path>
+			<path d="m15 15 0 3"></path>
+		</g>
+	</symbol>
+
 </svg>

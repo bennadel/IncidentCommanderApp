@@ -145,28 +145,6 @@
 				</div>
 			</div>
 
-			<div class="ui-field">
-				<label for="id-password" class="ui-field__label">
-					Password:
-				</label>
-				<div class="ui-field__content">
-					<p id="id-password--description">
-						The URL-based token already provides a sufficient amount of security. But, for teams that are extra security-minded, a password provides an optional, non-URL-based security mechanism.
-					</p>
-
-					<input
-						id="id-password"
-						aria-describedby="id-password--description"
-						type="text"
-						name="password"
-						value="#encodeForHtmlAttribute( form.password )#"
-						size="50"
-						maxlength="30"
-						class="ui-input"
-					/>
-				</div>
-			</div>
-
 			<div class="ui-form-buttons ui-row">
 				<span class="ui-row__item">
 					<button type="submit" class="ui-button is-submit">

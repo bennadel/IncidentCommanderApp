@@ -58,6 +58,24 @@
 						</span>
 					</a>
 					<a
+						href="/index.cfm?event=incident.password&incidentToken=#encodeForUrl( request.context.incidentToken )#"
+						ys84gd
+						#ui.attrClass({
+							"nav__item": true,
+							"is-on": ( request.template.activeNavItem == "password" )
+						})#>
+
+						<span aria-hidden="true" ys84gd class="nav__icon">
+							<cfmodule
+								template="/client/main/tags/icon.cfm"
+								type="#( request.template.isPasswordProtected ? 'locked' : 'unlocked' )#">
+							</cfmodule>
+						</span>
+						<span ys84gd class="nav__label">
+							<u>Password</u>
+						</span>
+					</a>
+					<a
 						href="/index.cfm?event=incident.status.list&incidentToken=#encodeForUrl( request.context.incidentToken )#"
 						ys84gd
 						#ui.attrClass({

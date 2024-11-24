@@ -5,11 +5,13 @@
 	icons = {
 		"delete": "svg-sprite--bin-2--18148",
 		"export": "svg-sprite--download-button--18211",
+		"locked": "svg-sprite--lock-1--18160",
 		"logo": "svg-sprite--safety-fire-shield--18430",
 		"new": "svg-sprite--move-left-1--18116",
 		"settings": "svg-sprite--settings-vertical--18158",
 		"share": "svg-sprite--common-file-text-share--18337",
-		"status": "svg-sprite--single-neutral-actions-shield--18350"
+		"status": "svg-sprite--single-neutral-actions-shield--18350",
+		"unlocked": "svg-sprite--lock-unlock--18160"
 	};
 
 	href = icons[ attributes.type ];

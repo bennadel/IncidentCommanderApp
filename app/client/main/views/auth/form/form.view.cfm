@@ -14,7 +14,7 @@
 			message="#errorMessage#"
 		/>
 
-		<form method="post" action="/index.cfm?event=auth&incidentToken=#encodeForUrl( request.context.incidentToken )#">
+		<form method="post" action="/index.cfm?event=#encodeForUrl( request.context.event )#&incidentToken=#encodeForUrl( request.context.incidentToken )#">
 			<cfmodule template="/client/main/tags/xsrf.cfm">
 
 			<div class="ui-field">

@@ -197,18 +197,12 @@ component
 		required string ownership,
 		required numeric priorityID,
 		required string ticketUrl,
-		required string videoUrl,
-		required string password
+		required string videoUrl
 		) {
 
 		var incident = accessControl.getIncident( incidentToken );
 		var priority = priorityService.getPriority( priorityID );
 		var descriptionHtml = contentParser.toHtml( descriptionMarkdown );
-
-		// If a password has been provided, make sure that we're encrypting it at rest.
-		// The password will remain encrypted until it needs to be decrypted by a given
-		// user experience.
-		password = passwordEncoder.encode( password );
 
 		incidentService.updateIncident(
 			id = incident.id,
@@ -217,7 +211,29 @@ component
 			ownership = ownership,
 			priorityID = priority.id,
 			ticketUrl = ticketUrl,
-			videoUrl = videoUrl,
+			videoUrl = videoUrl
+		);
+
+	}
+
+
+	/**
+	* I update the password for the incident with the given token.
+	*/
+	public void function updatePassword(
+		required string incidentToken,
+		required string password
+		) {
+
+		var incident = accessControl.getIncident( incidentToken );
+
+		// If a non-empty password has been provided, make sure that we're encrypting it
+		// at rest. The password will remain encrypted until it needs to be decrypted by a
+		// given user experience.
+		password = passwordEncoder.encode( password );
+
+		incidentService.updateIncident(
+			id = incident.id,
 			password = password
 		);
 

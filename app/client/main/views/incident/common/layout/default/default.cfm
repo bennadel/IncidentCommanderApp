@@ -10,6 +10,7 @@
 	param name="request.template.title" type="string" default="";
 	param name="request.template.primaryContent" type="string" default="";
 	param name="request.template.activeNavItem" type="string" default="";
+	param name="request.template.isPasswordProtected" type="boolean" default=false;
 	param name="request.context.incidentToken" type="string";
 
 	// Override the response status code.
