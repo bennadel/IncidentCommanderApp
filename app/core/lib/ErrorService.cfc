@@ -72,6 +72,12 @@ component
 					message: "Your incident ownership is too long. Please use an ownership that is less than 50 characters."
 				});
 			break;
+			case "App.Model.Incident.Password.Mismatch":
+				return as403({
+					type: error.type,
+					message: "The password you've entered is incorrect. Please double-check your entry. And, if need be, contact your incident commander to get the current password. It's possible that the password has been changed since you last authenticated."
+				});
+			break;
 			case "App.Model.Incident.PriorityID.Invalid":
 				return as422({
 					type: error.type,
@@ -197,6 +203,7 @@ component
 				);
 			break;
 			case "App.Routing.InvalidEvent":
+			case "App.Routing.Auth.InvalidEvent":
 			case "App.Routing.Start.InvalidEvent":
 			case "App.Routing.Incident.InvalidEvent":
 			case "App.Routing.Incident.Export.InvalidEvent":

@@ -26,6 +26,9 @@
 		}
 
 		switch ( request.event[ 1 ] ) {
+			case "auth":
+				cfmodule( template = "./auth/auth.cfm" );
+			break;
 			case "incident":
 				cfmodule( template = "./incident/incident.cfm" );
 			break;

@@ -14,8 +14,7 @@
 			message="#errorMessage#"
 		/>
 
-		<form method="post" action="/index.cfm">
-			<cfmodule template="/client/main/tags/event.cfm">
+		<form method="post" action="/index.cfm?event=start">
 			<cfmodule template="/client/main/tags/xsrf.cfm">
 
 			<div class="ui-field">

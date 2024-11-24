@@ -13,23 +13,6 @@ component
 	// ---
 
 	/**
-	* I assert that the current request is made as a POST.
-	*/
-	public void function assertHttpPost() {
-
-		if ( requestMetadata.getMethod() != "POST" ) {
-
-			throw(
-				type = "App.MethodNotAllowed",
-				message = "Request must be made using POST."
-			);
-
-		}
-
-	}
-
-
-	/**
 	* I forward the user an internal URL constructed with the given parts.
 	*/
 	public void function goto(

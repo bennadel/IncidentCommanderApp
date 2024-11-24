@@ -151,7 +151,7 @@
 				</label>
 				<div class="ui-field__content">
 					<p id="id-password--description">
-						<strong><mark>Coming soon:</mark></strong> the password field is not yet supported during incident access.
+						The URL-based token already provides a sufficient amount of security. But, for teams that are extra security-minded, a password provides an optional, non-URL-based security mechanism.
 					</p>
 
 					<input

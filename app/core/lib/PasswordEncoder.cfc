@@ -6,6 +6,7 @@ component
 	// Define properties for dependency-injection.
 	property name="algorithm" ioc:skip;
 	property name="base64UrlEncoder" ioc:type="core.lib.util.Base64UrlEncoder";
+	property name="defaultKey" ioc:get="config.aesKeys.passwordEncoder";
 	property name="ivSize" ioc:skip;
 	property name="keySize" ioc:skip;
 
@@ -43,7 +44,7 @@ component
 	*/
 	public string function decode(
 		required string input,
-		required string key
+		string key = defaultKey
 		) {
 
 		// If there's no value to decode, just return the input. This keeps the calling
@@ -77,7 +78,7 @@ component
 	*/
 	public string function encode(
 		required string input,
-		required string key
+		string key = defaultKey
 		) {
 
 		// If there's no value to encode, just return the input. This keeps the calling

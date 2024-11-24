@@ -65,20 +65,6 @@ component
 
 
 	/**
-	* I decode the given encoded password.
-	* 
-	* Note: For security purposes, the entity layer returns the password in the encrypted
-	* format. This way, the password is only decrypted when it is needed to be rendered in
-	* the application UI.
-	*/
-	public string function decodePassword( required string encodedPassword ) {
-
-		return passwordEncoder.decode( encodedPassword, config.aesKeys.passwordEncoder );
-
-	}
-
-
-	/**
 	* I delete the incident and all child status updates with the given id:slug token.
 	*/
 	public void function deleteIncident( required string incidentToken ) {
@@ -219,6 +205,11 @@ component
 		var priority = priorityService.getPriority( priorityID );
 		var descriptionHtml = contentParser.toHtml( descriptionMarkdown );
 
+		// If a password has been provided, make sure that we're encrypting it at rest.
+		// The password will remain encrypted until it needs to be decrypted by a given
+		// user experience.
+		password = passwordEncoder.encode( password );
+
 		incidentService.updateIncident(
 			id = incident.id,
 			descriptionMarkdown = descriptionMarkdown,
@@ -227,7 +218,7 @@ component
 			priorityID = priority.id,
 			ticketUrl = ticketUrl,
 			videoUrl = videoUrl,
-			password = passwordEncoder.encode( password, config.aesKeys.passwordEncoder )
+			password = password
 		);
 
 	}

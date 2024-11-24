@@ -6,6 +6,7 @@ component
 	// Define properties for dependency-injection.
 	property name="config" ioc:get="config";
 	property name="incidentService" ioc:type="core.lib.model.IncidentService";
+	property name="passwordEncoder" ioc:type="core.lib.PasswordEncoder";
 	property name="priorityService" ioc:type="core.lib.model.PriorityService";
 	property name="slackSerializer" ioc:type="core.lib.serializer.slack.SlackSerializer";
 	property name="stageService" ioc:type="core.lib.model.StageService";
@@ -42,12 +43,19 @@ component
 		var stagesIndex = utilities.indexBy( stages, "id" );
 		var priorities = priorityService.getPriorityByFilter();
 		var prioritiesIndex = utilities.indexBy( priorities, "id" );
+		// The password is encrypted at rest. If one exists, we need to decrypt it so that
+		// it can be shared internally with the team.
+		var password = incident.password.len()
+			? passwordEncoder.decode( incident.password )
+			: ""
+		;
 
 		return {
 			url: "#config.site.url#/index.cfm?event=incident.share&incidentToken=#encodeForUrl( incidentToken )#",
 			descriptionHtml: incident.descriptionHtml,
 			priority: prioritiesIndex[ incident.priorityID ].name,
 			videoUrl: incident.videoUrl,
+			password: password,
 			statuses: statuses.map(
 				( status ) => {
 

@@ -6,6 +6,7 @@ component
 	// Define properties for dependency-injection.
 	property name="base64UrlEncoder" ioc:type="core.lib.util.Base64UrlEncoder";
 	property name="defaultAlgorithm" ioc:skip;
+	property name="defaultKey" ioc:get="config.hmacKeys.payloadEncoder";
 	property name="secureRandom" ioc:type="core.lib.util.SecureRandom";
 	property name="supportedAlgorithms" ioc:skip;
 
@@ -38,7 +39,7 @@ component
 	*/
 	public any function decode(
 		required string token,
-		required string key,
+		string key = defaultKey,
 		string algorithm = defaultAlgorithm
 		) {
 
@@ -75,7 +76,7 @@ component
 	*/
 	public string function encode(
 		required any payload,
-		required string key,
+		string key = defaultKey,
 		string algorithm = defaultAlgorithm
 		) {
 

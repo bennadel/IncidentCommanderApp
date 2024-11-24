@@ -1,7 +1,9 @@
 <cfscript>
 
 	accessControl = request.ioc.get( "core.lib.AccessControl" );
+	authWorkflow = request.ioc.get( "client.main.lib.workflow.AuthWorkflow" );
 	rateLimiter = request.ioc.get( "core.lib.RateLimiter" );
+	requestHelper = request.ioc.get( "client.main.lib.RequestHelper" );
 	requestMetadata = request.ioc.get( "core.lib.RequestMetadata" );
 
 	// ------------------------------------------------------------------------------- //
@@ -21,6 +23,24 @@
 
 	// This entire subsystem requires an incident.
 	request.incident = accessControl.getIncident( request.context.incidentToken );
+
+	// This entire subsystem MIGHT BE under password protection. If the incident has an
+	// optional password attached to it, the request must authenticated.
+	if ( request.incident.password.len() ) {
+
+		if ( ! authWorkflow.canAccessIncident( request.incident ) ) {
+
+			// Todo: in a perfect world, we'd include a redirect to get the user back to
+			// the page they originally requested (after they authenticate). Since this is
+			// such a tiny app, I'm going to forgo this nicety for the moment.
+			requestHelper.goto([
+				event: "auth",
+				incidentToken: request.context.incidentToken
+			]);
+
+		}
+
+	}
 
 	// This subsystem allows for multiple templates.
 	request.template.layout = "default";

@@ -45,6 +45,22 @@ component
 			"*Timeline*: `#incident.url#`"
 		];
 
+		// Security: at first blush, it might seem insecure to include the password in the
+		// Slack message itself. But, it's important to remember that incident triage is a
+		// team sport. The goal of the password is to increase the security of the triage
+		// session from the outside perspective; but, to keep the barrier to entry as low
+		// as possible for all the people on the same team who are fighting the good
+		// fight. As such, anyone who pops into the Slack channel to learn more about the
+		// incident, or to join said fight, need to be able to see the password and access
+		// the website without any added friction. The incident-token is already providing
+		// a sufficiently-large brute-force remediation. The password is really just an
+		// additional means of providing non-URL-based facet to the existing security.
+		if ( incident.password.len() ) {
+
+			lines.append( "*Password*: `#incident.password#`" );
+
+		}
+
 		var statusCount = incident.statuses.len();
 		var renderCount = 3;
 

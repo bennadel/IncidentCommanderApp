@@ -1,6 +1,8 @@
 <cfscript>
 
+	authWorkflow = request.ioc.get( "client.main.lib.workflow.AuthWorkflow" );
 	incidentWorkflow = request.ioc.get( "core.lib.workflow.IncidentWorkflow" );
+	passwordEncoder = request.ioc.get( "core.lib.PasswordEncoder" );
 	priorityService = request.ioc.get( "core.lib.model.PriorityService" );
 	requestHelper = request.ioc.get( "client.main.lib.RequestHelper" );
 	ui = request.ioc.get( "client.main.lib.ViewHelper" );
@@ -36,6 +38,17 @@
 				password = form.password.trim()
 			);
 
+			// If the user is setting a password, we have to add the current incident ID
+			// to the access credentials so that we don't immediately turn around and send
+			// this user to the authentication form.
+			// --
+			// Note to self: it may seem strange to spread the incident settings update
+			// and the access control update across two different workflows. But, it's
+			// important to remember that the core workflow doesn't know anything about
+			// this web client. And, it shouldn't be concerned with anything other than
+			// the ID-based access.
+			authWorkflow.ensureAccess( request.incident );
+
 			requestHelper.goto([
 				event: "incident.status.list",
 				incidentToken: request.context.incidentToken,
@@ -55,7 +68,7 @@
 		form.priorityID = request.incident.priorityID;
 		form.ticketUrl = request.incident.ticketUrl;
 		form.videoUrl = request.incident.videoUrl;
-		form.password = incidentWorkflow.decodePassword( request.incident.password );
+		form.password = passwordEncoder.decode( request.incident.password );
 
 	}
 

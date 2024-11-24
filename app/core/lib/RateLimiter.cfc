@@ -26,13 +26,24 @@ component
 		var ONE_HOUR = ( 60 * ONE_MINUTE );
 
 		// Features hold the settings for the workflows being rate-limited.
+		// --
+		// Perspective on rate limiting: it's important to step back and think about what
+		// the rate-limiting is actually doing for the application: it's preventing brute-
+		// force attacks (for the most part). As such, these limits don't have to be that
+		// small - they only have to be small enough to prevent large values from being
+		// guessed at high volumes. We must always weigh the possibility of blocking a
+		// legitimate user performing a legitimate operation against the possibility of
+		// blocking a malicious actor.
 		variables.features = {
+			// How many password authentication requests can be made against the given
+			// incident ID.
+			"auth-by-id": createSettings( 100, ONE_HOUR ),
 			// How many requests across ALL USERS can be made to the incident subsystem.
 			"incident-by-all": createSettings( 500, ONE_MINUTE ),
 			// How many requests by a given IP can be made to the incident subsystem.
 			// Note that this is relatively high for now since this is also going to be
 			// serving up screenshot images.
-			"incident-by-ip": createSettings( 100, ONE_MINUTE ),
+			"incident-by-ip": createSettings( 200, ONE_MINUTE ),
 			// How many incidents can be started by a given IP.
 			"start-by-ip": createSettings( 5, ONE_MINUTE )
 		};
