@@ -108,4 +108,31 @@
 			}
 		}
 	}
+
+	@media ( max-width: 1000px ) {
+		&.shell {
+			display: block ;
+
+			&__header {
+				background-color: transparent ;
+				box-shadow: none ;
+				min-height: auto ;
+				position: static ;
+			}
+
+			&__content {
+				padding: 16px ;
+			}
+		}
+
+		&.nav {
+			width: auto ;
+
+			&__label {
+				u {
+					text-decoration: underline ;
+				}
+			}
+		}
+	}
 }
