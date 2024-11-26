@@ -22,7 +22,22 @@
 		<div ys84gd class="shell">
 			<header ys84gd class="shell__header">
 
-				<nav ys84gd class="nav">
+				<button
+					aria-controls="ys84gd-nav"
+					aria-expanded="false"
+					x-ref="navToggle"
+					@click="toggleNav()"
+					ys84gd
+					class="ui-button nav-toggle">
+					<span x-text="navToggleText">Show Navigation</span>
+				</button>
+
+				<nav
+					id="ys84gd-nav"
+					tabindex="-1"
+					x-ref="navMenu"
+					ys84gd
+					class="nav">
 					<a
 						href="https://incident-commander.com/"
 						target="_blank"

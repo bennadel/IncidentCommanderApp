@@ -51,12 +51,21 @@
 		}
 	}
 
+	&.nav-toggle {
+		display: none ;
+	}
+
 	&.nav {
 		display: flex ;
 		flex: 1 1 auto ;
 		flex-direction: column ;
 		padding: 5px 0 ;
 		width: 330px ;
+
+		&:focus-visible {
+			outline-width: 2px ;
+			outline-offset: -4px ;
+		}
 
 		&__item {
 			align-items: center ;
@@ -69,6 +78,14 @@
 			padding: 7px 8px ;
 			text-decoration: none ;
 			white-space: nowrap ;
+
+			// Since these elements butt-up against each other, the focus ring might get
+			// clipped by the neighboring element. As such, we're going to inset the focus
+			// on the element.
+			&:focus-visible {
+				outline-width: 2px ;
+				outline-offset: -4px ;
+			}
 
 			&.is-logo {
 				margin-bottom: 20px ;
@@ -125,8 +142,18 @@
 			}
 		}
 
+		&.nav-toggle {
+			display: block ;
+			margin: 16px ;
+		}
+
 		&.nav {
+			display: none ;
 			width: auto ;
+
+			&.is-expanded {
+				display: block ;
+			}
 
 			&__label {
 				u {
