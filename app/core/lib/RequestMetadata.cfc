@@ -3,6 +3,13 @@ component
 	hint = "I provide utility methods for accessing metadata about the current request."
 	{
 
+	// Define properties for dependency-injection.
+	property name="utilities" ioc:type="core.lib.util.Utilities";
+
+	// ---
+	// PUBLIC METHODS.
+	// ---
+
 	/**
 	* I return the ETag for the given request (or the empty string if none exists).
 	*/
@@ -36,20 +43,28 @@ component
 	/**
 	* I return the HTTP headers.
 	*/
-	public struct function getHeaders( array exclude = [] ) {
+	public struct function getHeaders( array includeOnly = [] ) {
 
 		var headers = getHttpRequestData( false )
 			.headers
 			.copy()
 		;
 
-		for ( var key in exclude ) {
+		if ( ! includeOnly.len() ) {
 
-			headers.delete( key );
+			return headers;
 
 		}
 
-		return headers;
+		var includeIndex = utilities.reflect( includeOnly );
+
+		return headers.filter(
+			( key ) => {
+
+				return includeIndex.keyExists( key );
+
+			}
+		);
 
 	}
 

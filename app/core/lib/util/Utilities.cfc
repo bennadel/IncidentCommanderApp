@@ -93,6 +93,24 @@ component
 
 
 	/**
+	* I return an index of the values reflected as struct keys.
+	*/
+	public struct function reflect( required array collection ) {
+
+		var index = {};
+
+		for ( var element in collection ) {
+
+			index[ element ] = element;
+
+		}
+
+		return index;
+
+	}
+
+
+	/**
 	* SHIM: I'm hoping this can be removed in future versions of ColdFusion.
 	*/
 	public array function structValueArray( required struct input ) {

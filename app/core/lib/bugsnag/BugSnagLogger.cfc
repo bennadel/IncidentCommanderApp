@@ -6,63 +6,10 @@ component
 	// Define properties for dependency-injection.
 	property name="bugSnagApiClient" ioc:type="core.lib.bugsnag.BugSnagApiClient";
 	property name="config" ioc:type="config";
-	property name="requestMetadata" ioc:type="core.lib.RequestMetadata";
 
 	// ---
 	// PUBLIC METHODS.
 	// ---
-
-	/**
-	* I report the given item using a CRITICAL log-level.
-	*/
-	public void function critical(
-		required string message,
-		any data = {}
-		) {
-
-		logData( "Critical", message, data );
-
-	}
-
-
-	/**
-	* I report the given item using a DEBUG log-level.
-	*/
-	public void function debug(
-		required string message,
-		any data = {}
-		) {
-
-		logData( "Debug", message, data );
-
-	}
-
-
-	/**
-	* I report the given item using an ERROR log-level.
-	*/
-	public void function error(
-		required string message,
-		any data = {}
-		) {
-
-		logData( "Error", message, data );
-
-	}
-
-
-	/**
-	* I report the given item using an INFO log-level.
-	*/
-	public void function info(
-		required string message,
-		any data = {}
-		) {
-
-		logData( "Info", message, data );
-
-	}
-
 
 	/**
 	* I log the given data as a pseudo-exception (ie, we're shoehorning general log data
@@ -72,7 +19,9 @@ component
 	public void function logData(
 		required string level,
 		required string message,
-		required any data = {}
+		required any data,
+		required array stacktrace,
+		required struct requestContext
 		) {
 
 		// Note: Normally, the errorClass represents an "error type". However, in this
@@ -84,15 +33,27 @@ component
 				{
 					errorClass: message,
 					message: "#level# log entry",
-					stacktrace: buildStacktraceForNonError(),
+					stacktrace: stacktrace,
 					type: "coldfusion"
 				}
 			],
-			request: buildRequest(),
-			context: buildContext(),
+			request: {
+				clientIp: requestContext.http.remoteAddress,
+				headers: requestContext.http.headers,
+				httpMethod: requestContext.http.method,
+				url: requestContext.http.url,
+				referer: requestContext.http.referer
+			},
+			context: requestContext.event,
 			severity: buildSeverity( level ),
-			app: buildApp(),
-			metaData: buildMetaData( data )
+			app: {
+				releaseStage: config.bugsnag.server.releaseStage
+			},
+			metaData:{
+				urlScope: requestContext.urlScope,
+				formScope: requestContext.formScope,
+				data: data
+			}
 		});
 
 	}
@@ -102,72 +63,47 @@ component
 	* I report the given EXCEPTION object using an ERROR log-level.
 	*/
 	public void function logException(
-		required any error,
-		string message = "",
-		any data = {}
+		required struct error,
+		required string message,
+		required any data,
+		required array stacktrace,
+		required struct requestContext
 		) {
-
-		// Adobe ColdFusion doesn't treat the error like a Struct (when validating call
-		// signatures). Let's make a shallow copy of the error so that we can use proper
-		// typing in subsequent method calls.
-		error = structCopy( error );
 
 		sendToBugSnag({
 			exceptions: [
 				{
 					errorClass: error.type,
 					message: buildExceptionMessage( message, error ),
-					stacktrace: buildStacktraceForError( error ),
+					stacktrace: stacktrace,
 					type: "coldfusion"
 				}
 			],
-			request: buildRequest(),
-			context: buildContext(),
-			severity: buildSeverity( "error" ),
-			app: buildApp(),
-			metaData: buildMetaData( data, error )
+			request: {
+				clientIp: requestContext.http.remoteAddress,
+				headers: requestContext.http.headers,
+				httpMethod: requestContext.http.method,
+				url: requestContext.http.url,
+				referer: requestContext.http.referer
+			},
+			context: requestContext.event,
+			severity: "error",
+			app: {
+				releaseStage: config.bugsnag.server.releaseStage
+			},
+			metaData:{
+				urlScope: requestContext.urlScope,
+				formScope: requestContext.formScope,
+				data: data,
+				error: error
+			}
 		});
-
-	}
-
-
-	/**
-	* I report the given item using a WARNING log-level.
-	*/
-	public void function warning(
-		required string message,
-		any data = {}
-		) {
-
-		logData( "Warning", message, data );
 
 	}
 
 	// ---
 	// PRIVATE METHODS.
 	// ---
-
-	/**
-	* I build the event app data.
-	*/
-	private struct function buildApp() {
-
-		return {
-			releaseStage: config.bugsnag.server.releaseStage
-		};
-
-	}
-
-
-	/**
-	* I build the event context data.
-	*/
-	private string function buildContext() {
-
-		return requestMetadata.getEvent().toList( "." );
-
-	}
-
 
 	/**
 	* I build the log message for the given exception.
@@ -184,47 +120,6 @@ component
 		}
 
 		return error.message;
-
-	}
-
-
-	/**
-	* I build the event meta-data.
-	*/
-	private struct function buildMetaData(
-		any data = {},
-		struct error = {}
-		) {
-
-		var urlScope = url.copy();
-		var formScope = form.copy();
-
-		formScope.delete( "fieldnames" );
-
-		return {
-			urlScope: urlScope,
-			formScope: formScope,
-			data: data,
-			error: error
-		};
-
-	}
-
-
-	/**
-	* I build the event request data.
-	*/
-	private struct function buildRequest() {
-
-		return {
-			clientIp: requestMetadata.getIpAddress(),
-			headers: requestMetadata.getHeaders(
-				exclude = [ "cookie" ]
-			),
-			httpMethod: requestMetadata.getMethod(),
-			url: requestMetadata.getUrl(),
-			referer: requestMetadata.getReferer()
-		};
 
 	}
 
@@ -250,67 +145,6 @@ component
 				return "info";
 			break;
 		}
-
-	}
-
-
-	/**
-	* I build the stacktrace for the given error.
-	*/
-	private array function buildStacktraceForError( required struct error ) {
-
-		var tagContext = ( error.tagContext ?: [] );
-		var stacktrace = tagContext
-			.filter(
-				( item ) => {
-
-					return item.template.reFindNoCase( "\.(cfm|cfc)$" );
-
-				}
-			)
-			.map(
-				( item ) => {
-
-					return {
-						file: item.template,
-						lineNumber: item.line
-					};
-
-				}
-			)
-		;
-
-		return stacktrace;
-
-	}
-
-
-	/**
-	* I build the stacktrace to be used for non-exception logging.
-	*/
-	private array function buildStacktraceForNonError() {
-
-		var stacktrace = callstackGet()
-			.filter(
-				( item ) => {
-
-					return ! item.template.findNoCase( "BugSnagLogger" );
-
-				}
-			)
-			.map(
-				( item ) => {
-
-					return {
-						file: item.template,
-						lineNumber: item.lineNumber
-					};
-
-				}
-			)
-		;
-
-		return stacktrace;
 
 	}
 

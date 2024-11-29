@@ -5,6 +5,7 @@ component
 
 	// Define properties for dependency-injection.
 	property name="bugSnagLogger" ioc:type="core.lib.bugsnag.BugSnagLogger";
+	property name="requestMetadata" ioc:type="core.lib.RequestMetadata";
 
 	// ---
 	// PUBLIC METHODS.
@@ -18,7 +19,11 @@ component
 		any data = {}
 		) {
 
-		bugSnagLogger.critical( argumentCollection = arguments );
+		logData(
+			level = "critical",
+			message = message,
+			data = data
+		);
 
 	}
 
@@ -31,7 +36,11 @@ component
 		any data = {}
 		) {
 
-		bugSnagLogger.debug( argumentCollection = arguments );
+		logData(
+			level = "debug",
+			message = message,
+			data = data
+		);
 
 	}
 
@@ -44,7 +53,11 @@ component
 		any data = {}
 		) {
 
-		bugSnagLogger.error( argumentCollection = arguments );
+		logData(
+			level = "error",
+			message = message,
+			data = data
+		);
 
 	}
 
@@ -57,7 +70,11 @@ component
 		any data = {}
 		) {
 
-		bugSnagLogger.info( argumentCollection = arguments );
+		logData(
+			level = "info",
+			message = message,
+			data = data
+		);
 
 	}
 
@@ -69,10 +86,16 @@ component
 	public void function logData(
 		required string level,
 		required string message,
-		required any data = {}
+		required any data
 		) {
 
-		bugSnagLogger.logData( argumentCollection = arguments );
+		bugSnagLogger.logData(
+			level = level,
+			message = message,
+			data = data,
+			stacktrace = buildStacktraceForNonError(),
+			requestContext = buildRequestContext()
+		);
 
 	}
 
@@ -86,17 +109,27 @@ component
 		any data = {}
 		) {
 
+		// Adobe ColdFusion doesn't treat the error like a Struct (when validating call
+		// signatures). Let's make a shallow copy of the error so that we can use proper
+		// typing in subsequent method calls.
+		error = structCopy( error );
+
+		// The following errors are high-volume and don't represent much value. Let's
+		// ignore these for now (since they aren't something that I can act upon).
 		switch ( error.type ) {
-			// The following errors are high-volume and don't represent much value. Let's
-			// ignore these for now (since they aren't something that I can act upon).
 			case "Nope":
-			case "TurnstileClient.InvalidToken":
 				// Swallow error for now.
-			break;
-			default:
-				bugSnagLogger.logException( argumentCollection = arguments );
+				return;
 			break;
 		}
+
+		bugSnagLogger.logException(
+			error = error,
+			message = message,
+			data = data,
+			stacktrace = buildStacktraceForError( error ),
+			requestContext = buildRequestContext()
+		);
 
 	}
 
@@ -109,7 +142,131 @@ component
 		any data = {}
 		) {
 
-		bugSnagLogger.warning( argumentCollection = arguments );
+		logData(
+			level = "warning",
+			message = message,
+			data = data
+		);
+
+	}
+
+	// ---
+	// PRIVATE METHODS.
+	// ---
+
+	/**
+	* I build the normalized form scope.
+	*/
+	private struct function buildFormScope() {
+
+		var formScope = form.copy();
+
+		formScope.delete( "fieldnames" );
+
+		// Redact any fields that pose a security issue.
+		// --
+		// Todo: make this a configuration option.
+		for ( var key in [ "password", "x-xsrf-token" ] ) {
+
+			if ( formScope.keyExists( key ) ) {
+
+				formScope[ key ] = "[redacted]";
+
+			}
+
+		}
+
+		return formScope;
+
+	}
+
+
+	/**
+	* I build the normalized request context for all logging implementations.
+	*/
+	private struct function buildRequestContext() {
+
+		return {
+			event: requestMetadata.getEvent().toList( "." ),
+			http: {
+				method: requestMetadata.getMethod(),
+				url: requestMetadata.getUrl(),
+				referer: requestMetadata.getReferer(),
+				remoteAddress: requestMetadata.getIpAddress(),
+				headers: requestMetadata.getHeaders([
+					"host",
+					"accept",
+					"cf-connecting-ip",
+					"cf-ipcountry",
+					"content-type",
+					"origin",
+					"referer",
+					"user-agent",
+					"x-forwarded-for",
+					"x-forwarded-proto"
+				])
+			},
+			urlScope: url.copy(),
+			formScope: buildFormScope()
+		};
+
+	}
+
+
+	/**
+	* I build the stacktrace for the given error.
+	*/
+	private array function buildStacktraceForError( required struct error ) {
+
+		var tagContext = ( error.tagContext ?: [] );
+
+		return tagContext
+			.filter(
+				( item ) => {
+
+					return item.template.reFindNoCase( "\.(cfm|cfc)$" );
+
+				}
+			)
+			.map(
+				( item ) => {
+
+					return {
+						file: item.template,
+						lineNumber: item.line
+					};
+
+				}
+			)
+		;
+
+	}
+
+
+	/**
+	* I build the stacktrace to be used for non-exception logging.
+	*/
+	private array function buildStacktraceForNonError() {
+
+		return callstackGet()
+			.filter(
+				( item ) => {
+
+					return ! item.template.findNoCase( "Logger" );
+
+				}
+			)
+			.map(
+				( item ) => {
+
+					return {
+						file: item.template,
+						lineNumber: item.lineNumber
+					};
+
+				}
+			)
+		;
 
 	}
 
