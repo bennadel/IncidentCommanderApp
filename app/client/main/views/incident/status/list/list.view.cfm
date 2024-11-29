@@ -90,6 +90,7 @@
 						name="screenshotFile"
 						value="#encodeForHtmlAttribute( form.screenshotFile )#"
 						accept=".png,.jpg,.jpeg"
+						class="ui-file"
 					/>
 				</div>
 			</div>

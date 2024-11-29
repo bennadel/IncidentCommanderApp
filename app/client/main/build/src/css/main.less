@@ -1,5 +1,65 @@
 
 // ---
+// THEME VARIABLES.
+// ---
+
+:where( html ) {
+
+	--theme-text: #121210 ;
+	--theme-surface: #ffffff ;
+
+	--theme-accent: #e64980 ;
+
+	--theme-mark-text: #121210 ;
+	--theme-mark-surface: #ffe066 ;
+
+	--theme-error-surface: #ffe3e3 ;
+	--theme-error-border: #c92a2a ;
+	--theme-error-text: #121210 ;
+
+	--theme-success-surface: #e9fac8 ;
+	--theme-success-border: #66a80f ;
+	--theme-success-text: #121210 ;
+
+	--theme-code-surface: #f1f3f5 ;
+	--theme-code-text: #0d0f12 ;
+
+	--theme-control-background: #ffffff ;
+	--theme-control-border: #16191d ;
+	--theme-control-text: #0d0f12 ;
+	--theme-control-inset-shadow: inset 1px 1px 2px #dadada ;
+
+	--theme-button-default-text: #0d0f12 ;
+	--theme-button-default-surface: #f1f3f5 ;
+	--theme-button-default-border: #7e8282 ;
+
+	--theme-button-primary-text: #f2f4f6 ;
+	--theme-button-primary-surface: #252521 ;
+	--theme-button-primary-border: #121210 ;
+
+	--theme-button-destructive-text: #fff5f5 ;
+	--theme-button-destructive-surface: #f03e3e ;
+	--theme-button-destructive-border: #e03131 ;
+
+	--theme-button-cancel-text: #121210 ;
+	--theme-button-cancel-surface: transparent ;
+	--theme-button-cancel-border: #d1d6d8 ;
+	--theme-button-cancel-border-hover: #121210 ;
+
+	--theme-img-shadow: #e0e4e5 ;
+
+	--theme-panel-border: #b1b6b9 ;
+
+	--theme-rule-hard: #999999 ;
+	--theme-rule-soft: #cccccc ;
+
+	--theme-nav-text: var( --theme-text ) ;
+	--theme-nav-surface: var( --theme-surface ) ;
+	--theme-nav-surface-on: #f2f2f3 ;
+
+}
+
+// ---
 // LESS CSS Utilities.
 // ---
 
@@ -13,31 +73,13 @@
 	}
 }
 
-.less-form-control-border() {
-	border: 1px solid #111111 ;
-}
-
 // ---
 // Base Styles.
 // ---
 
 html {
-	--accent-color: #ea0961 ;
-
 	box-sizing: border-box ;
 	font-family: monospace ;
-
-	// Experimentation with the "system font stack". Not sure if I like it.
-	// font-family:
-	// 	ui-sans-serif,
-	// 	system-ui,
-	// 	sans-serif,
-	// 	"Apple Color Emoji",
-	// 	"Segoe UI Emoji",
-	// 	Segoe UI Symbol,
-	// 	"Noto Color Emoji"
-	// ;
-
 	font-size: 18px ;
 	line-height: 1.5 ;
 }
@@ -49,8 +91,8 @@ html *:after {
 }
 
 body {
-	background-color: #ffffff ;
-	color: #161616 ;
+	background-color: var( --theme-surface ) ;
+	color: var( --theme-text ) ;
 	font-size: 1rem ;
 	margin: 0 ;
 	padding: 0 ;
@@ -166,8 +208,8 @@ a {
 }
 
 mark {
-	background-color: #fffd76 ;
-	color: #000000 ;
+	background-color: var( --theme-mark-surface ) ;
+	color: var( --theme-mark-text ) ;
 }
 
 img {
@@ -221,7 +263,8 @@ button {
 }
 
 code {
-	background-color: #f0f0f0 ;
+	background-color: var( --theme-code-surface ) ;
+	color: var( --theme-code-text ) ;
 }
 
 pre code {
@@ -229,7 +272,7 @@ pre code {
 }
 
 *:focus-visible {
-	outline: 2px solid var( --accent-color ) ;
+	outline: 2px solid var( --theme-accent ) ;
 	outline-offset: 2px ;
 }
 
@@ -337,12 +380,12 @@ ol.u-no-marker {
 
 .ui-rule {
 	border: none ;
-	border-top: 1px solid #999999 ;
+	border-top: 1px solid var( --theme-rule-hard ) ;
 	margin: 1.9rem 0 1.8rem ;
 	padding: 0 ;
 
 	&.is-soft {
-		border-top: 1px dashed #aaaaaa ;
+		border-top: 1px dashed var( --theme-rule-soft ) ;
 	}
 }
 
@@ -366,36 +409,38 @@ ol.u-no-marker {
 // ---
 
 .ui-button {
-	.less-form-control-border() ;
-
-	background-color: #efefef ;
+	background-color: var( --theme-button-default-surface ) ;
+	border: 1px solid var( --theme-button-default-border ) ;
 	border-radius: 2px ;
+	color: var( --theme-button-default-text ) ;
 	display: block ;
 	padding: 0.6rem 1.3rem 0.5rem ;
 
 	&.is-plain {
 		background-color: transparent ;
 		border-color: transparent ;
+		color: inherit ;
 	}
 
 	&.is-submit {
-		background-color: #333333 ;
-		border-color: #111111 ;
-		color: #ffffff ;
+		background-color: var( --theme-button-primary-surface ) ;
+		border-color: var( --theme-button-primary-border ) ;
+		color: var( --theme-button-primary-text ) ;
 	}
 
 	&.is-destructive {
-		background-color: #d9534f ;
-		border-color: #d43f3a ;
-		color: #ffffff ;
+		background-color: var( --theme-button-destructive-surface ) ;
+		border-color: var( --theme-button-destructive-border ) ;
+		color: var( --theme-button-destructive-text ) ;
 	}
 
 	&.is-cancel {
-		background-color: transparent ;
-		border-color: #d0d0d0 ;
+		background-color: var( --theme-button-cancel-surface ) ;
+		border-color: var( --theme-button-cancel-border ) ;
+		color: var( --theme-button-cancel-text ) ;
 
 		&:hover {
-			.less-form-control-border() ;
+			border-color: var( --theme-button-cancel-border-hover ) ;
 		}
 	}
 
@@ -403,6 +448,7 @@ ol.u-no-marker {
 		background-color: transparent ;
 		border: none ;
 		border-radius: 0 ;
+		color: inherit ;
 		display: inline ;
 		padding: 0 ;
 		text-decoration: underline ;
@@ -410,9 +456,11 @@ ol.u-no-marker {
 }
 
 .ui-input {
-	.less-form-control-border() ;
-
+	background-color: var( --theme-control-background ) ;
+	border: 1px solid var( --theme-control-border ) ;
 	border-radius: 2px ;
+	box-shadow: var( --theme-control-inset-shadow ) ;
+	color: var( --theme-control-text ) ;
 	display: block ;
 	padding: 0.6rem 0.7rem 0.5rem ;
 	width: 100% ;
@@ -430,12 +478,28 @@ ol.u-no-marker {
 	}
 }
 
-.ui-radio {
-	.less-form-control-border() ;
+.ui-file {
+	cursor: pointer ;
 
+	&::-webkit-file-upload-button,
+	&::file-selector-button {
+		background-color: var( --theme-button-default-surface ) ;
+		border: 1px solid var( --theme-button-default-border ) ;
+		border-radius: 2px ;
+		color: var( --theme-button-default-text ) ;
+		cursor: pointer ;
+		margin-right: 2ch ;
+		padding: 0.4rem 0.9rem ;
+	}
+}
+
+.ui-radio {
 		-webkit-appearance: none ;
 	appearance: none ;
+	background-color: var( --theme-control-background ) ;
+	border: 1px solid var( --theme-control-border ) ;
 	border-radius: 18px ;
+	box-shadow: var( --theme-control-inset-shadow ) ;
 	display: flex ;
 	height: 18px ;
 	margin: 0 ;
@@ -443,7 +507,7 @@ ol.u-no-marker {
 	width: 18px ;
 
 	&:checked::after {
-		background-color: var( --accent-color ) ;
+		background-color: var( --theme-accent ) ;
 		border-radius: 8px ;
 		content: "" ;
 		height: 8px ;
@@ -453,22 +517,25 @@ ol.u-no-marker {
 }
 
 .ui-select {
-	.less-form-control-border() ;
-
 		-webkit-appearance: none ;
 	appearance: none ;
+	background-color: var( --theme-control-background ) ;
 	background-image: url( 'data:image/svg+xml;utf8,<svg width="13" height="7" viewBox="0 0 13 7" xmlns="http://www.w3.org/2000/svg"><polygon stroke="none" fill="currentColor" fill-rule="evenodd" points="0 0 6.5 7 13 0"></polygon></svg>' ) ;
 	background-position-x: right 10px ;
 	background-position-y: top 52% ;
 	background-repeat: no-repeat ;
+	border: 1px solid var( --theme-control-border ) ;
 	border-radius: 2px ;
+	color: var( --theme-control-text ) ;
 	padding: 0.6rem 2rem 0.5rem 0.7rem ;
 }
 
 .ui-textarea {
-	.less-form-control-border() ;
-
+	background-color: var( --theme-control-background ) ;
+	border: 1px solid var( --theme-control-border ) ;
 	border-radius: 2px ;
+	box-shadow: var( --theme-control-inset-shadow ) ;
+	color: var( --theme-control-text ) ;
 	display: block ;
 	height: 10rem ;
 	padding: 0.6rem 0.7rem 0.5rem ;
@@ -502,7 +569,7 @@ ol.u-no-marker {
 }
 
 .ui-fieldset {
-	border: 1px solid #cccccc ;
+	border: 1px solid var( --theme-rule-soft ) ;
 	margin: 1rem 0 ;
 	padding: 1rem 1.5rem ;
 
@@ -555,7 +622,7 @@ ol.u-no-marker {
 }
 
 .ui-form-buttons {
-	border-top: 1px solid #cccccc ;
+	border-top: 1px solid var( --theme-rule-soft ) ;
 	margin: 1.7rem 0 1rem 0 ;
 	padding-top: 1.7rem ;
 }
