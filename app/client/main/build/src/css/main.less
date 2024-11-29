@@ -57,6 +57,8 @@
 	--theme-nav-surface: var( --theme-surface ) ;
 	--theme-nav-surface-on: #f2f2f3 ;
 
+	--select-carrot-image: url( 'data:image/svg+xml;utf8,<svg width="13" height="7" viewBox="0 0 13 7" xmlns="http://www.w3.org/2000/svg"><polygon stroke="none" fill="%230d0f12" fill-rule="evenodd" points="0 0 6.5 7 13 0"></polygon></svg>' ) ;
+
 }
 
 .less-theme-dark() {
@@ -112,6 +114,8 @@
 	--theme-nav-text: var( --theme-text ) ;
 	--theme-nav-surface: var( --theme-surface ) ;
 	--theme-nav-surface-on: #472240 ;
+
+	--select-carrot-image: url( 'data:image/svg+xml;utf8,<svg width="13" height="7" viewBox="0 0 13 7" xmlns="http://www.w3.org/2000/svg"><polygon stroke="none" fill="%23979562" fill-rule="evenodd" points="0 0 6.5 7 13 0"></polygon></svg>' ) ;
 
 	img {
 		opacity: 0.5 ;
@@ -598,7 +602,7 @@ ol.u-no-marker {
 		-webkit-appearance: none ;
 	appearance: none ;
 	background-color: var( --theme-control-background ) ;
-	background-image: url( 'data:image/svg+xml;utf8,<svg width="13" height="7" viewBox="0 0 13 7" xmlns="http://www.w3.org/2000/svg"><polygon stroke="none" fill="currentColor" fill-rule="evenodd" points="0 0 6.5 7 13 0"></polygon></svg>' ) ;
+	background-image: var( --select-carrot-image ) ;
 	background-position-x: right 10px ;
 	background-position-y: top 52% ;
 	background-repeat: no-repeat ;
