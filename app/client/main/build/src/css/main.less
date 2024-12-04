@@ -58,6 +58,8 @@
 	--theme-nav-surface: var( --theme-surface ) ;
 	--theme-nav-surface-on: #f2f2f3 ;
 
+	--theme-star-text: #9c0099 ;
+
 	--select-carrot-image: url( 'data:image/svg+xml;utf8,<svg width="13" height="7" viewBox="0 0 13 7" xmlns="http://www.w3.org/2000/svg"><polygon stroke="none" fill="%230d0f12" fill-rule="evenodd" points="0 0 6.5 7 13 0"></polygon></svg>' ) ;
 
 }
@@ -646,6 +648,11 @@ ol.u-no-marker {
 		&:where( label ) {
 			cursor: pointer ;
 		}
+	}
+
+	&__star {
+		color: var( --theme-star-text ) ;
+		font-weight: 400 ;
 	}
 
 	&__content {

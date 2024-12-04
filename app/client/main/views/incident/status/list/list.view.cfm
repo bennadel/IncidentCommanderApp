@@ -52,6 +52,7 @@
 			<div class="ui-field">
 				<label for="id-contentMarkdown" class="ui-field__label">
 					Status Update Message:
+					<span aria-hidden="true" class="ui-field__star">(required)</span>
 				</label>
 				<div class="ui-field__content">
 					<p id="id-contentMarkdown--description">
