@@ -93,4 +93,14 @@
 		</g>
 	</symbol>
 
+	<!--- https://www.streamlinehq.com/icons/download/alert-triangle--18157 --->
+	<symbol id="svg-sprite--alert-triangle--18157" viewBox="0 0 24 24">
+		<g fill="none" stroke="currentcolor" stroke-width="1.5">
+			<path d="M12 19.5a0.375 0.375 0 0 1 0 -0.75"></path>
+			<path d="M12 19.5a0.375 0.375 0 0 0 0 -0.75"></path>
+			<path stroke-linecap="round" stroke-miterlimit="10" d="M12 15.75v-7.5"></path>
+			<path stroke-linecap="round" stroke-linejoin="round" d="M13.621 1.76a1.806 1.806 0 0 0 -3.242 0L0.906 21.058a1.521 1.521 0 0 0 1.366 2.192h19.456a1.52 1.52 0 0 0 1.366 -2.192L13.621 1.76Z"></path>
+		</g>
+	</symbol>
+
 </svg>

@@ -11,7 +11,7 @@
 	param name="form.password" type="string" default="";
 
 	title = "Enter Password";
-	errorMessage = "";
+	errorResponse = "";
 
 	request.template.title = title;
 
@@ -38,7 +38,7 @@
 
 		} catch ( any error ) {
 
-			errorMessage = requestHelper.processError( error );
+			errorResponse = requestHelper.processError( error );
 
 		}
 

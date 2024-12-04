@@ -1,9 +1,11 @@
 <cfscript>
 
-	param name="attributes.message" type="string";
+	param name="attributes.response" type="any" default="";
 	param name="attributes.class" type="string" default="";
 
-	if ( ! attributes.message.len() ) {
+	// Since ColdFusion doesn't have the best notion of NULL, we're going to be defaulting
+	// the error reponse to the empty string. It will only become actionalab as a Struct.
+	if ( ! isStruct( attributes.response ) ) {
 
 		exit "exitTag";
 

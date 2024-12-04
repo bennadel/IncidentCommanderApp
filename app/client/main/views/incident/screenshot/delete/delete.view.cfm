@@ -7,7 +7,7 @@
 
 		<cfmodule
 			template="/client/main/tags/errorMessage.cfm"
-			message="#errorMessage#"
+			response="#errorResponse#"
 		/>
 
 		<form method="post" action="/index.cfm?event=#encodeForUrl( request.context.event )#&incidentToken=#encodeForUrl( request.context.incidentToken )#&screenshotID=#encodeForUrl( screenshot.id )#">

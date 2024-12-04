@@ -17,7 +17,7 @@
 	placeholder = getPlaceholder();
 	priorities = getPriorities();
 	title = "Incident Commander";
-	errorMessage = "";
+	errorResponse = "";
 
 	request.template.title = title;
 
@@ -45,7 +45,7 @@
 
 		} catch ( any error ) {
 
-			errorMessage = requestHelper.processError( error );
+			errorResponse = requestHelper.processError( error );
 
 		}
 

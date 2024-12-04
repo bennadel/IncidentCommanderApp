@@ -7,7 +7,7 @@
 
 		<cfmodule
 			template="/client/main/tags/errorMessage.cfm"
-			message="#errorMessage#"
+			response="#errorResponse#"
 		/>
 
 		<form
@@ -55,6 +55,7 @@
 						id="id-contentMarkdown"
 						aria-describedby="id-contentMarkdown--description id-contentMarkdown--note"
 						name="contentMarkdown"
+						data-error-types="App.Model.Status.ContentMarkdown."
 						@keydown.meta.enter="$el.form.submit()"
 						@keydown.ctrl.enter="$el.form.submit()"
 						maxlength="65535"

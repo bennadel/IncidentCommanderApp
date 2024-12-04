@@ -17,7 +17,7 @@
 	status = accessControl.getStatus( request.incident, val( request.context.statusID ) );
 	stages = getStages();
 	title = "Edit Status Update";
-	errorMessage = "";
+	errorResponse = "";
 
 	request.template.title = title;
 
@@ -41,7 +41,7 @@
 
 		} catch ( any error ) {
 
-			errorMessage = requestHelper.processError( error );
+			errorResponse = requestHelper.processError( error );
 
 		}
 

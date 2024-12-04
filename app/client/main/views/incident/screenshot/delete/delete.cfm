@@ -13,7 +13,7 @@
 	screenshot = getScreenshot( request.incident, request.context.screenshotID );
 	status = getStatus( screenshot );
 	title = "Delete Screenshot";
-	errorMessage = "";
+	errorResponse = "";
 
 	request.template.title = title;
 
@@ -31,7 +31,7 @@
 
 		} catch ( any error ) {
 
-			errorMessage = requestHelper.processError( error );
+			errorResponse = requestHelper.processError( error );
 
 		}
 

@@ -16,7 +16,7 @@
 
 	priorities = getPriorities();
 	title = "Incident Settings";
-	errorMessage = "";
+	errorResponse = "";
 
 	request.template.activeNavItem = "settings";
 	request.template.title = title;
@@ -42,7 +42,7 @@
 
 		} catch ( any error ) {
 
-			errorMessage = requestHelper.processError( error );
+			errorResponse = requestHelper.processError( error );
 
 		}
 

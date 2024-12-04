@@ -11,7 +11,7 @@
 	param name="form.password" type="string" default="";
 
 	title = "Incident Password";
-	errorMessage = "";
+	errorResponse = "";
 
 	request.template.activeNavItem = "password";
 	request.template.title = title;
@@ -48,7 +48,7 @@
 
 		} catch ( any error ) {
 
-			errorMessage = requestHelper.processError( error );
+			errorResponse = requestHelper.processError( error );
 
 		}
 

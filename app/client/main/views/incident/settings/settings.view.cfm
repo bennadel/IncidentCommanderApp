@@ -11,7 +11,7 @@
 
 		<cfmodule
 			template="/client/main/tags/errorMessage.cfm"
-			message="#errorMessage#"
+			response="#errorResponse#"
 		/>
 
 		<form method="post" action="/index.cfm?event=#encodeForUrl( request.context.event )#&incidentToken=#encodeForUrl( request.context.incidentToken )#">
@@ -29,7 +29,9 @@
 					<textarea
 						id="id-descriptionMarkdown"
 						aria-describedby="id-descriptionMarkdown--description"
+						aria-required="true"
 						name="descriptionMarkdown"
+						data-error-types="App.Model.Incident.DescriptionMarkdown."
 						@keydown.meta.enter="$el.form.submit()"
 						@keydown.ctrl.enter="$el.form.submit()"
 						maxlength="65535"

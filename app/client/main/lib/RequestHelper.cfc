@@ -75,9 +75,9 @@ component
 
 	/**
 	* I process the given error, applying the proper status code to the template, and
-	* returning the associated user-friendly response message.
+	* returning the associated user-friendly response payload.
 	*/
-	public string function processError( required any error ) {
+	public struct function processError( required any error ) {
 
 		logger.logException( error );
 
@@ -88,7 +88,7 @@ component
 		// Used to render the error in local development debugging.
 		request.lastProcessedError = error;
 
-		return errorResponse.message;
+		return errorResponse;
 
 	}
 

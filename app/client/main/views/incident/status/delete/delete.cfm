@@ -14,7 +14,7 @@
 	status = accessControl.getStatus( request.incident, val( request.context.statusID ) );
 	stage = getStage( status );
 	title = "Delete Status Update";
-	errorMessage = "";
+	errorResponse = "";
 
 	request.template.title = title;
 
@@ -35,7 +35,7 @@
 
 		} catch ( any error ) {
 
-			errorMessage = requestHelper.processError( error );
+			errorResponse = requestHelper.processError( error );
 
 		}
 

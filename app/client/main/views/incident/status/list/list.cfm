@@ -24,7 +24,7 @@
 	screenshotsIndex = getScreenshotsIndex( screenshots );
 	slackContent = getSlackContent( request.incident );
 	title = "Status Updates";
-	errorMessage = "";
+	errorResponse = "";
 
 	request.template.title = title;
 
@@ -47,7 +47,7 @@
 
 		} catch ( any error ) {
 
-			errorMessage = requestHelper.processError( error );
+			errorResponse = requestHelper.processError( error );
 
 		}
 

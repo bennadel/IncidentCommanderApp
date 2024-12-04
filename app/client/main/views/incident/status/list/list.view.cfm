@@ -7,7 +7,7 @@
 
 		<cfmodule
 			template="/client/main/tags/errorMessage.cfm"
-			message="#errorMessage#"
+			response="#errorResponse#"
 		/>
 
 		<form
@@ -61,7 +61,9 @@
 					<textarea
 						id="id-contentMarkdown"
 						aria-describedby="id-contentMarkdown--description id-contentMarkdown--note"
+						aria-required="true"
 						name="contentMarkdown"
+						data-error-types="App.Model.Status.ContentMarkdown."
 						@keydown.meta.enter="$el.form.submit()"
 						@keydown.ctrl.enter="$el.form.submit()"
 						maxlength="65535"
@@ -88,6 +90,7 @@
 						aria-describedby="id-screenshotFile--description"
 						type="file"
 						name="screenshotFile"
+						data-error-types="App.Model.Screenshot."
 						value="#encodeForHtmlAttribute( form.screenshotFile )#"
 						accept=".png,.jpg,.jpeg"
 						class="ui-file"

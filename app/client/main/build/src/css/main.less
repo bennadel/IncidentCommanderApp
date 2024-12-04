@@ -26,6 +26,7 @@
 
 	--theme-control-background: #ffffff ;
 	--theme-control-border: #16191d ;
+	--theme-control-border-error: #c92a2a ;
 	--theme-control-text: #0d0f12 ;
 	--theme-control-inset-shadow: inset 1px 1px 2px #dadada ;
 
@@ -84,6 +85,7 @@
 
 	--theme-control-background: #0d1117 ;
 	--theme-control-border: #253b56 ;
+	--theme-control-border-error: #8b2424 ;
 	--theme-control-text: #979562 ;
 	--theme-control-inset-shadow: inset 1px 1px 2px #dadada22 ;
 
@@ -624,6 +626,15 @@ ol.u-no-marker {
 	width: 100% ;
 }
 
+.ui-input,
+.ui-textarea,
+.ui-select {
+	&[aria-invalid="true"] {
+		border-color: var( --theme-control-border-error ) ;
+		box-shadow: inset 0 0 0 3px var( --theme-control-border-error ) ;
+	}
+}
+
 .ui-field {
 	margin: 1.2rem 0 ;
 
@@ -641,6 +652,23 @@ ol.u-no-marker {
 		.less-remove-inner-margins() ;
 
 		margin-left: 2.2rem ;
+	}
+
+	&__needs-attention {
+		align-items: center ;
+		background-color: var( --theme-error-surface ) ;
+		border: 1px solid var( --theme-error-border ) ;
+		border-radius: 2px ;
+		color: var( --theme-error-text ) ;
+		display: flex ;
+		gap: 15px ;
+		padding: 0.4rem 0.7rem ;
+
+		svg {
+			color: var( --theme-error-border ) ;
+			height: 24px ;
+			width: 24px ;
+		}
 	}
 
 	@media ( max-width: 600px ) {

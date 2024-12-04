@@ -19,6 +19,8 @@
 	</head>
 	<body>
 
+		<cfmodule template="/client/main/tags/svgSprite.cfm">
+
 		<div go25jv class="wrapper">
 
 			<cfmodule template="/client/main/tags/flashMessage.cfm">

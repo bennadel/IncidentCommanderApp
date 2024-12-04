@@ -3,6 +3,7 @@
 	param name="attributes.type" type="string";
 
 	icons = {
+		"alert": "svg-sprite--alert-triangle--18157",
 		"delete": "svg-sprite--bin-2--18148",
 		"export": "svg-sprite--download-button--18211",
 		"locked": "svg-sprite--lock-1--18160",

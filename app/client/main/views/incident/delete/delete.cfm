@@ -8,7 +8,7 @@
 	// ------------------------------------------------------------------------------- //
 
 	title = "Delete Incident";
-	errorMessage = "";
+	errorResponse = "";
 
 	request.template.activeNavItem = "delete";
 	request.template.title = title;
@@ -26,7 +26,7 @@
 
 		} catch ( any error ) {
 
-			errorMessage = requestHelper.processError( error );
+			errorResponse = requestHelper.processError( error );
 
 		}
 
