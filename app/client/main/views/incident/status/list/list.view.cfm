@@ -65,6 +65,8 @@
 						aria-required="true"
 						name="contentMarkdown"
 						data-error-types="App.Model.Status.ContentMarkdown."
+						x-data="tcr65f.ContentMarkdown"
+						@keydown.window.c="handleFocusRequest( event )"
 						@keydown.meta.enter="$el.form.submit()"
 						@keydown.ctrl.enter="$el.form.submit()"
 						maxlength="65535"
@@ -72,7 +74,7 @@
 						>#encodeForHtml( form.contentMarkdown )#</textarea>
 
 					<p id="id-contentMarkdown--note" class="ui-hint">
-						Pro tip: you can use <code>CMD+Enter</code> or <code>CTRL+Enter</code> to submit from the textarea.
+						Keyboard shortcuts: you can use (<code>C</code>) to focus this input; and, either (<code>CMD+Enter</code>) or (<code>CTRL+Enter</code>) to submit the form from within the textarea.
 					</p>
 				</div>
 			</div>
@@ -121,7 +123,7 @@
 					</label>
 					<div class="ui-field__content">
 						<p id="id-slackContent--description">
-							The following textarea contains a Slack-friendly, abbreviated message with insight into the current state of the incident. It also contains a link to the shareable timeline. Dropping this message in Slack will help keep your team informed.
+							The following textarea contains a Slack-friendly, abbreviated message with insight into the current state of the incident. It also contains a link to the shareable timeline. Dropping this message into a Slack channel will help keep your team informed.
 						</p>
 
 						<textarea

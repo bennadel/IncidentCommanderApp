@@ -6,8 +6,47 @@ import "./list.view.less";
 // ----------------------------------------------------------------------------------- //
 
 window.tcr65f = {
+	ContentMarkdown,
 	SlackMessage
 };
+
+function ContentMarkdown() {
+
+	return {
+		handleFocusRequest: handleFocusRequest
+	};
+
+	// ---
+	// PUBLIC METHODS.
+	// ---
+
+	/**
+	* I handle the global focus request for the status update.
+	*/
+	function handleFocusRequest( event ) {
+
+		if (
+			// If the event has already been intercepted by another keyboard shortcut,
+			// ignore it.
+			event.defaultPrevented ||
+			// If the event is modified in any way, ignore it.
+			event.altKey ||
+			event.ctrlKey ||
+			event.metaKey ||
+			event.shiftKey ||
+			// If the event is coming from a form control, ignore it.
+			event.target.matches( "input, select, textarea, button" )
+			) {
+
+			return;
+		}
+
+		event.preventDefault();
+		this.$el.focus();
+
+	}
+
+}
 
 function SlackMessage() {
 

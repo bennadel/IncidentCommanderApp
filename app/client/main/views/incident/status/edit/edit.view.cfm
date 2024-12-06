@@ -64,7 +64,7 @@
 						>#encodeForHtml( form.contentMarkdown )#</textarea>
 
 					<p id="id-contentMarkdown--note" class="ui-hint">
-						You can use <code>CMD+Enter</code> or <code>CTRL+Enter</code> to submit from the textarea.
+						Keyboard shortcuts: you can use (<code>CMD+Enter</code>) or (<code>CTRL+Enter</code>) to submit the form from within the textarea.
 					</p>
 				</div>
 			</div>
